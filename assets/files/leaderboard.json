@@ -1,0 +1,74 @@
+{
+    "leaderboard": [
+        {
+            "place": 1,
+            "player_name": "Player1",
+            "points_scored": 10450,
+            "enemies_killed": 98,
+            "levels_cleared": 1
+        },
+        {
+            "place": 2,
+            "player_name": "Grogu",
+            "points_scored": 9350,
+            "enemies_killed": 132,
+            "levels_cleared": 1
+        },
+        {
+            "place": 3,
+            "player_name": "Alex",
+            "points_scored": 8750,
+            "enemies_killed": 120,
+            "levels_cleared": 1
+        },
+        {
+            "place": 4,
+            "player_name": "Obi-Wan Kenobi",
+            "points_scored": 8250,
+            "enemies_killed": 102,
+            "levels_cleared": 1
+        },
+        {
+            "place": 5,
+            "player_name": "Din Djarin",
+            "points_scored": 7890,
+            "enemies_killed": 98,
+            "levels_cleared": 1
+        },
+        {
+            "place": 6,
+            "player_name": "Mace Windu",
+            "points_scored": 7560,
+            "enemies_killed": 95,
+            "levels_cleared": 1
+        },
+        {
+            "place": 7,
+            "player_name": "Oleksandr Test",
+            "points_scored": 7400,
+            "enemies_killed": 93,
+            "levels_cleared": 1
+        },
+        {
+            "place": 8,
+            "player_name": "Luke Skywalker",
+            "points_scored": 7340,
+            "enemies_killed": 91,
+            "levels_cleared": 1
+        },
+        {
+            "place": 9,
+            "player_name": "Palpatine",
+            "points_scored": 6780,
+            "enemies_killed": 86,
+            "levels_cleared": 1
+        },
+        {
+            "place": 10,
+            "player_name": "Jango Fett",
+            "points_scored": 6120,
+            "enemies_killed": 71,
+            "levels_cleared": 1
+        }
+    ]
+}
