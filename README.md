@@ -362,3 +362,7 @@ Below is a first stab at the test cases for the game and more can be added as th
 | TC-08 | Verify HUD update                     | Health or ammo changes | HUD updates in real time                            |
 | TC-09 | Verify ambient music & sound          | Game active | Horror ambient and sound effects play correctly     |
 | TC-10 | Verify FPS performance                | Game running > 5 min | FPS ≥ 60, no freeze or crash                        |
+
+## References
+
+1. Free Doom-style font: https://fontmeme.com/fonts/amazdoom-font/
