@@ -477,10 +477,15 @@ In this section, state diagrams for the player and enemy AI are described in tex
 
 In this section, the design choices for classes and objects in the game are outlined, detailing their responsibilities, interactions, and how they contribute to the overall architecture of the game. The design focuses on creating a modular and maintainable codebase that allows for easy expansion and modification as the game evolves.
 
-| Class Name     | File name        | Description                                                     | Responsibilities                                                                                     | Interactions           |
-|----------------|------------------|-----------------------------------------------------------------|------------------------------------------------------------------------------------------------------|------------------------|
-| Game           | game.py          | Main class that manages the game loop, state, and overall flow. | Initialize game components, manage game states (playing, game over/won), handle input and rendering. | Interacts SoundManager |
-| SoundManager   | sound_manager.py | Manages all audio aspects of the game.                          | Load and play background music and sound effects, manage audio transitions.                          | Interacts Game         |
+| Class Name   | File name        | Description                                                     | Responsibilities                                                                                     | Interactions                                                      |
+|--------------|------------------|-----------------------------------------------------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| Game         | game.py          | Main class that manages the game loop, state, and overall flow. | Initialize game components, manage game states (playing, game over/won), handle input and rendering. | Interacts SoundManager                                            |
+| SoundManager | sound_manager.py | Manages all audio aspects of the game.                          | Load and play background music and sound effects, manage audio transitions.                          | Interacts Game                                                    |
+| Player       | player.py        | Represents the player character and its state.                  | Handle player attributes (health, ammo, score), manage movement and shooting mechanics.              | Interacts Game                                                    |
+| LevelMap     | level_map.py     | Represents the game level layout and map data.                  | Load map from file, manage wall/floor data.                                                          | Interacts Game                                                    |
+| RenderEngine | render_engine.py | Handles the rendering of the game environment.                  | Render walls, floors, and sprites based on player position and view.                                 | Interacts Game, Raycaster                                         |
+| Raycaster    | raycaster.py     | Implements the raycasting algorithm for rendering.              | Cast rays to determine visible walls and sprites, calculate perspective.                             | Interacts RenderEngine                                            |
+| Game         | game.py          | Main class that manages the game loop, state, and overall flow. | Initialize game components, manage game states (playing, game over/won), handle input and rendering. | Interacts SoundManager, LevelMap, Player, RenderEngine, Raycaster |
 
 
 ### NPC design

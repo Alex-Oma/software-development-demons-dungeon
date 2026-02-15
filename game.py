@@ -1,7 +1,12 @@
 import pygame as pg
 import sys
 from global_settings import *
+from render_engine import *
+from raycaster import *
 from sound_manager import *
+from game_levels import *
+from level_map import *
+from player import *
 
 class Game:
     def __init__(self):
@@ -33,6 +38,10 @@ class Game:
         '''
 
         # Initialize the main classes for the game
+        self.map = LevelMap(self, game_levels['level_1'])
+        self.player = Player(self)
+        self.render_engine = RenderEngine(self)
+        self.raycaster = Raycaster(self)
         self.sound = SoundManager(self)
         pg.mixer.music.play(-1)
 
@@ -40,16 +49,21 @@ class Game:
         '''
             This method is responsible for updating the game state, including player movement, raycasting, object handling, and weapon updates. It also manages the frame rate and updates the window caption with the current frames per second (FPS).
         '''
+        # Update the player state, including movement and interactions
+        self.player.update()
+        # Update the raycasting calculations to determine what objects are visible to the player
+        self.raycaster.update()
 
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
+        # Update the window caption with the current frames per second (FPS)
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
         '''
             This method is responsible for drawing the game elements on the screen, including the object renderer and weapon. It can also include additional drawing methods for the map and player if needed.
         '''
-        pass
+        self.render_engine.draw()
 
     def check_events(self):
         self.global_trigger = False
@@ -65,6 +79,9 @@ class Game:
             This method is the main game loop that continuously checks for events, updates the game state, and draws the game elements on the screen. It ensures that the game runs smoothly and responds to user input.
         '''
         while True:
+            # Check for user input and other events
             self.check_events()
+            # Update the game state, including player movement and interactions
             self.update()
+            # Draw the game elements on the screen
             self.draw()

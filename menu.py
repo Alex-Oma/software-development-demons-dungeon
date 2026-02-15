@@ -2,6 +2,7 @@ from global_settings import *
 import pygame as pg
 import sys
 import json
+from game import *
 
 class Menu:
     def __init__(self, game_result):
@@ -78,7 +79,8 @@ class Menu:
                         sys.exit()
                     elif self.current_menu_option == 2:
                         # New game option is selected
-                        pass
+                        game = Game()
+                        game.run()
                     elif self.current_menu_option == 1:
                         # Now we need to show player name selection on the screen
                         self.show_menu_options = False
