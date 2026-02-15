@@ -363,6 +363,216 @@ Below is a first stab at the test cases for the game and more can be added as th
 | TC-09 | Verify ambient music & sound          | Game active | Horror ambient and sound effects play correctly     |
 | TC-10 | Verify FPS performance                | Game running > 5 min | FPS ≥ 60, no freeze or crash                        |
 
+---
+
+## Design, development and implementation
+
+This section expands the project-level research, planning and implementation evidence for *Demons Dungeon* and ties together the decisions already described in this README. It documents the overall design, development strategies, game story and characters, environment and levels, gameplay systems, artwork & sound choices, player motivation loops, game rules, state diagrams, platform & implementation details, AI/technical challenges and the test plan.
+
+
+### Design contract (short)
+
+In this section, a design contract is defined for *Demons Dungeon*, outlining the key inputs, outputs, success criteria, and error modes for the game. The design contract serves as a guiding document to ensure that the development process stays aligned with the intended goals and requirements of the project.
+
+- Inputs: Player input (keyboard: WASD, ESC, other keys; mouse movement and buttons), configuration files (map files, assets files), game settings (e.g. difficulty, sound volume).
+- Outputs: Rendered frame (raycasted view + HUD), audio output (music & SFX), persistent data (leaderboard.json), in-memory game state updates (player, enemies, projectiles).
+- Success criteria: Core must-have features function as acceptance criteria specify (movement, shooting, health, AI, collision, win/lose screens) and the game is playable from start to win/lose without crashes.
+- Error modes: Missing asset files (fallbacks/log), badly formed map files (graceful error + fail-safe spawn), audio device unavailable (mute, fallback), extreme FPS drops (frame limiting / reduced resolution fallback).
+
+
+### Design & development strategies
+
+In this section, the design and development strategies for *Demons Dungeon* are outlined, detailing the approaches taken to ensure a structured and efficient development process. The strategies focus on incremental development, modular code design, data-driven approaches, and maintaining a lightweight engine to achieve the desired retro aesthetic and gameplay experience.
+
+- Incremental development: follow the epics & sprint plan in this README. Implement a minimal playable loop first (player movement + raycasting + one basic enemy), then expand with AI states and HUD.
+- Single-responsibility modules: separate code areas for input handling, raycasting renderer, entity management (player, enemies, projectiles), audio manager, UI screens, and persistence (leaderboard).
+- Data-driven where practical: game levels and patrol routes stored as simple files or arrays so designers can edit maps and enemy waypoints without changing code (map text files or JSON).
+- Lightweight engine: implement retro 3D with a raycasting renderer (no heavy 3D engine) to match the project's scope and visual goals.
+
+
+### Game story, characters & motivation
+
+In this section, the narrative elements of *Demons Dungeon* are outlined, including the story premise, main character, enemy types, and the player motivation loop. The story and characters are designed to fit the dark, horror-themed atmosphere of the game while providing clear motivations for the player's actions and progression through the game.
+
+- Story (short): The player is an exorcist trapped in a decrepit dungeon beneath an old citadel. Demonic creatures have overrun the tunnels; defeat them, reach the boss chamber, and close the rift.
+- Main character: First person player. Simple human avatar with health, ammo, and movement. No complex inventory required for the prototype.
+- Enemy types:
+  - Basic: patrols small corridors, low health, melee or short-range attack.
+  - Medium: patrols larger areas, medium health, ranged attack (e.g. fireball).
+  - Advanced: slower, higher HP, charges at player when spotted.
+  - Boss Demon: large health pool, area attacks, triggers victory on defeat.
+- Player motivation loop (need/reward/challenge): Players have a clear need (survive & reach exit). They receive rewards for defeating enemies (score, ammo pickups, progression) and face escalating challenges (denser patrols, stronger enemies, boss demon).
+
+
+### Environment, levels & artwork descriptions
+
+In this section, the design choices for the game environment, level design, and artwork are outlined, detailing how they contribute to the overall atmosphere and gameplay experience of *Demons Dungeon*. The environment is designed to evoke a dark, foreboding dungeon atmosphere consistent with the game's theme, while the level design focuses on creating engaging and challenging layouts for players to navigate. The artwork is crafted to enhance the retro aesthetic of the game while providing clear visual cues for gameplay.
+
+- Environment: low-res textures in `assets/menu/` and true-type font in `assets/font/` are used for menus and HUD labels; wall and floor textures should be stored in `assets/textures/` and loaded by the renderer. The visual aesthetic is intentionally pixelated and limited palette.
+- Level design: primary level is a maze-like dungeon represented by a 2D grid map. Example encoding: 1 = wall, 0 = floor, S = spawn, B = boss room. Map loader spawns enemies based on map markers.
+- Artwork: sprites for enemies and weapons use simple frames to convey animation. Fonts (AmazDooM family in `assets/font/`) give the retro look. Keep sprite sheets small and consistent (64x64 or 128x128 frames) to match raycasting scale.
+
+
+### Gameplay systems and rules
+
+In this section, the core gameplay systems and rules of *Demons Dungeon* are outlined, detailing how the player interacts with the game world, how combat mechanics function, and the behavior of enemies. The systems are designed to create an engaging and challenging experience while adhering to the retro aesthetic and mechanics inspired by classic FPS games.
+
+- Movement & collision: WASD moves, mouse rotates view, movement blocked by walls. Player cannot walk through walls or overlapping hitboxes.
+- Shooting/combat: left mouse button fires; hits determined via ray-based hit testing against enemies in front.
+- Health & regeneration: player health reduces on hits; when not in combat, a slow regeneration begins (configurable rate).
+- Enemy AI states:
+  - Patrol: follow waypoints; if player enters detection radius and line-of-sight (LOS), switch to Chase.
+  - Chase: move toward player; if in attack range, Attack state.
+  - Attack: perform attack animation and apply damage; after losing LOS for a timeout, return to Patrol.
+  - Dead: play death animation.
+- Win/Lose: lose when health <= 0 (Game Over screen). Win when Boss Demon HP <= 0 (Victory screen and persistent score saved to leaderboard).
+
+
+### Game & motivation loops (player state, need, reward & challenge)
+
+In this section, the game loop and player motivation loop are described in detail, outlining the core mechanics of the game and how they interact to create an engaging gameplay experience. The game loop focuses on the continuous cycle of player actions and game responses, while the motivation loop emphasizes the player's goals, rewards, and challenges that drive their engagement with the game.
+
+- Player state: {health, ammo, score, position, currentWeapon}
+- Need: survive & reach boss, maintain ammo and health.
+- Reward: +score per kill, unlocking new area after clearing room.
+- Challenge: enemy variety and patrol density.
+- Loop design: short loops (kill enemies -> immediate reward) and long loops (clear level -> boss -> victory) are balanced to keep player engaged.
+
+
+### UI & Controls Design
+
+In this section, the design choices for the user interface (UI) and controls of the game are outlined, detailing how players will interact with the game and receive feedback on their actions. The UI is designed to be clear and informative while maintaining the retro aesthetic of the game, and the controls are designed to be intuitive and responsive to enhance the gameplay experience.
+
+- Controls: WASD (movement), Mouse (aim & click to shoot), ESC (pause/exit), R or other key for interactions (reload if implemented), E for pickups.
+- HUD: persistent top/bottom overlay showing Health bar, Ammo count, Kill count/Score, optionally also showing mini notifications ("Low on health").
+- Menus: main menu (Player Name, New Game, Leaderboard, Game Credits, Quit Game) loaded from `menu.py` and images in `assets/menu/`.
+- Accessibility: keep key bindings configurable via a small settings dictionary.
+
+
+### Programming language & platform
+
+In this section, the programming language and platform choices for the development of the game are outlined. The chosen language and platform should support the requirements of the game while allowing for efficient development and a smooth gameplay experience.
+
+- Primary language: Python 3.12. 
+- Game engine: the rendering/input/audio stack is implemented with Pygame.
+- Platform: cross-platform desktop (Windows primary development environment). Persisted data uses simple JSON files e.g. game's leaderboard data.
+
+
+### State diagrams (textual)
+
+In this section, state diagrams for the player and enemy AI are described in text form, outlining the various states and transitions that occur during gameplay. These diagrams help to visualize the flow of actions and reactions for both the player and enemies, providing a clear framework for implementing the game logic.
+
+- Player state diagram:
+  Spawn -> Idle -> (WASD/mouse input) -> Move -> (left mouse) -> Shoot -> (ammo checks)-> Reload/Idle
+  Move -> Collide -> Stop
+  Idle -> Damaged -> (health>0) -> Idle or Dead -> Game Over
+  Dead -> Game Over -> Menu
+
+- Enemy state diagram:
+  Spawn -> Patrol -> [if player detected & in the line of sight] -> Chase -> [if in attack range] -> Attack -> [if player lost] -> Search -> [timeout] -> Patrol
+  Any state -> (HP <= 0) -> Dead -> Remove/Corpse
+
+
+### Classes and objects design
+
+In this section, the design choices for classes and objects in the game are outlined, detailing their responsibilities, interactions, and how they contribute to the overall architecture of the game. The design focuses on creating a modular and maintainable codebase that allows for easy expansion and modification as the game evolves.
+
+| Class Name     | File name        | Description                                                     | Responsibilities                                                                                     | Interactions           |
+|----------------|------------------|-----------------------------------------------------------------|------------------------------------------------------------------------------------------------------|------------------------|
+| Game           | game.py          | Main class that manages the game loop, state, and overall flow. | Initialize game components, manage game states (playing, game over/won), handle input and rendering. | Interacts SoundManager |
+| SoundManager   | sound_manager.py | Manages all audio aspects of the game.                          | Load and play background music and sound effects, manage audio transitions.                          | Interacts Game         |
+
+
+### NPC design
+
+In this section, the design choices for non-player characters (NPCs) in the game are outlined, detailing their roles, behaviors, and how they contribute to the gameplay experience. The NPCs are designed to enhance the atmosphere of the dungeon and provide challenges for the player through their interactions and combat mechanics.
+All NPCs in the game represent enemies and are designed to fit the retro, pixelated style of the game, with simple yet distinct sprites that allow players to easily identify different types of enemies and their behaviors.
+
+# Demons Dungeon: Infernal Bestiary
+
+| Demon Name            | Combat Role       | Lore & Description                                                                                                         | Attack Power  | Visual Appearance                                                                                                                  |
+|:----------------------|:------------------|:---------------------------------------------------------------------------------------------------------------------------|:--------------|:-----------------------------------------------------------------------------------------------------------------------------------|
+| **1. Dreg-Husk**      | Fodder / Shield   | Souls tortured until only a physical shell remains. They wander aimlessly but swarm the player to block movement.          | **Low**       | Pale, hairless humanoid with no eyes (skin grown over sockets). Chains drag from their ankles.                                     |
+| **2. Pyre-Imp**       | Ranged Harasser   | Low-ranking demons formed from molten earth. They cling to walls and ledges, raining fire down on intruders.               | **Medium**    | Small, hunched creature made of cracked obsidian skin with magma glowing in the cracks. Spikes protrude from its back.             |
+| **3. Ocularis**       | Flying Support    | A watcher demon that floats high above. It alerts other demons to your location and spits blinding venom.                  | **Low**       | A giant floating eyeball trailed by severed optic nerves and tentacles. It pulses purple when attacking.                           |
+| **4. Bone-Construct** | Hitscan / Sniper  | A skeleton fused with demonic machinery. It prefers long hallways where its instant-hit railgun is most effective.         | **High**      | A tall skeleton wearing rusty iron greaves. Its right arm is replaced by a long, metallic barrel fused to the ulna.                |
+| **5. Abyssal Lord**   | Mini-Boss         | A general of the hell armies. Requires heavy ordinance (Rockets/BFG) to defeat. It commands the arena.                     | **Very High** | Standing 10ft tall with deep red skin and massive ram horns. It carries a glowing green rune-sword and has hooved feet.            |
+
+
+### Sprites and textures design
+
+In this section, the design choices for sprites and textures used in the game are outlined, detailing the visual style, sources of assets, and how they contribute to the overall atmosphere and gameplay experience. The design focuses on creating a cohesive aesthetic that matches the retro, pixelated style inspired by classic Doom games while ensuring clarity and functionality in gameplay.
+
+#### Sprite design
+
+In this section, the design of sprites for the player, enemies, and other interactive elements is described. The sprites are designed to be simple yet visually distinct to ensure that players can easily identify different entities in the game. The use of a limited color palette and pixel art style contributes to the retro aesthetic.
+
+| Asset Type                      | Description                                                                                             | Source                                                          | Notes                                                                                                                       |
+|---------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Game level ambient sprites      | Static sprites for environmental details (e.g. torches, blood stains)                                   | Custom-designed or sourced from free pixel art sprite libraries | Used to enhance the atmosphere without cluttering the visual space                                                          |
+| Game level animated sprites     | Animated sprites for dynamic elements (e.g. flickering torches, moving shadows)                         | Custom-designed or sourced from free pixel art sprite libraries | Should be subtle to avoid distracting from gameplay                                                                         |
+| Dreg-Husk animated sprites      | A set of frames for the Dreg-Husk demon, showing idle, walking, and attacking animations                | Custom-designed using pixel art tools                           | Should be visually distinct and fit the retro theme                                                                         |
+| Pyre-Imp animated sprites       | A set of frames for the Pyre-Imp demon, showing idle, flying, and attacking animations                  | Custom-designed using pixel art tools                           | Should be visually distinct and fit the retro theme                                                                         |
+| Ocularis animated sprites       | A set of frames for the Ocularis demon, showing idle floating and attacking animations                  | Custom-designed using pixel art tools                           | Should be visually distinct and fit the retro theme                                                                         |
+| Bone-Construct animated sprites | A set of frames for the Bone-Construct demon, showing idle, walking, and attacking animations           | Custom-designed using pixel art tools                           | Should be visually distinct and fit the retro theme                                                                         |
+| Abyssal Lord animated sprites   | A set of frames for the Abyssal Lord boss demon, showing idle, walking, attacking, and death animations | Custom-designed using pixel art tools                           | Should be visually distinct and fit the retro theme; boss should have a more elaborate sprite set to reflect its importance |
+
+
+#### Texture design
+
+In this section, the design of textures for walls, floors, and other environmental elements is described. The textures are created to be low-resolution and pixelated, consistent with the overall visual style of the game. The choice of textures helps to create an immersive dungeon atmosphere while maintaining clarity for navigation and gameplay.
+
+| Asset Type               | Description                                                                        | Source                                                             | Notes                                                                   |
+|--------------------------|------------------------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------------------------------------------------------|
+| Dungeon wall textures    | Low-res, pixelated textures for walls and corridors                                | Custom-designed or sourced from free pixel art texture libraries   | Should be consistent in style and color palette to maintain immersion   |
+| Floor textures           | Simple, repeating textures for floors                                              | Custom-designed or sourced from free pixel art texture libraries   | Should contrast with wall textures for clarity                          |
+| Game over texture        | A pixelated "Game Over" graphic to display when the player loses                   | Custom-designed using pixel art tools                              | Should be visually striking and fit the retro theme                     |
+| Victory texture          | A pixelated "Victory" graphic to display when the player wins                      | Custom-designed using pixel art tools                              | Should be celebratory and fit the retro theme                           |
+| Dungeon ambient textures | Additional textures for environmental details (e.g. cracks, stains)                | Custom-designed or sourced from free pixel art texture libraries   | Used to enhance the atmosphere without cluttering the visual space      |
+| Dungeon exit texture     | A distinct texture for the exit door that becomes visible after defeating the boss | Custom-designed to stand out from other textures                   | Should be easily identifiable to guide the player towards the exit      |
+| Dungeon ceiling textures | Optional textures for ceilings to add depth to the environment                     | Custom-designed or sourced from free pixel art texture libraries   | Can be used to enhance the visual variety of the dungeon                |
+
+
+### Feedback mechanics design
+
+#### Visual feedback
+
+In this section, the visual feedback mechanics for the game are outlined, detailing how the game will visually communicate important events to the player, such as taking damage, hitting enemies, and defeating the boss. The table below summarizes the key aspects of visual feedback, their purpose, implementation details, and any additional notes.
+
+| Aspect              | Purpose                                                                 | Details                                                                   | Implementation                                                                                    | Notes                                                                       |
+|---------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Player takes damage | Provide a clear, immediate visual cue to the player                     | Screen briefly flashes red to indicate harm                               | Overlay a semi-transparent red rectangle on the screen for a short duration after taking damage   | Flash intensity can be proportional to the amount of damage taken           |
+| Enemy hit           | Confirm to the player that their attack was successful                  | Enemy sprite briefly flashes white or red                                 | Change the enemy sprite color to white/red for a few frames when hit                              | Can also include a brief animation (e.g. recoil) for stronger feedback      |
+| Enemy death         | Indicate that an enemy has been defeated                                | Enemy sprite plays a death animation and disappears                       | Trigger a death animation sequence and then remove the enemy from the game world                  |
+| Health regeneration | Show that the player is recovering health over time                     | Important to allow player contiue playing the game and shoot more enemies | Player's health indicator on HUD increases in value                                               |                                                                             |
+| Boss defeat         | Celebrate the player's victory and signal the end of the game           | Screen flashes bright, followed by a transition to the victory screen     | Implement a bright flash effect and then load the victory screen after a short delay              | Can also include a unique animation or visual effect for defeating the boss |
+| Weapon firing        | Provide feedback that the player's attack action has been registered   | Muzzle flash effect at the weapon's position when shooting                | Render a brief muzzle flash sprite or particle effect when the player fires their weapon          | Can be enhanced with screen shake for more impact                           |
+
+#### Audio feedback
+
+In this section, the audio feedback mechanics for the game are outlined, detailing how the game will use sound effects and music to enhance immersion and provide cues to the player about important events such as taking damage, hitting enemies, and defeating the boss. The table below summarizes the key aspects of audio feedback, their purpose, implementation details, and any additional notes.
+
+| Aspect              | Purpose                                                                | Details                                                                                  | Implementation                                                                                                    | Notes                                                                                               |
+|---------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Player takes damage | Provide an auditory cue that the player has been hit                   | A distinct pain sound effect plays when the player takes damage                          | Play a preloaded pain sound effect from the audio manager when the player's health decreases due to enemy attacks | Sound can vary based on the amount of damage taken (e.g. different sounds for minor vs major hits)  |
+| Enemy hit           | Confirm to the player that their attack was successful                 | A distinct hit sound effect plays when an enemy is hit                                   | Play a preloaded hit sound effect when the player's attack successfully hits an enemy                             | Can be enhanced with a brief audio cue for critical hits or headshots                               |
+| Enemy death         | Indicate that an enemy has been defeated                               | A death sound effect plays when an enemy is killed                                       | Play a preloaded death sound effect when an enemy's health reaches zero                                           |
+| Boss defeat         | Celebrate the player's victory and signal the end of the game          | A unique victory sound effect plays when the boss is defeated                            | Play a special victory sound effect when the boss demon is defeated                                               | Can be a longer, more triumphant piece of music to enhance the sense of accomplishment              |
+| Weapon firing       | Provide feedback that the player's attack action has been registered   | A gunshot sound effect plays when the player shoots                                      | Play a preloaded gunshot sound effect each time the player fires their weapon                                     | Can be enhanced with different sounds for different weapons if implemented                          |
+| Enemy attack        | Alert the player that an enemy is attacking or has detected them       | A distinct alert sound plays when an enemy detects the player or initiates an attack     | Play a preloaded alert sound effect when an enemy transitions from patrol to chase or attack state                | Can be used to increase tension and encourage player awareness of their surroundings                |
+
+#### Game state feedback
+
+In this section, the game state feedback mechanics for the game are outlined, detailing how the game will communicate important state changes to the player, such as winning or losing the game. The table below summarizes the key aspects of game state feedback, their purpose, implementation details, and any additional notes.
+
+| Aspect              | Purpose                                                                | Details                                                                   | Implementation                                                                                  | Notes                                                                                                                                           |
+|---------------------|------------------------------------------------------------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Win condition       | Provide a clear indication that the player has won the game            | Transition to a victory screen with celebratory visuals and music         | Load a victory screen with unique graphics and play a victory music track when the player defeats the boss demon | Can also include a summary of the player's performance (e.g. score, time taken) on the victory screen                          |
+| Lose condition      | Provide a clear indication that the player has lost the game           | Transition to a game over screen with appropriate visuals and music       | Load a game over screen with somber graphics and play a game over music track when the player's health reaches zero | Can also include an option to restart the game or return to the main menu from the game over screen                         |
+| HUD updates         | Keep the player informed of their current status (health, ammo, score) | The HUD dynamically updates to reflect changes in health, ammo, and score | Implement a HUD that displays health bars, ammo count, and score, and ensure it updates in real time as the player's status changes | The HUD design should be clear and unobtrusive to maintain immersion while providing essential information  |
+
+---
+
 ## References
 
 1. Free Doom-style font: https://fontmeme.com/fonts/amazdoom-font/
