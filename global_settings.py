@@ -15,7 +15,7 @@ PLAYER_MAX_HEALTH = 100 # maximum health of the player, which determines how muc
 PLAYER_SIZE_SCALE = 60 # scale factor
 PLAYER_ANGLE = 0 # initial angle of the player (facing right)
 PLAYER_ROT_SPEED = 0.002 # rotation speed of the player, which determines how fast the player can turn left or right
-PLAYER_POS = 1.5, 5  # spawn position of the player on the map (in terms of map coordinates)
+PLAYER_POS = 2, 2  # spawn position of the player on the map (in terms of map coordinates)
 PLAYER_SPEED = 0.004 # movement speed of the player, which determines how fast the player moves through the game world
 
 # Mouse settings:

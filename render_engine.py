@@ -78,5 +78,7 @@ class RenderEngine:
             1: self.get_texture_from_file('assets/textures/bricks_texture_1.jpg'),
             2: self.get_texture_from_file('assets/textures/bricks_texture_2.jpg'),
             3: self.get_texture_from_file('assets/textures/bricks_texture_3.jpg'),
-            4: self.get_texture_from_file('assets/textures/bricks_texture_with_blood_stains.jpg'),
+            4: self.get_texture_from_file('assets/textures/bricks_texture_4.jpg'),
+            5: self.get_texture_from_file('assets/textures/bricks_texture_5.jpg'),
+            6: self.get_texture_from_file('assets/textures/exit_portal_7.png'),
         }
