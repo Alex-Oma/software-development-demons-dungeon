@@ -256,12 +256,12 @@ One story point is equivalent to approximately 3 hours of work for a developer, 
 
 ### Epic 1: Game Core Architecture
 
-| ID     | Feature / Epic         | User Story                                                                                                                                 | Priority | Story Points | Definition of Done / Acceptance Criteria                                                                                                                                                                        |
-|--------|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|----------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| EPIC 1 | Game Core Architecture | As a developer, I want to create the main game loop structure so that the game can update, render, and respond to user input in real time. | High     | 16           | - Game initializes successfully and remains stable. <br/>- Game loop runs >60 FPS without crashing. <br/>- ESC exits cleanly. <br/>Tests: Launch game, verify loop, FPS monitor output, check memory leak logs. |
-| US 1.1 | Input System           | As a player, I want to control movement with WASD keys and with the mouse.                                                                 | High     | 8            | - Player moves forward/backward, strafes left/right. <br/>- Mouse input triggers shooting sound and animation. <br/>Tests: Press each control; <br/>verify response on-screen.                                  |
-| US 1.2 | Collision Detection    | As a player, I shouldn’t walk through walls or objects.                                                                                    | High     | 5            | - Player stops when colliding with wall tiles. <br/>- No clipping through level geometry.                                                                                                                       |
-| US 1.3 | Game Menu              | As a user, I want a menu to start new games, view credits, and quit.                                                                       | Medium   | 3            | - Menu buttons functional. <br/>- Navigation intuitive.                                                                                                                                                              |
+| ID     | Feature / Epic         | User Story                                                                                                                                 | Priority | Story Points | Definition of Done / Acceptance Criteria                                                                                                                                                                          |
+|--------|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|----------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EPIC 1 | Game Core Architecture | As a developer, I want to create the main game loop structure so that the game can update, render, and respond to user input in real time. | High     | 16           | - Game initializes successfully and remains stable. <br/>- Game loop runs >60 FPS without crashing. <br/>- ESC exits cleanly. <br/>Tests: Launch game, verify loop, FPS monitor output, check memory leak logs.   |
+| US 1.1 | Input System           | As a player, I want to control movement with WASD keys and with the mouse.                                                                 | High     | 8            | - Player moves forward/backward, strafes left/right. <br/>- Mouse input triggers shooting sound and animation. <br/>Tests: Press each control; <br/>verify response on-screen.                                    |
+| US 1.2 | Collision Detection    | As a player, I shouldn’t walk through walls or objects.                                                                                    | High     | 5            | - Player stops when colliding with wall tiles. <br/>- No clipping through level geometry.                                                                                                                         |
+| US 1.3 | Game Menu              | As a user, I want a menu to start new games, view credits, and quit.                                                                       | Medium   | 3            | - Menu buttons functional. <br/>- Navigation intuitive.                                                                                                                                                           |
 
 ### Epic 2: Rendering & Visual System (Raycasting)
 
@@ -331,7 +331,8 @@ One story point is equivalent to approximately 3 hours of work for a developer, 
 Based on the above product backlog, the development can be organised into sprints, with each sprint focusing on a specific set of features or epics.
 The sprint planning is designed to ensure that core gameplay mechanics are developed first, followed by additional features and polish in later sprints.
 Each sprint is estimated to last 1 week, allowing for focused development and testing of the assigned features.
-The sprint 5 is going to end on 17.03.2026 as the deadline for the project is set for 20.03.2026.
+The start of the first sprint is set for 10.02.2026, and the end of the last sprint is planned for 17.03.2026, giving a total of 5 sprints to complete the project before the final deadline on 20.03.2026.
+
 
 | Sprint   | Goals                                                                                           | Focused Features |
 |----------|-------------------------------------------------------------------------------------------------|------------------|
@@ -339,7 +340,7 @@ The sprint 5 is going to end on 17.03.2026 as the deadline for the project is se
 | Sprint 2 | Raycasting visual engine, <br/>Enemy AI & basic combat                                          | EPIC 2, 3        |
 | Sprint 3 | HUD, health, and scoring, <br/>Sound & Feedback Mechanics, <br/>Game Flow & Win/Lose Conditions | EPIC 4, 5, 6     |
 | Sprint 4 | User Interface & Screens, <br/>Level Design                                                     | EPIC 7 & 8       |
-| Sprint 5 | Asset Integration, <br/>Testing & Optimization                                       | EPIC 9 & 10      |
+| Sprint 5 | Asset Integration, <br/>Testing & Optimization                                                  | EPIC 9 & 10      |
 
 ---
 
@@ -405,8 +406,8 @@ In this section, the design and development strategies for *Demons Dungeon* are 
 
 In this section, the narrative elements of *Demons Dungeon* are outlined, including the story premise, main character, enemy types, and the player motivation loop. The story and characters are designed to fit the dark, horror-themed atmosphere of the game while providing clear motivations for the player's actions and progression through the game.
 
-- Story (short): The player is an exorcist trapped in a decrepit dungeon beneath an old citadel. Demonic creatures have overrun the tunnels; defeat them, reach the boss chamber, and close the rift.
-- Main character: First person player. Simple human avatar with health, ammo, and movement. No complex inventory required for the prototype.
+- Story (short): The player is an exorcist trapped in a decrepit dungeon beneath an old citadel. Demonic creatures have overrun the tunnels; defeat them, reach the boss chamber, kill the boss demon and reach exit.
+- Main character: First person player. 
 - Enemy types:
   - Basic: patrols small corridors, low health, melee or short-range attack.
   - Medium: patrols larger areas, medium health, ranged attack (e.g. fireball).
@@ -420,9 +421,18 @@ In this section, the narrative elements of *Demons Dungeon* are outlined, includ
 In this section, the design choices for the game environment, level design, and artwork are outlined, detailing how they contribute to the overall atmosphere and gameplay experience of *Demons Dungeon*. The environment is designed to evoke a dark, foreboding dungeon atmosphere consistent with the game's theme, while the level design focuses on creating engaging and challenging layouts for players to navigate. The artwork is crafted to enhance the retro aesthetic of the game while providing clear visual cues for gameplay.
 
 - Environment: low-res textures in `assets/menu/` and true-type font in `assets/font/` are used for menus and HUD labels; wall and floor textures should be stored in `assets/textures/` and loaded by the renderer. The visual aesthetic is intentionally pixelated and limited palette.
-- Level design: primary level is a maze-like dungeon represented by a 2D grid map. Example encoding: 1 = wall, 0 = floor, S = spawn, B = boss room. Map loader spawns enemies based on map markers.
+- Level design: primary level is a maze-like dungeon represented by a 2D grid map. Example encoding: 1 = wall, 0 = floor, S = spawn, B = boss room. 
 - Artwork: sprites for enemies and weapons use simple frames to convey animation. Fonts (AmazDooM family in `assets/font/`) give the retro look. Keep sprite sheets small and consistent (64x64 or 128x128 frames) to match raycasting scale.
 
+
+### Game level design
+
+The sample game level design is presented on the following image.
+S - denotes the player spawn point, B denotes the boss demon room, D denotes various demons spawn points, and E denotes the exit door that unlocks after defeating the boss demon.
+The level is designed to be a maze-like dungeon with multiple corridors and rooms, providing opportunities for exploration and combat encounters with enemies. 
+The layout encourages players to navigate from the top left spawn point through the environment strategically while facing challenges from patrolling demons and ultimately reaching the boss demon in the bottom right chamber.
+
+[<img alt="image" src="images/doc/game_level_design.png" />](images/doc/game_level_design.png)
 
 ### Gameplay systems and rules
 
@@ -436,7 +446,7 @@ In this section, the core gameplay systems and rules of *Demons Dungeon* are out
   - Chase: move toward player; if in attack range, Attack state.
   - Attack: perform attack animation and apply damage; after losing LOS for a timeout, return to Patrol.
   - Dead: play death animation.
-- Win/Lose: lose when health <= 0 (Game Over screen). Win when Boss Demon HP <= 0 (Victory screen and persistent score saved to leaderboard).
+- Win/Lose: lose when health <= 0 (Game Over screen). Win when Boss Demon HP <= 0 and player reached the exit (Victory screen and persistent score saved to leaderboard).
 
 
 ### Game & motivation loops (player state, need, reward & challenge)
@@ -444,7 +454,7 @@ In this section, the core gameplay systems and rules of *Demons Dungeon* are out
 In this section, the game loop and player motivation loop are described in detail, outlining the core mechanics of the game and how they interact to create an engaging gameplay experience. The game loop focuses on the continuous cycle of player actions and game responses, while the motivation loop emphasizes the player's goals, rewards, and challenges that drive their engagement with the game.
 
 - Player state: {health, ammo, score, position, currentWeapon}
-- Need: survive & reach boss, maintain ammo and health.
+- Need: survive & reach boss demon, maintain ammo and health.
 - Reward: +score per kill, unlocking new area after clearing room.
 - Challenge: enemy variety and patrol density.
 - Loop design: short loops (kill enemies -> immediate reward) and long loops (clear level -> boss -> victory) are balanced to keep player engaged.
@@ -488,15 +498,15 @@ In this section, state diagrams for the player and enemy AI are described in tex
 
 In this section, the design choices for classes and objects in the game are outlined, detailing their responsibilities, interactions, and how they contribute to the overall architecture of the game. The design focuses on creating a modular and maintainable codebase that allows for easy expansion and modification as the game evolves.
 
-| Class Name   | File name        | Description                                                     | Responsibilities                                                                                     | Interactions                                                      |
-|--------------|------------------|-----------------------------------------------------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
-| Game         | game.py          | Main class that manages the game loop, state, and overall flow. | Initialize game components, manage game states (playing, game over/won), handle input and rendering. | Interacts SoundManager                                            |
-| SoundManager | sound_manager.py | Manages all audio aspects of the game.                          | Load and play background music and sound effects, manage audio transitions.                          | Interacts Game                                                    |
-| Player       | player.py        | Represents the player character and its state.                  | Handle player attributes (health, ammo, score), manage movement and shooting mechanics.              | Interacts Game                                                    |
-| LevelMap     | level_map.py     | Represents the game level layout and map data.                  | Load map from file, manage wall/floor data.                                                          | Interacts Game                                                    |
-| RenderEngine | render_engine.py | Handles the rendering of the game environment.                  | Render walls, floors, and sprites based on player position and view.                                 | Interacts Game, Raycaster                                         |
-| Raycaster    | raycaster.py     | Implements the raycasting algorithm for rendering.              | Cast rays to determine visible walls and sprites, calculate perspective.                             | Interacts RenderEngine                                            |
-| Game         | game.py          | Main class that manages the game loop, state, and overall flow. | Initialize game components, manage game states (playing, game over/won), handle input and rendering. | Interacts SoundManager, LevelMap, Player, RenderEngine, Raycaster |
+| Class Name    | File name        | Description                                                     | Responsibilities                                                                                     | Interactions                                                      |
+|---------------|------------------|-----------------------------------------------------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| Menu          | menu.py          | Manages the main menu and UI screens.                           | Display main menu, handle navigation to player name input, leaderboard, game credits, and quit game. | Interacts Game (to start new game)                                |
+| Game          | game.py          | Main class that manages the game loop, state, and overall flow. | Initialize game components, manage game states (playing, game over/won), handle input and rendering. | Interacts SoundManager                                            |
+| SoundManager  | sound_manager.py | Manages all audio aspects of the game.                          | Load and play background music and sound effects, manage audio transitions.                          | Interacts Game                                                    |
+| Player        | player.py        | Represents the player character and its state.                  | Handle player attributes (health, ammo, score), manage movement and shooting mechanics.              | Interacts Game                                                    |
+| LevelMap      | level_map.py     | Represents the game level layout and map data.                  | Load map from file, manage wall/floor data.                                                          | Interacts Game                                                    |
+| RenderEngine  | render_engine.py | Handles the rendering of the game environment.                  | Render walls, floors, and sprites based on player position and view.                                 | Interacts Game, Raycaster                                         |
+| Raycaster     | raycaster.py     | Implements the raycasting algorithm for rendering.              | Cast rays to determine visible walls and sprites, calculate perspective.                             | Interacts RenderEngine                                            |
 
 
 ### NPC design
@@ -504,7 +514,7 @@ In this section, the design choices for classes and objects in the game are outl
 In this section, the design choices for non-player characters (NPCs) in the game are outlined, detailing their roles, behaviors, and how they contribute to the gameplay experience. The NPCs are designed to enhance the atmosphere of the dungeon and provide challenges for the player through their interactions and combat mechanics.
 All NPCs in the game represent enemies and are designed to fit the retro, pixelated style of the game, with simple yet distinct sprites that allow players to easily identify different types of enemies and their behaviors.
 
-# Demons Dungeon: Infernal Bestiary
+#### Demons Dungeon: Infernal Bestiary
 
 | Demon Name            | Combat Role       | Lore & Description                                                                                                         | Attack Power  | Visual Appearance                                                                                                                  |
 |:----------------------|:------------------|:---------------------------------------------------------------------------------------------------------------------------|:--------------|:-----------------------------------------------------------------------------------------------------------------------------------|
@@ -555,14 +565,14 @@ In this section, the design of textures for walls, floors, and other environment
 
 In this section, the visual feedback mechanics for the game are outlined, detailing how the game will visually communicate important events to the player, such as taking damage, hitting enemies, and defeating the boss. The table below summarizes the key aspects of visual feedback, their purpose, implementation details, and any additional notes.
 
-| Aspect              | Purpose                                                                 | Details                                                                   | Implementation                                                                                    | Notes                                                                       |
-|---------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| Player takes damage | Provide a clear, immediate visual cue to the player                     | Screen briefly flashes red to indicate harm                               | Overlay a semi-transparent red rectangle on the screen for a short duration after taking damage   | Flash intensity can be proportional to the amount of damage taken           |
-| Enemy hit           | Confirm to the player that their attack was successful                  | Enemy sprite briefly flashes white or red                                 | Change the enemy sprite color to white/red for a few frames when hit                              | Can also include a brief animation (e.g. recoil) for stronger feedback      |
-| Enemy death         | Indicate that an enemy has been defeated                                | Enemy sprite plays a death animation and disappears                       | Trigger a death animation sequence and then remove the enemy from the game world                  |
-| Health regeneration | Show that the player is recovering health over time                     | Important to allow player contiue playing the game and shoot more enemies | Player's health indicator on HUD increases in value                                               |                                                                             |
-| Boss defeat         | Celebrate the player's victory and signal the end of the game           | Screen flashes bright, followed by a transition to the victory screen     | Implement a bright flash effect and then load the victory screen after a short delay              | Can also include a unique animation or visual effect for defeating the boss |
-| Weapon firing        | Provide feedback that the player's attack action has been registered   | Muzzle flash effect at the weapon's position when shooting                | Render a brief muzzle flash sprite or particle effect when the player fires their weapon          | Can be enhanced with screen shake for more impact                           |
+| Aspect              | Purpose                                                                  | Details                                                                   | Implementation                                                                                    | Notes                                                                       |
+|---------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Player takes damage | Provide a clear, immediate visual cue to the player                      | Screen briefly flashes red to indicate harm                               | Overlay a semi-transparent red rectangle on the screen for a short duration after taking damage   | Flash intensity can be proportional to the amount of damage taken           |
+| Enemy hit           | Confirm to the player that their attack was successful                   | Enemy sprite briefly flashes white or red                                 | Change the enemy sprite color to white/red for a few frames when hit                              | Can also include a brief animation (e.g. recoil) for stronger feedback      |
+| Enemy death         | Indicate that an enemy has been defeated                                 | Enemy sprite plays a death animation and disappears                       | Trigger a death animation sequence and then remove the enemy from the game world                  |                                                                             |
+| Health regeneration | Show that the player is recovering health over time                      | Important to allow player contiue playing the game and shoot more enemies | Player's health indicator on HUD increases in value                                               |                                                                             |
+| Boss defeat         | Celebrate the player's victory and signal the end of the game            | Screen flashes bright, followed by a transition to the victory screen     | Implement a bright flash effect and then load the victory screen after a short delay              | Can also include a unique animation or visual effect for defeating the boss |
+| Weapon firing       | Provide feedback that the player's attack action has been registered     | Muzzle flash effect at the weapon's position when shooting                | Render a brief muzzle flash sprite or particle effect when the player fires their weapon          | Can be enhanced with screen shake for more impact                           |
 
 #### Audio feedback
 
@@ -586,6 +596,70 @@ In this section, the game state feedback mechanics for the game are outlined, de
 | Win condition       | Provide a clear indication that the player has won the game            | Transition to a victory screen with celebratory visuals and music         | Load a victory screen with unique graphics and play a victory music track when the player defeats the boss demon | Can also include a summary of the player's performance (e.g. score, time taken) on the victory screen                          |
 | Lose condition      | Provide a clear indication that the player has lost the game           | Transition to a game over screen with appropriate visuals and music       | Load a game over screen with somber graphics and play a game over music track when the player's health reaches zero | Can also include an option to restart the game or return to the main menu from the game over screen                         |
 | HUD updates         | Keep the player informed of their current status (health, ammo, score) | The HUD dynamically updates to reflect changes in health, ammo, and score | Implement a HUD that displays health bars, ammo count, and score, and ensure it updates in real time as the player's status changes | The HUD design should be clear and unobtrusive to maintain immersion while providing essential information  |
+
+
+---
+
+## Regular backlog reviews and development review meetings
+
+In this section evidence of regular backlog reviews, a maintained burndown chart and development review meetings are documented.
+
+### Backlog review, burndown chart and development review meeting on 18.02.2026 for the accomplished Sprint 1
+
+The Sprint 1 has finished on 17.02.2026 and the backlog review and sprint review meeting have been conducted on 18.02.2026. 
+During the backlog review, the progress made during Sprint 1 has been assessed.
+From backlog point of view Epic 1 with all three user stories US 1.1, US 1.2, US 1.3 has been fully completed.
+Moreover, Epic 2 with its user story US 2.1 has been completed as well despite it has been planned for Sprint 2.
+
+The burndown chart for Sprint 1 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 1 from the scrum backlog.
+
+[<img alt="image" src="images/doc/burndown_chart_sprint_1.png" />](images/doc/burndown_chart_sprint_1.png)
+
+From the development review point of view the following has been accomplished during Sprint 1:
+
+*Design:*
+- Produced design contract.
+- Defined development strategies.
+- Produced game story, characters and motivation loop.
+- Captured environment, levels and artwork descriptions.
+- Designed game level and gameplay systems and rules.
+- Designed game and motivation loops.
+- Captured UI and controls.
+- Defined programming language and platform.
+- Designed state diagrams for player and enemy AI.
+- Designed 7 classes for the game.
+- Described NPCs and their behaviors.
+- Described sprites and textures for the game.
+- Designed game level.
+- Designed visual, audio and game state feedback mechanics.
+
+*Coding:*
+- Created game menu with options for entering player name, starting a new game, viewing the leaderboard, viewing game credits and exiting the game.
+- Set up the main game loop and input handling.
+- Implemented basic player movement and collision detection.
+- Implemented a simple raycasting renderer to display the environment.
+- Created a game level map and loaded it into the game.
+- Created several textures for walls and also a texture for the exit door.
+- Implemented background music to play Doom theme mp3 during gameplay.
+
+*Testing:*
+- Tested player movement and collision detection to ensure smooth navigation through the environment.
+- Tested raycasting renderer to ensure correct rendering of walls and textures.
+- Tested game level loading to ensure the map is correctly represented in the game.
+- Tested background music playback to ensure it plays correctly during gameplay.
+- Tested main game menu functionality to ensure all options work as intended (e.g. starting a new game, viewing leaderboard, etc.).
+- Tested main game loop to ensure it runs smoothly without crashes or major bugs during gameplay.
+
+*Blockers:*
+
+No blockers have been encountered during Sprint 1. All planned tasks and user stories have been completed successfully, and the development process has proceeded as expected without any major issues or obstacles.
+
+*Plan for the next sprint:*
+
+For the next sprint, the focus will be on implementing Epic 3 - "Enemy AI & basic combat" and Epic 4 - "HUD, health, and scoring".  
+Additionally, more sprites and textures will be created for environmental details to enhance the visual experience of the game.
+
+
 
 ---
 
