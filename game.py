@@ -7,6 +7,7 @@ from sound_manager import *
 from game_levels import *
 from level_map import *
 from player import *
+from weapon import *
 
 class Game:
     def __init__(self):
@@ -42,7 +43,8 @@ class Game:
         self.player = Player(self)
         self.render_engine = RenderEngine(self)
         self.raycaster = Raycaster(self)
-        self.sound = SoundManager(self)
+        self.weapon = Weapon(self)
+        self.sound_manager = SoundManager(self)
         pg.mixer.music.play(-1)
 
     def update(self):
@@ -53,6 +55,8 @@ class Game:
         self.player.update()
         # Update the raycasting calculations to determine what objects are visible to the player
         self.raycaster.update()
+        # Update the weapon state, including handling shooting animations and interactions with the game world
+        self.weapon.update()
 
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
@@ -64,6 +68,8 @@ class Game:
             This method is responsible for drawing the game elements on the screen, including the object renderer and weapon. It can also include additional drawing methods for the map and player if needed.
         '''
         self.render_engine.draw()
+        # Draw the weapon on the screen after rendering the game world to ensure it appears in the foreground.
+        self.weapon.draw()
 
     def check_events(self):
         self.global_trigger = False
@@ -73,6 +79,9 @@ class Game:
                 sys.exit()
             elif event.type == self.global_event:
                 self.global_trigger = True
+
+            # Pass the event to the player's weapon fire event handler to check for shooting actions when the left mouse button is pressed.
+            self.player.weapon_fire_event(event)
 
     def run(self):
         '''

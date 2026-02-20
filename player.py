@@ -19,6 +19,8 @@ class Player:
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.rel = 0
+        # Initialize the shot state to False, indicating that the player has not fired a shot yet.
+        self.weapon_shot = False
         self.time_prev = pg.time.get_ticks()
 
 
@@ -106,7 +108,7 @@ class Player:
     @property
     def pos(self):
         '''
-            This method returns the current position of the player as a tuple (x, y).
+            This property returns the current position of the player as a tuple (x, y).
         '''
         return self.x, self.y
 
@@ -114,6 +116,25 @@ class Player:
     @property
     def map_pos(self):
         '''
-            This method returns the current position of the player on the map as a tuple (x, y).
+            This property returns the current position of the player on the map as a tuple (x, y).
         '''
         return int(self.x), int(self.y)
+
+
+    def weapon_fire_event(self, event):
+        '''
+            This method handles the event of firing the weapon when the left mouse button is pressed.
+            It checks if the player has not already fired a shot and if the weapon is not currently reloading before allowing the player to fire.
+            When the left mouse button is pressed, it plays the shotgun sound effect, sets the shot state to True, and sets the weapon's reloading state to True to trigger the shooting animation.
+            :param event: This parameter represents the event object that is passed to the method when a mouse button is pressed. It contains information about the type of event and the specific button that was pressed.
+        '''
+        # Check if the event is a mouse button down event
+        if event.type == pg.MOUSEBUTTONDOWN:
+            # Check if the left mouse button (button 1) is pressed, and if the player has not already fired a shot and the weapon is not currently reloading
+            if event.button == 1 and not self.weapon_shot and not self.game.weapon.is_reloading():
+                # Play the shotgun sound effect using the game's sound manager
+                self.game.sound_manager.play_shotgun()
+                # Set the player's shot state to True to indicate that the player has fired a shot
+                self.weapon_shot = True
+                # Set the weapon's reloading state to True to trigger the shooting animation and prevent the player from firing again until the animation is complete.
+                self.game.weapon.set_reloading(True)

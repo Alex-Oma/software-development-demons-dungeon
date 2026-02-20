@@ -71,6 +71,15 @@ class Raycaster:
 
             self.objects_to_render.append((depth, wall_column, wall_pos))
 
+    def append_object_to_render(self, depth, image, pos):
+        '''
+            This method allows adding an object to the list of objects to render, which can be used for rendering sprites or other game objects in addition to walls.
+            :param depth: The distance from the player to the object, used for depth sorting.
+            :param image: The image of the object to be rendered.
+            :param pos: The position on the screen where the object should be rendered.
+        '''
+        self.objects_to_render.append((depth, image, pos))
+
     def ray_cast(self):
         '''
             This method performs the ray casting calculations to determine the depth, projected height, texture, and offset for each ray cast from the player's perspective.
