@@ -43,7 +43,7 @@ class Sprite:
         pos = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2 + height_shift
 
         # Add the sprite's distance, scaled image, and position to the list of objects to be rendered by the raycasting engine, ensuring proper depth sorting.
-        self.game.raycaster.append_object_to_render((self.norm_dist, image, pos))
+        self.game.raycaster.append_object_to_render(self.norm_dist, image, pos)
 
     def get_sprite(self):
         '''

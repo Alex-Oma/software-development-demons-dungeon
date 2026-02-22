@@ -21,7 +21,21 @@ class Player:
         self.rel = 0
         # Initialize the shot state to False, indicating that the player has not fired a shot yet.
         self.weapon_shot = False
+        self.health = PLAYER_MAX_HEALTH
         self.time_prev = pg.time.get_ticks()
+
+
+    def get_damage(self, damage):
+        '''
+            This method applies damage to the player by reducing the player's health by the specified damage amount.
+        :param damage:
+        :return: None
+        '''
+        self.health -= damage
+        # Call the player_damage_show_blood_screen method of the game's object renderer to display the damage effect on the screen.
+        self.game.render_engine.player_damage_show_blood_screen()
+        # Play the player pain sound effect using the game's sound manager to provide audio feedback for taking damage.
+        self.game.sound_manager.play_player_pain()
 
 
     def movement(self):

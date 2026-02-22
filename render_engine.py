@@ -14,6 +14,7 @@ class RenderEngine:
         self.wall_textures = self.load_wall_textures()
         self.ceiling_image = self.get_texture_from_file('assets/textures/ceiling_texture_2.jpg', (WIDTH, HALF_HEIGHT))
         self.ceiling_offset = 0
+        self.blood_pain_screen = self.get_texture_from_file('assets/textures/blood_screen_texture.png', RES)
 
     def get_wall_textures(self):
         '''
@@ -68,6 +69,7 @@ class RenderEngine:
         texture = pg.image.load(path).convert_alpha()
         return pg.transform.scale(texture, res)
 
+
     def load_wall_textures(self):
         '''
             This method loads wall textures from files and returns a dictionary mapping texture IDs to their corresponding images.
@@ -82,3 +84,11 @@ class RenderEngine:
             5: self.get_texture_from_file('assets/textures/bricks_texture_5.jpg'),
             6: self.get_texture_from_file('assets/textures/exit_portal_7.png'),
         }
+
+
+    def player_damage_show_blood_screen(self):
+        '''
+            This method is responsible for rendering the visual effect of the player taking damage.
+            When the player takes damage, this method blits a blood screen texture onto the game screen to indicate that the player has been hit.
+        '''
+        self.screen.blit(self.blood_pain_screen, (0, 0))

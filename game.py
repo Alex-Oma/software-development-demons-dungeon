@@ -8,6 +8,7 @@ from game_levels import *
 from level_map import *
 from player import *
 from weapon import *
+from objects_manager import *
 
 class Game:
     def __init__(self):
@@ -43,6 +44,7 @@ class Game:
         self.player = Player(self)
         self.render_engine = RenderEngine(self)
         self.raycaster = Raycaster(self)
+        self.objects_manager = ObjectsManager(self)
         self.weapon = Weapon(self)
         self.sound_manager = SoundManager(self)
         pg.mixer.music.play(-1)
@@ -55,6 +57,8 @@ class Game:
         self.player.update()
         # Update the raycasting calculations to determine what objects are visible to the player
         self.raycaster.update()
+        # Update the objects in the game world, including their positions, interactions, and any necessary state changes based on player actions or game events.
+        self.objects_manager.update()
         # Update the weapon state, including handling shooting animations and interactions with the game world
         self.weapon.update()
 

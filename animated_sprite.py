@@ -75,3 +75,16 @@ class AnimatedSprite(Sprite):
                 # Append the loaded image to the deque of images for the animation.
                 images.append(img)
         return images
+
+    def get_event_images(self, path, suffixes, prefix):
+        # Initialize an empty deque to store the loaded images for the animation.
+        images = deque()
+        # Iterate through the files in the specified directory path.
+        for suffix in suffixes:
+            # Check if the current item is a file (not a directory) before attempting to load it as an image.
+            if os.path.isfile(os.path.join(path, f"{prefix}{suffix}")):
+                # Load the image using Pygame's image loading function, converting it to include alpha transparency for proper rendering in the game.
+                img = pg.image.load(path + '/' + f"{prefix}{suffix}").convert_alpha()
+                # Append the loaded image to the deque of images for the animation.
+                images.append(img)
+        return images
