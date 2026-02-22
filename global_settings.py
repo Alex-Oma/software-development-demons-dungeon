@@ -12,6 +12,7 @@ GAME_TITLE = "DEMONS DUNGEON"
 
 # Player Settings:
 PLAYER_MAX_HEALTH = 100 # maximum health of the player, which determines how much damage the player can take before dying
+PLAYER_MAX_AMMO = 100 # maximum ammo of the player, which determines how many times the player can shoot
 PLAYER_SIZE_SCALE = 60 # scale factor
 PLAYER_ANGLE = 0 # initial angle of the player (facing right)
 PLAYER_ROT_SPEED = 0.002 # rotation speed of the player, which determines how fast the player can turn left or right

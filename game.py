@@ -9,6 +9,7 @@ from level_map import *
 from player import *
 from weapon import *
 from objects_manager import *
+from hud_screen import *
 
 class Game:
     def __init__(self):
@@ -42,6 +43,7 @@ class Game:
         # Initialize the main classes for the game
         self.map = LevelMap(self, game_levels['level_1'])
         self.player = Player(self)
+        self.hud_screen = HudScreen(self)
         self.render_engine = RenderEngine(self)
         self.raycaster = Raycaster(self)
         self.objects_manager = ObjectsManager(self)
@@ -74,6 +76,7 @@ class Game:
         self.render_engine.draw()
         # Draw the weapon on the screen after rendering the game world to ensure it appears in the foreground.
         self.weapon.draw()
+        self.hud_screen.draw(self.player.get_player_score(), 1, self.player.get_player_ammo(), self.player.get_player_kill_count(), self.player.get_player_health())
 
     def check_events(self):
         self.global_trigger = False

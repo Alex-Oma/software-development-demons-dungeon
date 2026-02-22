@@ -513,6 +513,7 @@ In this section, the design choices for classes and objects in the game are outl
 | ObjectManager   | object_manager.py  | Manages all game objects (enemies, projectiles).                  | Create, update, and remove game objects; handle interactions between them.                             | Interacts Game, Player, Enemy                                     |
 | Enemy           | enemy.py           | Represents enemy characters and their AI behavior.                | Manage enemy attributes (health, position), implement AI states (patrol, chase, attack).               | Interacts Game, Player                                            |
 | BloodGhost      | blood_ghost.py     | Represents the Blood Ghost enemy type.                            | Inherits from Enemy, implements specific behavior and attributes for the Blood Ghost.                  | Interacts Game, Player                                            |
+| HudScreen       | hud_screen.py      | Manages the heads-up display (HUD) elements.                      | Display player health, ammo, score, and notifications on the screen.                                   | Interacts Game, Player                                            |
 
 
 ### NPC design

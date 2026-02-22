@@ -12,7 +12,7 @@ class Enemy(AnimatedSprite):
         self.idle_images = self.get_event_images(self.path, ["A1.png", "B1.png"], prefix)
         self.pain_images = self.get_event_images(self.path, ["H0.png"], prefix)
         self.walk_images = self.get_event_images(self.path, ["A1.png", "B1.png", "C1.png", "D1.png"], prefix)
-        self.gib_images = self.get_event_images(self.path, [f"GHGB{c}0.png" for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"], prefix)
+        self.gib_images = self.get_event_images(self.path, [f"GB{c}0.png" for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"], prefix[:2])
 
         # Set the speed, size, health, attack damage, accuracy, alive status, pain status, ray cast value, frame counter, and player search trigger for the enemy.
         self.player_search_trigger = False
@@ -21,12 +21,26 @@ class Enemy(AnimatedSprite):
         self.pain = False
         self.frame_counter = 0
         self.accuracy = 0.15
+        # Set the movement speed for the enemy, which will determine how fast the enemy moves towards the player when it is in pursuit.
         self.speed = 0.03
+        # Set the attack damage for the enemy to 10, which will be used to determine how much damage the enemy inflicts on the player when it successfully attacks.
         self.attack_damage = 10
+        # Set the size of the enemy, which will be used for collision detection and movement calculations. The size can be adjusted based on the desired scale of the enemy in the game world.
         self.size = 20
+        # Set the health of the enemy to 100, which will be reduced when the enemy takes damage from the player's attacks.
         self.health = 100
+        # Set the score value for the enemy, which will be awarded to the player when the enemy is defeated.
+        self.score_value = 100
         # Set the attack distance to a random value between 3 and 6, which will determine how close the enemy needs to be to the player in order to attack.
-        self.attack_dist = randint(3, 6)
+        self.attack_dist = randint(2, 7)
+
+    def get_score_value(self):
+        # This method returns the score value for the enemy, which can be used to determine how many points the player receives when they defeat this enemy.
+        return self.score_value
+
+    def set_score_value(self, value):
+        # This method allows you to set the score value for the enemy, which can be used to determine how many points the player receives when they defeat this enemy.
+        self.score_value = value
 
     def check_wall(self, x, y):
         # Check if the specified (x, y) position is a wall by checking if it is not in the game's world map, which contains the positions of all walls in the game.
@@ -75,6 +89,8 @@ class Enemy(AnimatedSprite):
         # If the enemy's health drops below 1, we set the alive status to False to indicate that the enemy is dead and play the NPC death sound.
         if self.health < 1:
             self.alive = False
+            self.game.player.increase_kill_count()
+            self.game.player.increase_score(self.get_score_value())
             self.game.sound_manager.play_enemy_death()
 
     def check_enemy_is_hit(self):
@@ -88,7 +104,7 @@ class Enemy(AnimatedSprite):
                 self.game.sound_manager.play_enemy_pain()
                 self.game.player.weapon_shot = False
                 self.pain = True
-                self.health -= self.game.weapon.damage
+                self.health -= self.game.weapon.get_weapon_damage()
                 self.enemy_check_health()
 
 
@@ -100,6 +116,17 @@ class Enemy(AnimatedSprite):
             if self.game.global_trigger and self.frame_counter < len(self.death_images) - 1:
                 self.death_images.rotate(-1)
                 self.image = self.death_images[0]
+                self.frame_counter += 1
+
+
+    def enemy_animate_death_through_gib(self):
+        # If the enemy is not alive, we check if the global trigger for animations is set and if the frame counter is less than the number of death images minus one.
+        # If both conditions are true, we rotate the death images to switch to the next frame in the death animation and update the enemy's image to the current frame.
+        # We also increment the frame counter to keep track of which frame of the death animation we are currently on.
+        if not self.alive:
+            if self.game.global_trigger and self.frame_counter < len(self.gib_images) - 1:
+                self.gib_images.rotate(-1)
+                self.image = self.gib_images[0]
                 self.frame_counter += 1
 
 
@@ -138,6 +165,8 @@ class Enemy(AnimatedSprite):
         else:
             # If the enemy is not alive, we call the animate_death method to handle the death animation for the enemy.
             self.enemy_animate_death()
+            # self.enemy_animate_death_through_gib()
+
 
     def enemy_attack(self):
         # If the animation trigger is set, which indicates that it's time to switch to the next frame in the attack animation,
@@ -145,7 +174,7 @@ class Enemy(AnimatedSprite):
         if self.animation_trigger:
             self.game.sound_manager.play_enemy_shot()
             if random() < self.accuracy:
-                self.game.player.get_damage(self.attack_damage)
+                self.game.player.player_gets_damage(self.attack_damage)
 
 
     @property

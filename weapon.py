@@ -24,6 +24,13 @@ class Weapon(AnimatedSprite):
         # Set the damage value for the weapon, which is used in the game logic to determine how much damage the weapon inflicts on targets when fired.
         self.damage = 50
 
+
+    def get_weapon_damage(self):
+        '''
+            This method returns the damage value of the weapon, which is used in the game logic to determine how much damage the weapon inflicts on targets when fired.
+        '''
+        return self.damage
+
     def is_reloading(self):
         '''
             This method returns the current reloading state of the weapon, indicating whether the weapon is currently in the process of firing and animating the shooting action.

@@ -21,14 +21,63 @@ class Player:
         self.rel = 0
         # Initialize the shot state to False, indicating that the player has not fired a shot yet.
         self.weapon_shot = False
+        # Initialize the player's health to the maximum health defined in the settings, which will be used to keep track of the player's remaining health points in the game.
         self.health = PLAYER_MAX_HEALTH
+        # Initialize the player's ammo count to the maximum ammo defined in the settings, which will be used to keep track of how many shots the player has available before needing to reload.
+        self.ammo = PLAYER_MAX_AMMO
+        # Initialize the player's kill count to 0, which will be used to keep track of the number of enemies the player has killed in the game.
+        self.enemies_killed = 0
+        # Initialize the player's score to 0, which will be used to keep track of the player's points based on their performance in the game.
+        self.score = 0
         self.time_prev = pg.time.get_ticks()
 
+    def increase_score(self, points):
+        '''
+            This method increases the player's score by the specified number of points.
+        :param points: This parameter represents the number of points to be added to the player's current score. It is used to update the player's score based on their performance in the game, such as killing enemies or completing objectives.
+        '''
+        self.score += points
 
-    def get_damage(self, damage):
+    def get_player_score(self):
+        '''
+            This method returns the current score of the player, which is stored in the `score` attribute of the Player class. This value represents the player's points based on their performance in the game.
+        :return: The method returns the current score of the player, which is an integer value stored in the `score` attribute of the Player class. This value represents the player's points based on their performance in the game.
+        '''
+        return self.score
+
+    def get_player_kill_count(self):
+        '''
+            This method returns the current kill count of the player, which is stored in the `enemies_killed` attribute of the Player class. This value represents the number of enemies the player has killed in the game.
+        :return: The method returns the current kill count of the player, which is an integer value stored in the `enemies_killed` attribute of the Player class. This value represents the number of enemies the player has killed in the game.
+        '''
+        return self.enemies_killed
+
+    def increase_kill_count(self):
+        '''
+            This method increments the player's kill count by 1 each time it is called. It is used to keep track of the number of enemies the player has killed in the game.
+        '''
+        self.enemies_killed += 1
+
+    def get_player_health(self):
+        '''
+            This method returns the current health of the player.
+        :return: The method returns the current health of the player, which is stored in the `health` attribute of the Player class. This value represents the player's remaining health points in the game.
+        '''
+        return self.health
+
+
+    def get_player_ammo(self):
+        '''
+            This method returns the current ammo count of the player.
+        :return: The method returns the current ammo count of the player, which is stored in the `ammo` attribute of the Player class. This value represents the number of ammunition rounds the player has available for firing their weapon in the game.
+        '''
+        return self.ammo
+
+
+    def player_gets_damage(self, damage):
         '''
             This method applies damage to the player by reducing the player's health by the specified damage amount.
-        :param damage:
+        :param damage: This parameter represents the amount of damage that the player will take. It is subtracted from the player's current health to reflect the damage taken by the player.
         :return: None
         '''
         self.health -= damage
@@ -150,5 +199,7 @@ class Player:
                 self.game.sound_manager.play_shotgun()
                 # Set the player's shot state to True to indicate that the player has fired a shot
                 self.weapon_shot = True
+                # Reduce the player's ammo count by 1 to reflect the shot that was fired.
+                self.ammo -= 1
                 # Set the weapon's reloading state to True to trigger the shooting animation and prevent the player from firing again until the animation is complete.
                 self.game.weapon.set_reloading(True)
