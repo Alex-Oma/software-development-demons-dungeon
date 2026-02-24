@@ -4,7 +4,7 @@ from global_settings import *
 class HudScreen:
     def __init__(self, game):
         self.game = game
-        self.font = pg.font.Font(FONT, 50)
+        self.font = pg.font.Font(FONT, 60)
 
     def draw(self, score, level, ammo, enemies_killed, player_health):
         # Here, this method is used to draw the player's image on the level.
@@ -48,14 +48,14 @@ class HudScreen:
         # It takes a parameter enemies_killed, which represents the number of enemies the player has killed.
         # The method uses the font attribute to render the text "Enemies Killed: " followed by the value of enemies_killed in yellow color.
         # Finally, it blits the rendered text onto the game screen at the position (730, 0).
-        text = self.font.render("Enemies Killed: " + str(enemies_killed), True, RED)
+        text = self.font.render("Kill Count: " + str(enemies_killed), True, RED)
         self.game.screen.blit(text, [730, 0])
 
     def show_player_health(self, player_health):
         # This method is used to display the player's health on the screen.
         # It takes a parameter player_health, which represents the player's current health.
         # The method uses the font attribute to render the text "Player Health: " followed by the value of player_health in yellow color.
-        # Finally, it blits the rendered text onto the game screen at the position (1100, 0).
+        # Finally, it blits the rendered text onto the game screen at the position (1080, 0).
         text = self.font.render("Player Health: " + str(player_health), True, RED)
-        self.game.screen.blit(text, [1100, 0])
+        self.game.screen.blit(text, [1080, 0])
 
