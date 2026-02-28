@@ -7,19 +7,26 @@ class Enemy(AnimatedSprite):
                  scale=0.6, shift=0.38, animation_time=180, prefix='GHST'):
         super().__init__(game, path, pos, scale, shift, animation_time)
         # Let's load attack images, death images, idle images, pain images, walk images and gib images for the enemy using the get_event_images method.
-        self.attack_images = self.get_event_images(self.path, ["E1.png", "F0.png", "G0.png"], prefix)
-        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "IJKLMNOP"], prefix)
-        self.idle_images = self.get_event_images(self.path, ["A1.png", "B1.png"], prefix)
-        self.pain_images = self.get_event_images(self.path, ["H0.png"], prefix)
-        self.walk_images = self.get_event_images(self.path, ["A1.png", "B1.png", "C1.png", "D1.png"], prefix)
-        self.gib_images = self.get_event_images(self.path, [f"GB{c}0.png" for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"], prefix[:2])
+        # self.attack_images = self.get_event_images(self.path, ["E1.png", "F0.png", "G0.png"], prefix)
+        # self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "IJKLMNOP"], prefix)
+        # self.idle_images = self.get_event_images(self.path, ["A1.png", "B1.png"], prefix)
+        # self.pain_images = self.get_event_images(self.path, ["H0.png"], prefix)
+        # self.walk_images = self.get_event_images(self.path, ["A1.png", "B1.png", "C1.png", "D1.png"], prefix)
+        # self.gib_images = self.get_event_images(self.path, [f"GB{c}0.png" for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"], prefix[:2])
+        self.attack_images = None
+        self.death_images = None
+        self.idle_images = None
+        self.pain_images = None
+        self.walk_images = None
+        self.gib_images = None
 
         # Set the speed, size, health, attack damage, accuracy, alive status, pain status, ray cast value, frame counter, and player search trigger for the enemy.
-        self.player_search_trigger = False
-        self.ray_cast_value = False
-        self.alive = True
+        self.chase_player_trigger = False
+        self.player_is_seen = False
+        self.enemy_alive = True
         self.pain = False
         self.frame_counter = 0
+        # Set the accuracy for the enemy to 0.15, which will determine the likelihood of the enemy's attacks hitting the player. A higher accuracy value means that the enemy is more likely to hit the player with its attacks.
         self.accuracy = 0.15
         # Set the movement speed for the enemy, which will determine how fast the enemy moves towards the player when it is in pursuit.
         self.speed = 0.03
@@ -32,7 +39,31 @@ class Enemy(AnimatedSprite):
         # Set the score value for the enemy, which will be awarded to the player when the enemy is defeated.
         self.score_value = 100
         # Set the attack distance to a random value between 3 and 6, which will determine how close the enemy needs to be to the player in order to attack.
-        self.attack_dist = randint(2, 7)
+        self.attack_dist = randint(2, 6)
+
+    def set_accuracy(self, value):
+        # This method allows you to set the accuracy for the enemy, which will determine the likelihood of the enemy's attacks hitting the player. A higher accuracy value means that the enemy is more likely to hit the player with its attacks.
+        self.accuracy = value
+
+    def set_size(self, value):
+        # This method allows you to set the size of the enemy, which will be used for collision detection and movement calculations. The size can be adjusted based on the desired scale of the enemy in the game world.
+        self.size = value
+
+    def set_attack_distance(self, min_dist, max_dist):
+        # This method allows you to set the attack distance for the enemy, which will determine how close the enemy needs to be to the player in order to attack.
+        self.attack_dist = randint(min_dist, max_dist)
+
+    def set_health(self, value):
+        # This method allows you to set the health for the enemy, which will determine how much damage the enemy can take before it is defeated.
+        self.health = value
+
+    def set_attack_damage(self, value):
+        # This method allows you to set the attack damage for the enemy, which will determine how much damage the enemy inflicts on the player when it successfully attacks.
+        self.attack_damage = value
+
+    def set_speed(self, value):
+        # This method allows you to set the movement speed for the enemy, which will determine how fast the enemy moves towards the player when it is in pursuit.
+        self.speed = value
 
     def get_score_value(self):
         # This method returns the score value for the enemy, which can be used to determine how many points the player receives when they defeat this enemy.
@@ -63,19 +94,18 @@ class Enemy(AnimatedSprite):
 
     def enemy_movement(self):
         # Get the next position for the enemy to move towards using the game's pathfinding system, which calculates the path from the enemy's current position to the player's position on the map.
-        # next_pos = self.game.pathfinding.get_path(self.map_pos, self.game.player.map_pos)
-        # next_x, next_y = next_pos
-        #
-        # # Let's check if the next position is not occupied by another NPC before moving towards it.
-        # # If it's not occupied, we calculate the angle to the next position and move the enemy in that direction using the speed attribute.
-        # if next_pos not in self.game.object_handler.npc_positions:
-        #     # Let's calculate the angle to the next position using the atan2 function, which gives us the angle in radians between the enemy's current position and the next position.
-        #     angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
-        #     dx = math.cos(angle) * self.speed
-        #     dy = math.sin(angle) * self.speed
-        #     # Finally, we check for wall collisions using the check_wall_collision method to ensure that the enemy does not move through walls while trying to reach the next position.
-        #     self.check_wall_collision(dx, dy)
-        pass
+        next_pos = self.game.chaser.find_path(self.map_pos, self.game.player.map_pos)
+        next_x, next_y = next_pos
+
+        # Let's check if the next position is not occupied by another enemy before moving towards it.
+        # If it's not occupied, we calculate the angle to the next position and move the enemy in that direction using the speed attribute.
+        if next_pos not in self.game.objects_manager.get_enemies_positions():
+            # Let's calculate the angle to the next position using the atan2 function, which gives us the angle in radians between the enemy's current position and the next position.
+            angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
+            dx = math.cos(angle) * self.speed
+            dy = math.sin(angle) * self.speed
+            # Finally, we check for wall collisions using the check_wall_collision method to ensure that the enemy does not move through walls while trying to reach the next position.
+            self.check_wall_collision(dx, dy)
 
     def enemy_animate_pain(self):
         # If the enemy is in pain, we animate the pain images to show the enemy's reaction to being hit.
@@ -88,14 +118,14 @@ class Enemy(AnimatedSprite):
     def enemy_check_health(self):
         # If the enemy's health drops below 1, we set the alive status to False to indicate that the enemy is dead and play the NPC death sound.
         if self.health < 1:
-            self.alive = False
+            self.enemy_alive = False
             self.game.player.increase_kill_count()
             self.game.player.increase_score(self.get_score_value())
             self.game.sound_manager.play_enemy_death()
 
     def check_enemy_is_hit(self):
         # If the ray cast value is True, which indicates that the player has a clear line of sight to the enemy, and the player has shot their weapon, we check if the enemy is hit by the player's shot.
-        if self.ray_cast_value and self.game.player.weapon_shot:
+        if self.player_is_seen and self.game.player.weapon_shot:
             # We check if the enemy's horizontal position (screen_x) is within the range of the player's shot by comparing it to the half width of the screen and the half width of the enemy's sprite.
             if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
                 # If the enemy is hit, we play the NPC pain sound, set the player's shot state to False to prevent multiple hits from a single shot,
@@ -112,36 +142,29 @@ class Enemy(AnimatedSprite):
         # If the enemy is not alive, we check if the global trigger for animations is set and if the frame counter is less than the number of death images minus one.
         # If both conditions are true, we rotate the death images to switch to the next frame in the death animation and update the enemy's image to the current frame.
         # We also increment the frame counter to keep track of which frame of the death animation we are currently on.
-        if not self.alive:
+        if not self.enemy_alive:
             if self.game.global_trigger and self.frame_counter < len(self.death_images) - 1:
                 self.death_images.rotate(-1)
                 self.image = self.death_images[0]
                 self.frame_counter += 1
 
 
-    def enemy_animate_death_through_gib(self):
-        # If the enemy is not alive, we check if the global trigger for animations is set and if the frame counter is less than the number of death images minus one.
-        # If both conditions are true, we rotate the death images to switch to the next frame in the death animation and update the enemy's image to the current frame.
-        # We also increment the frame counter to keep track of which frame of the death animation we are currently on.
-        if not self.alive:
-            if self.game.global_trigger and self.frame_counter < len(self.gib_images) - 1:
-                self.gib_images.rotate(-1)
-                self.image = self.gib_images[0]
-                self.frame_counter += 1
-
-
     def run_enemy_logic(self):
         # If the enemy is alive, we first check if the player is in line of sight using ray casting and then check if the enemy is hit by the player's shot.
-        if self.alive:
-            self.ray_cast_value = self.ray_cast_player_versus_enemy()
+        if self.enemy_alive:
+            self.player_is_seen = self.ray_cast_player_versus_enemy()
             self.check_enemy_is_hit()
+
+            if self.chase_player_trigger and not self.player_is_seen:
+                # If the player search trigger is True but the player is not currently in line of sight, we set the chase player trigger to False, which indicates that the enemy has lost sight of the player and will stop pursuing them.
+                self.chase_player_trigger = False
 
             # If the enemy is in pain, we animate the pain images to show the enemy's reaction to being hit.
             if self.pain:
                 self.enemy_animate_pain()
-            elif self.ray_cast_value:
+            elif self.player_is_seen:
                 # If the player is in line of sight, we set the player search trigger to True, which indicates that the enemy has detected the player and will start moving towards them.
-                self.player_search_trigger = True
+                self.chase_player_trigger = True
 
                 # If the distance to the player is less than the attack distance, we animate the attack images and call the attack method to perform an attack on the player.
                 if self.dist < self.attack_dist:
@@ -153,7 +176,7 @@ class Enemy(AnimatedSprite):
                     self.animate(self.walk_images)
                     self.enemy_movement()
 
-            elif self.player_search_trigger:
+            elif self.chase_player_trigger:
                 # If the player search trigger is True, which indicates that the enemy has detected the player but is not currently in line of sight,
                 # we continue to animate the walk images and call the movement method to keep the enemy moving towards the player's last known position.
                 self.animate(self.walk_images)
@@ -165,7 +188,6 @@ class Enemy(AnimatedSprite):
         else:
             # If the enemy is not alive, we call the animate_death method to handle the death animation for the enemy.
             self.enemy_animate_death()
-            # self.enemy_animate_death_through_gib()
 
 
     def enemy_attack(self):
@@ -276,7 +298,137 @@ class Enemy(AnimatedSprite):
         # If the player is not visible to the enemy based on the ray casting calculations, we return False to indicate that the player is not in line of sight.
         return False
 
+
 class BloodGhostEnemy(Enemy):
     def __init__(self, game, path='assets/sprites/animated/enemies/blood_ghost/GHSTA1.png', pos=(10.5, 5.5),
                  scale=0.6, shift=0.38, animation_time=180, prefix='GHST'):
-        super().__init__(game, path, pos, scale, shift, animation_time)
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        # ATTACK: Wind up with rotation (E1), then it likely turns into a symmetrical magical attack/lunge (F0, G0)
+        self.attack_images = self.get_event_images(self.path, ["E1.png", "F0.png", "G0.png"], prefix)
+
+        # DEATH: 8-frame death sequence falling to the floor
+        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "IJKLMNOP"], prefix)
+
+        # IDLE: full 4-frame loop so its ghostly floating is smooth
+        self.idle_images = self.get_event_images(self.path, ["A1.png", "B1.png", "C1.png", "D1.png"], prefix)
+
+        # PAIN: Symmetrical pain frame
+        self.pain_images = self.get_event_images(self.path, ["H0.png"], prefix)
+
+        # WALK: 4-frame ghostly movement
+        self.walk_images = self.get_event_images(self.path, ["A1.png", "B1.png", "C1.png", "D1.png"], prefix)
+
+        self.gib_images = self.get_event_images(self.path, [f"GB{c}0.png" for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"], prefix[:2])
+
+
+class BloodDemonEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/blood_demon/SRG2A1C1.png', pos=(5.5, 3.5),
+                 scale=0.7, shift=0.38, animation_time=180, prefix='SRG2'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        # FIX 2: Attack sequence. Wind up (E), Bite/Swing (F), Follow-through (G). Facing the player (1).
+        self.attack_images = self.get_event_images(self.path, ["E1.png", "F1.png", "G1.png"], prefix)
+
+        # DEATH: Death goes from I to N. Rotation is ignored (0).
+        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "IJKLMN"], prefix)
+
+        # IDLE: Left leg (A/C) and Right leg (B/D) mirroring.
+        self.idle_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix)
+
+        # PAIN: Pain sequence. Just a single heavy flinch frame facing the player (1).
+        self.pain_images = self.get_event_images(self.path, ["H1.png"], prefix)
+
+        # WALK: Standard 4-step walk cycle looping A -> B -> C -> D
+        self.walk_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix)
+
+        # Now we override its speed, health, attack damage, accuracy, and attack distance to make it a more formidable enemy compared to the base Enemy class.
+        self.set_speed(0.033)  # Slightly faster than the base enemy
+        self.set_health(150)  # More health than the base enemy
+        self.set_attack_damage(15)  # More damage than the base enemy
+        self.set_accuracy(0.17)  # Higher accuracy than the base enemy
+        self.set_attack_distance(3, 7)  # Longer attack distance
+
+
+class AbaddonEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/abbadon/HED3A1.png', pos=(5.5, 3.5),
+                 scale=0.6, shift=0.38, animation_time=180, prefix='HED3'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        # ATTACK: Wind up (B), Fire (C), Follow-through (D) - Facing the player (1)
+        self.attack_images = self.get_event_images(self.path, ["B1.png", "C1.png", "D1.png"], prefix)
+
+        # DEATH: Abaddon death sequence goes from G to O. (0 means rotation is ignored)
+        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "GHIJKLMNO"], prefix)
+
+        # IDLE: Because it floats, it has no leg movement. It just holds Frame A.
+        self.idle_images = self.get_event_images(self.path, ["A1.png"], prefix)
+
+        # PAIN: Heavy flinch taking damage uses Frames E and F.
+        self.pain_images = self.get_event_images(self.path, ["E1.png", "F1.png"], prefix)
+
+        # WALK: Same as Idle. It just floats forward holding Frame A.
+        self.walk_images = self.get_event_images(self.path, ["A1.png"], prefix)
+
+        # Now we override its speed, health, attack damage, accuracy, and attack distance to make it a more formidable enemy compared to the base Enemy class.
+        self.set_speed(0.035)  # Slightly faster than the base enemy
+        self.set_health(200)  # More health than the base enemy
+        self.set_attack_damage(20)  # More damage than the base enemy
+        self.set_accuracy(0.22)  # Higher accuracy than the base enemy
+        self.set_attack_distance(3, 7)  # Longer attack distance
+
+
+class AfritEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/afrit/FRITA1.png', pos=(5.5, 3.5),
+                 scale=1.0, shift=0.2, animation_time=180, prefix='FRIT'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        # ATTACK: The standard fireball/melee wind-up and throw (E, F, G)
+        self.attack_images = self.get_event_images(self.path, ["E1.png", "F1.png", "G1.png"], prefix)
+
+        # DEATH: The Afrit has a very long, dramatic death sequence from I to R
+        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "IJKLMNOPQR"], prefix)
+
+        # IDLE: The Afrit is a flying demon. It continuously flaps its wings so the sequence is A -> B -> C -> D
+        self.idle_images = self.get_event_images(self.path, ["A1.png", "B1.png", "C1.png", "D1.png"], prefix)
+
+        # PAIN: A single stagger frame when taking damage (H)
+        self.pain_images = self.get_event_images(self.path, ["H1.png"], prefix)
+
+        # WALK/FLY: Because it flies, its walk cycle is the exact same wing-flap as its idle cycle
+        self.walk_images = self.get_event_images(self.path, ["A1.png", "B1.png", "C1.png", "D1.png"], prefix)
+
+        # Now we override its speed, health, attack damage, accuracy, and attack distance to make it a more formidable enemy compared to the base Enemy class.
+        self.set_speed(0.025)  # Slower than the base enemy
+        self.set_health(250)  # More health than the base enemy
+        self.set_attack_damage(25)  # More damage than the base enemy
+        self.set_accuracy(0.25)  # Higher accuracy than the base enemy
+        self.set_attack_distance(3, 7)  # Longer attack distance
+
+
+class AnnihilatorEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/annihilator/ANNIA1C1.png', pos=(5.5, 3.5),
+                 scale=1.0, shift=0.1, animation_time=180, prefix='ANNI'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        # ATTACK: Front-facing frames for wind-up (E1), fire 1 (F1), fire 2 (G1)
+        self.attack_images = self.get_event_images(self.path, ["E1.png", "F1.png", "G1.png"], prefix)
+
+        # DEATH: Sequence from I to P.
+        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "IJKLMNOP"], prefix)
+
+        # IDLE: Breathing animation using the A and B frames
+        self.idle_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png"], prefix)
+
+        # PAIN: Only ANNIH0.png
+        self.pain_images = self.get_event_images(self.path, ["H0.png"], prefix)
+
+        # WALK: A 4-step walk cycle
+        self.walk_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix)
+
+        # Now we override its speed, health, attack damage, accuracy, and attack distance to make it a more formidable enemy compared to the base Enemy class.
+        self.set_speed(0.02)  # Slower than the base enemy
+        self.set_health(1000)  # Way more health than the base enemy as this is the final boss
+        self.set_attack_damage(25)  # More damage than the base enemy
+        self.set_accuracy(0.2)  # Higher accuracy than the base enemy
+        self.set_attack_distance(3, 7)  # Longer attack distance

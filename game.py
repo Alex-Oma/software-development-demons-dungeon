@@ -10,6 +10,7 @@ from player import *
 from weapon import *
 from objects_manager import *
 from hud_screen import *
+from chaser import *
 
 class Game:
     def __init__(self):
@@ -48,6 +49,7 @@ class Game:
         self.raycaster = Raycaster(self)
         self.objects_manager = ObjectsManager(self)
         self.weapon = Weapon(self)
+        self.chaser = Chaser(self)
         self.sound_manager = SoundManager(self)
         pg.mixer.music.play(-1)
 

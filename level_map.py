@@ -19,6 +19,12 @@ class LevelMap:
         self.cols = len(self.map[0])
         self.get_map()
 
+    def get_game_level_map(self):
+        '''
+            This method returns the game level map, which is a 2D list that represents the layout of the game level. Each element in the list represents a tile in the game, where '1' represents a wall, 'o' represents an open space, and other values can represent different types of walls or objects.
+        '''
+        return self.map
+
     def get_world_map(self):
         '''
             This method returns the world map, which is a dictionary that contains the positions of all the walls in the game.
