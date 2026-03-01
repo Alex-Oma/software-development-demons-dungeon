@@ -15,6 +15,8 @@ class RenderEngine:
         self.ceiling_image = self.get_texture_from_file('assets/textures/ceiling_texture_2.jpg', (WIDTH, HALF_HEIGHT))
         self.ceiling_offset = 0
         self.blood_pain_screen = self.get_texture_from_file('assets/textures/blood_screen_texture.png', RES)
+        self.game_over_screen = self.get_texture_from_file('assets/textures/game_over_screen_texture.png', RES)
+
 
     def get_wall_textures(self):
         '''
@@ -54,6 +56,12 @@ class RenderEngine:
             # Blit the image of each object onto the screen at its corresponding position.
             # The blitting process involves copying the image onto the screen surface at the specified coordinates, allowing the game objects to be visually represented in the game scene based on their depth and position.
             self.screen.blit(image, pos)
+
+
+    def show_game_over(self):
+        # This method is responsible for displaying the game over screen when the player loses the game.
+        # It blits the game over image onto the screen at the position (0, 0), effectively covering the entire game screen with the game over texture.
+        self.screen.blit(self.game_over_screen, (0, 0))
 
     @staticmethod
     def get_texture_from_file(path, res=(TEXTURE_SIZE, TEXTURE_SIZE)):

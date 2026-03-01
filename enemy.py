@@ -346,8 +346,8 @@ class BloodDemonEnemy(Enemy):
         self.set_speed(0.033)  # Slightly faster than the base enemy
         self.set_health(150)  # More health than the base enemy
         self.set_attack_damage(15)  # More damage than the base enemy
-        self.set_accuracy(0.17)  # Higher accuracy than the base enemy
-        self.set_attack_distance(3, 7)  # Longer attack distance
+        self.set_accuracy(0.17)  # Slightly higher accuracy than the base enemy
+        self.set_attack_distance(1, 3)  # Shorter attack distance
 
 
 class AbaddonEnemy(Enemy):
@@ -373,9 +373,9 @@ class AbaddonEnemy(Enemy):
         # Now we override its speed, health, attack damage, accuracy, and attack distance to make it a more formidable enemy compared to the base Enemy class.
         self.set_speed(0.035)  # Slightly faster than the base enemy
         self.set_health(200)  # More health than the base enemy
-        self.set_attack_damage(20)  # More damage than the base enemy
-        self.set_accuracy(0.22)  # Higher accuracy than the base enemy
-        self.set_attack_distance(3, 7)  # Longer attack distance
+        self.set_attack_damage(15)  # More damage than the base enemy
+        self.set_accuracy(0.2)  # Higher accuracy than the base enemy
+        self.set_attack_distance(3, 6)  # Longer attack distance
 
 
 class AfritEnemy(Enemy):
@@ -400,10 +400,10 @@ class AfritEnemy(Enemy):
 
         # Now we override its speed, health, attack damage, accuracy, and attack distance to make it a more formidable enemy compared to the base Enemy class.
         self.set_speed(0.025)  # Slower than the base enemy
-        self.set_health(250)  # More health than the base enemy
-        self.set_attack_damage(25)  # More damage than the base enemy
-        self.set_accuracy(0.25)  # Higher accuracy than the base enemy
-        self.set_attack_distance(3, 7)  # Longer attack distance
+        self.set_health(300)  # More health than the base enemy
+        self.set_attack_damage(20)  # More damage than the base enemy
+        self.set_accuracy(0.1)  # Lower accuracy than the base enemy because its damage is higher
+        self.set_attack_distance(2, 5)  # Medium attack distance
 
 
 class AnnihilatorEnemy(Enemy):
@@ -430,5 +430,5 @@ class AnnihilatorEnemy(Enemy):
         self.set_speed(0.02)  # Slower than the base enemy
         self.set_health(1000)  # Way more health than the base enemy as this is the final boss
         self.set_attack_damage(25)  # More damage than the base enemy
-        self.set_accuracy(0.2)  # Higher accuracy than the base enemy
+        self.set_accuracy(0.1)  # Lower accuracy than the base enemy because its damage is higher
         self.set_attack_distance(3, 7)  # Longer attack distance

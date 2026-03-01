@@ -681,6 +681,60 @@ For the next sprint, the focus will be on implementing Epic 3 - "Enemy AI & basi
 Additionally, more sprites and textures will be created for environmental details to enhance the visual experience of the game.
 
 
+### Backlog review, burndown chart and development review meeting on 26.02.2026 for the accomplished Sprint 2
+
+The Sprint 2 has finished on 25.02.2026 and the backlog review and sprint review meeting have been conducted on 26.02.2026. 
+During the backlog review, the progress made during Sprint 2 has been assessed.
+From backlog point of view Epic 3 and Epic 4 have been fully completed.
+
+The burndown chart for Sprint 2 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 2 from the scrum backlog.
+
+[<img alt="image" src="images/doc/burndown_chart_sprint_2.png" />](images/doc/burndown_chart_sprint_2.png)
+
+From the development review point of view the following has been accomplished during Sprint 2:
+
+*Design:*
+- Designed shotgun weapon mechanics including firing, ammo management and animation.
+- Design HUD elements to display player health, ammo, score and kill count.
+- Designed Blood Ghost demon with basic attack and interaction mechanics with the player (dealing damage to player and taking damage from player).
+- Designed player health mechanics to reduce health when hit by demon.
+- Designed score and kill count mechanics to increment when an enemy is killed.
+
+
+*Coding:*
+- Coded shotgun rendering.
+- Coded shotgun firing mechanics with ammo management so that shotgun is animated when firing event happens and ammo count is decreased.
+- Coded a simple HUD to display player health, ammo, score and kill count.
+- Coded Blood Ghost demon with basic attack and implemented its interaction with the player (dealing damage to player and taking damage from player).
+- Coded player health mechanics to reduce health when hit by demon.
+- Coded score and kill count increment when an enemy is killed.
+
+
+*Testing:*
+- Tested HUD to show score, ammo, kill count, health and their updates in real time.
+- Tested weapon firing mechanics to ensure the player can shoot and hit enemies correctly.
+- Tested weapon animation to ensure the shotgun firing animation plays correctly when the player shoots.
+- Tested player health mechanics to ensure the player takes damage correctly when hit by demon.
+- Tested enemies kill count and score increment correctly when an enemy is killed.
+- Tested first demon (Blood Ghost) implementation to ensure it is rendered and interacts correctly with the player (taking damage, dealing damage).
+
+*Blockers:*
+
+One blocker has been encountered during Sprint 2. When the work to integrate first demon into the game commenced it was challenging to understand which sprites correspond to which animation frames and how to implement the animation system for the enemy. 
+However, after some research and experimentation, the issue was resolved by creating a simple animation manager that cycles through the appropriate frames based on the enemy's state (idle, walking, attacking) and correct mapping of sprites to demon's actions has been established.
+All other planned tasks and user stories have been completed successfully, and the development process has proceeded as expected without any major issues or obstacles.
+
+*Plan for the next sprint:*
+
+For the next sprint, the focus will be on:
+- Epic 3: implementing three more demons Blood Demon, Abaddon, Afrit.
+- Epic 3: implement 'AI' for demons so that they chase player when player is seen and attack when player is in range.
+- Epic 3: place demons in the game level and test the combat mechanics with them.
+- Epic 3: adjust demon attributes (health, damage) to ensure a balanced and challenging gameplay experience.
+- Epic 3: implement boss demon Annihilator with higher difficulty.
+- Epic 5 - "Sound & Feedback Mechanics" (partially has been done while working on Epic 3 and Epic 4 but will be further expanded with more sound effects).
+- Epic 6 - "Game Flow & Win/Lose Conditions".  
+
 
 ---
 

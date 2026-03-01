@@ -29,6 +29,10 @@ class Player:
         self.enemies_killed = 0
         # Initialize the player's score to 0, which will be used to keep track of the player's points based on their performance in the game.
         self.score = 0
+        # Initialize the health recovery mode to False, which will be used to determine whether the player is currently in a state where they can recover health over time.
+        self.health_recover_mode = False
+        self.health_recovery_delay = 700
+
         self.time_prev = pg.time.get_ticks()
 
     def increase_score(self, points):
@@ -80,11 +84,16 @@ class Player:
         :param damage: This parameter represents the amount of damage that the player will take. It is subtracted from the player's current health to reflect the damage taken by the player.
         :return: None
         '''
+        # Reduce the player's health by the specified damage amount to reflect the damage taken by the player.
         self.health -= damage
         # Call the player_damage_show_blood_screen method of the game's object renderer to display the damage effect on the screen.
         self.game.render_engine.player_damage_show_blood_screen()
         # Play the player pain sound effect using the game's sound manager to provide audio feedback for taking damage.
         self.game.sound_manager.play_player_pain()
+        # After applying the damage and showing the damage effect, it checks if the player's health has dropped below 1.
+        # If the player's health is less than 1, it calls the is_game_over method to handle the game over state,
+        # which involves displaying a game over screen.
+        self.is_game_over()
 
 
     def movement(self):
@@ -164,8 +173,12 @@ class Player:
         '''
             This method updates the player's position and angle based on keyboard and mouse input.
         '''
+        # Update the player's movement based on keyboard input
         self.movement()
+        # Update the player's angle based on mouse input for looking around
         self.mouse_control()
+        # Check if the player is in health recovery mode and recover health if applicable
+        self.recover_player_health()
 
 
     @property
@@ -203,3 +216,33 @@ class Player:
                 self.ammo -= 1
                 # Set the weapon's reloading state to True to trigger the shooting animation and prevent the player from firing again until the animation is complete.
                 self.game.weapon.set_reloading(True)
+
+
+    def check_health_recovery_mode(self):
+        # This method checks if the player is in health recovery mode by comparing the current time with the previous time the player took damage.
+        self.health_recover_mode = False
+        time_now = pg.time.get_ticks()
+        # If the time elapsed since the last time the player took damage exceeds the defined health recovery delay, it sets the health recovery mode to True, allowing the player to start recovering health over time.
+        if time_now - self.time_prev > self.health_recovery_delay:
+            self.time_prev = time_now
+            self.health_recover_mode = True
+
+
+    def recover_player_health(self):
+        # This method checks if the player is in health recovery mode and if their health is below the maximum health.
+        # If both conditions are true, it increases the player's health by 1 point.
+        self.check_health_recovery_mode()
+        if self.health_recover_mode and self.health < PLAYER_MAX_HEALTH:
+            # Increase the player's health by 1 point to allow for gradual health recovery over time.
+            self.health += 2
+
+
+    def is_game_over(self):
+        if self.health < 1:
+            self.game.sound_manager.play_game_over()
+            self.game.render_engine.show_game_over()
+            pg.display.flip()
+            pg.time.delay(4000)
+            from menu import Menu
+            menu = Menu(self.game.get_game_result())
+            menu.run()

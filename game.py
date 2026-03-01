@@ -80,6 +80,9 @@ class Game:
         self.weapon.draw()
         self.hud_screen.draw(self.player.get_player_score(), 1, self.player.get_player_ammo(), self.player.get_player_kill_count(), self.player.get_player_health())
 
+        # Debugging line to display the player's map position on the HUD.
+        # self.hud_screen.draw(self.player.get_player_score(), 1, self.player.get_player_ammo(), self.player.get_player_kill_count(), str(self.player.map_pos))
+
     def check_events(self):
         self.global_trigger = False
         for event in pg.event.get():
@@ -91,6 +94,16 @@ class Game:
 
             # Pass the event to the player's weapon fire event handler to check for shooting actions when the left mouse button is pressed.
             self.player.weapon_fire_event(event)
+
+
+    def get_game_result(self):
+        # Here we capture the results of the game played by a player so that we pass it back to main menu to update the leaderboard if needed
+        game_result = {}
+        game_result["points_scored"] = self.player.get_player_score()
+        game_result["enemies_killed"] = self.player.get_player_kill_count()
+        game_result["levels_cleared"] = 0
+        return game_result
+
 
     def run(self):
         '''
