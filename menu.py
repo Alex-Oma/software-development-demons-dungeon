@@ -40,7 +40,7 @@ class Menu:
                 index_of_current_entry = self.leaderboard["leaderboard"].index(entry)
                 new_entry = {
                     "place": 0,
-                    "player_name": self.player_name,
+                    "player_name": self.game_result["player_name"],
                     "points_scored": self.game_result["points_scored"],
                     "enemies_killed": self.game_result["enemies_killed"],
                     "levels_cleared": self.game_result["levels_cleared"],
@@ -79,7 +79,7 @@ class Menu:
                         sys.exit()
                     elif self.current_menu_option == 2:
                         # New game option is selected
-                        game = Game()
+                        game = Game(self.player_name)
                         game.run()
                     elif self.current_menu_option == 1:
                         # Now we need to show player name selection on the screen

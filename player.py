@@ -239,7 +239,7 @@ class Player:
 
     def is_game_over(self):
         if self.health < 1:
-            self.game.sound_manager.play_game_over()
+            # self.game.sound_manager.play_game_over()
             self.game.render_engine.show_game_over()
             pg.display.flip()
             pg.time.delay(4000)

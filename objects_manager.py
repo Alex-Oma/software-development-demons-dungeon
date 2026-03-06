@@ -67,7 +67,16 @@ class ObjectsManager:
     def update(self):
         self.enemies_positions = {enemy.map_pos for enemy in self.enemies_list if enemy.enemy_alive}
         [enemy.update() for enemy in self.enemies_list]
+        self.is_game_won()
 
     def add_enemy_to_the_game(self, enemy):
         self.enemies_list.append(enemy)
 
+    def is_game_won(self):
+        if self.game.player.map_pos == (62, 30):
+            self.game.render_engine.render_game_won_screen()
+            pg.display.flip()
+            pg.time.delay(4000)
+            from menu import Menu
+            menu = Menu(self.game.get_game_result())
+            menu.run()

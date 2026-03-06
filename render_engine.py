@@ -16,6 +16,8 @@ class RenderEngine:
         self.ceiling_offset = 0
         self.blood_pain_screen = self.get_texture_from_file('assets/textures/blood_screen_texture.png', RES)
         self.game_over_screen = self.get_texture_from_file('assets/textures/game_over_screen_texture.png', RES)
+        self.game_won_image = self.get_texture_from_file('assets/textures/game_won_screen_texture.png', RES)
+
 
 
     def get_wall_textures(self):
@@ -100,3 +102,7 @@ class RenderEngine:
             When the player takes damage, this method blits a blood screen texture onto the game screen to indicate that the player has been hit.
         '''
         self.screen.blit(self.blood_pain_screen, (0, 0))
+
+
+    def render_game_won_screen(self):
+        self.screen.blit(self.game_won_image, (0, 0))

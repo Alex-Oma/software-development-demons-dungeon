@@ -13,7 +13,7 @@ from hud_screen import *
 from chaser import *
 
 class Game:
-    def __init__(self):
+    def __init__(self, player_name):
         '''
             This method initializes the game by setting up the Pygame environment, creating the game window, and initializing the clock for managing the frame rate. It also sets up a global event timer that triggers every 40 milliseconds and calls the `new_game` method to start a new game session.
         '''
@@ -21,6 +21,8 @@ class Game:
         pg.init()
         # Hide the mouse cursor
         pg.mouse.set_visible(False)
+        # Setting the player name
+        self.player_name = player_name
         # Set up the game window with the specified resolution
         self.screen = pg.display.set_mode(RES)
         # Initialize the clock for managing the frame rate
@@ -99,6 +101,7 @@ class Game:
     def get_game_result(self):
         # Here we capture the results of the game played by a player so that we pass it back to main menu to update the leaderboard if needed
         game_result = {}
+        game_result["player_name"] = self.player_name
         game_result["points_scored"] = self.player.get_player_score()
         game_result["enemies_killed"] = self.player.get_player_kill_count()
         game_result["levels_cleared"] = 0
