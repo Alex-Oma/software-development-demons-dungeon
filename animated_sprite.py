@@ -11,7 +11,7 @@ class AnimatedSprite(Sprite):
         The class manages the timing of the animation and updates the sprite's image based on the elapsed time, allowing for smooth animations in the game.
         The images are loaded into a deque to facilitate easy rotation for animation, and the class checks the animation time to determine when to update the sprite's image to the next frame in the animation sequence.
     '''
-    def __init__(self, game, path='assets/sprites/animated/green_light/0.png',
+    def __init__(self, game, path='assets/sprites/animated/ambient_objects/green_light/0.png',
                  pos=(11.5, 3.5), scale=0.8, shift=0.16, animation_time=120):
         # Initialize the animated sprite by calling the parent class constructor and setting up the animation parameters.
         super().__init__(game, path, pos, scale, shift)

@@ -10,64 +10,64 @@
         {
             "place": 2,
             "player_name": "Player1",
+            "points_scored": 1300,
+            "enemies_killed": 13,
+            "levels_cleared": 0
+        },
+        {
+            "place": 3,
+            "player_name": "Player1",
+            "points_scored": 1200,
+            "enemies_killed": 12,
+            "levels_cleared": 0
+        },
+        {
+            "place": 4,
+            "player_name": "Player1",
             "points_scored": 200,
             "enemies_killed": 2,
             "levels_cleared": 0
         },
         {
-            "place": 3,
+            "place": 5,
+            "player_name": "Player1",
+            "points_scored": 200,
+            "enemies_killed": 2,
+            "levels_cleared": 0
+        },
+        {
+            "place": 6,
             "player_name": "Player1",
             "points_scored": 100,
             "enemies_killed": 1,
             "levels_cleared": 0
         },
         {
-            "place": 4,
-            "player_name": "Player1",
-            "points_scored": 1,
-            "enemies_killed": 4,
-            "levels_cleared": 0
-        },
-        {
-            "place": 5,
-            "player_name": "Player1",
-            "points_scored": 1,
-            "enemies_killed": 39,
-            "levels_cleared": 0
-        },
-        {
-            "place": 6,
-            "player_name": "Player1",
-            "points_scored": 1,
-            "enemies_killed": 15,
-            "levels_cleared": 0
-        },
-        {
             "place": 7,
             "player_name": "Player1",
-            "points_scored": 1,
-            "enemies_killed": 14,
+            "points_scored": 100,
+            "enemies_killed": 1,
             "levels_cleared": 0
         },
         {
             "place": 8,
             "player_name": "Player1",
-            "points_scored": 1,
-            "enemies_killed": 10,
+            "points_scored": 100,
+            "enemies_killed": 1,
             "levels_cleared": 0
         },
         {
             "place": 9,
             "player_name": "Player1",
-            "points_scored": 1,
-            "enemies_killed": 8,
+            "points_scored": 100,
+            "enemies_killed": 1,
             "levels_cleared": 0
         },
         {
             "place": 10,
             "player_name": "Player1",
             "points_scored": 1,
-            "enemies_killed": 6,
+            "enemies_killed": 4,
             "levels_cleared": 0
         }
     ]
