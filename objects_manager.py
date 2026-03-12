@@ -65,36 +65,53 @@ class ObjectsManager:
         self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'black_torch/BTORA0.png', pos=(62.8, 27)))
         self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'black_torch/BTORA0.png', pos=(59, 30.8)))
         self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'black_torch/BTORA0.png', pos=(56.2, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(53.8, 10.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(43.2, 10.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(46.8, 13)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(42.2, 11.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(40.2, 13.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(40.8, 10.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(38.8, 13.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(34.2, 10.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(31.8, 10.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(30.2, 10.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(1.2, 15.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(1.2, 13.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(1.2, 20)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(1.2, 25)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(1.2, 30)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(8.8, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(4.2, 18.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(10.2, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(28.8, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(25.8, 27.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_blu_torches/TFBTA0.png', pos=(14.8, 24.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_blu_torches/TFBTA0.png', pos=(14.2, 19.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_blu_torches/TFBTA0.png', pos=(22.8, 21.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_blu_torches/TFBTA0.png', pos=(18.8, 17.5)))
 
 
 
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'black_torch/BTORA0.png', pos=(20.5, 4.5)))
-        #
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_blu_torches/TFBTA0.png', pos=(21.5, 1.5)))
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_bowl/FBWLA0.png', pos=(6.5, 15.5)))
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(8.5, 18.5)))
-
-
-
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'black_torch/BTORA0.png', pos=(20.5, 6.5)))
-        #
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_blu_torches/TFBTA0.png', pos=(25.5, 1.5)))
-        #
-        #
-        #
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/green_torches/TGRNA0.png', pos=(3.5, 7.5)))
-        #
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(13.5, 12.5)))
-        #
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'fire_bowl/FBWLA0.png', pos=(9.5, 15.5)))
-        #
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'more_hexen_candles/SCANA0.png', pos=(8.5, 21.5)))
-        #
-        # self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'stone_torch/blue/STFBA0.png', pos=(10.5, 28.5)))
-
-
-
-
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(43.8, 20.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(43.8, 21.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(38.2, 21.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(45.8, 17.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(30.2, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(39.8, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/red_torches/TREDA0.png', pos=(38.2, 26.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(48.2, 21.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(50.8, 18.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(50.8, 17.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(54.8, 21.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(47.2, 17.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(54.8, 27.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(48.2, 24.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(48.2, 23.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(48.2, 26.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(54.8, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(54.8, 29.2)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(41.2, 30.8)))
+        self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(41.2, 29.2)))
 
 
         # enemies spawn

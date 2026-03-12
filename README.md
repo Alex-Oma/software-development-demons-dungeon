@@ -292,12 +292,12 @@ One story point is equivalent to approximately 3 hours of work for a developer, 
 
 | ID     | Feature / Epic                                                            | User Story                                                                                                                     | Priority | Story Points | Definition of Done / Acceptance Criteria                                                                                                          |
 |--------|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| EPIC 5 | Sound & Feedback Mechanics                                                | As a player, I want immersive sound and visual feedback for hits and kills.                                                    | Medium   | 4            | - Sound effects for shooting, hits, enemy death. <br/>- Visual flash (screen reddens) when hit. <br/>Tests: Take damage; <br/>verify red overlay. |
-| US 5.1 | shotgun rendered                                                          | As a player, I want to be able to see the shotgun being rendered on the screen.                                                | Medium   | 4            | - Shotgun visible on the screen.                                                                                                                  |
-| US 5.2 | shotgun shooting animation                                                | As a player, I want to be able to see the animation for the shotgun being fired.                                               | Medium   | 4            | - Shotgun fired animation is played on the screen.                                                                                                |
-| US 5.3 | shotgun fired sound                                                       | As a player, I want to be able to hear the sound of the shotgun fired.                                                         | Medium   | 4            | - Shotgun sound played upon shotgun being fired.                                                                                                  |
-| US 5.4 | player pain and blood screen animation and sound when player is attacked. | As a player, I want to be able to hear the sound of the my character being damaged and want to be able to see the blood screen | Medium   | 4            | - Player damage sound and blood screen are played.                                                                                                |
-| US 5.5 | demon attack, pain, death sound and visual feedback mechanics             | As a player, I want to be able to hear the sound of the demon being killed and want to be able to see how it dies.             | Medium   | 4            | - Demon death mechanics are played/rendered                                                                                                       |
+| EPIC 5 | Sound & Feedback Mechanics                                                | As a player, I want immersive sound and visual feedback for hits and kills.                                                    | Medium   | 5            | - Sound effects for shooting, hits, enemy death. <br/>- Visual flash (screen reddens) when hit. <br/>Tests: Take damage; <br/>verify red overlay. |
+| US 5.1 | shotgun rendered                                                          | As a player, I want to be able to see the shotgun being rendered on the screen.                                                | Medium   | 1            | - Shotgun visible on the screen.                                                                                                                  |
+| US 5.2 | shotgun shooting animation                                                | As a player, I want to be able to see the animation for the shotgun being fired.                                               | Medium   | 1            | - Shotgun fired animation is played on the screen.                                                                                                |
+| US 5.3 | shotgun fired sound                                                       | As a player, I want to be able to hear the sound of the shotgun fired.                                                         | Medium   | 1            | - Shotgun sound played upon shotgun being fired.                                                                                                  |
+| US 5.4 | player pain and blood screen animation and sound when player is attacked. | As a player, I want to be able to hear the sound of the my character being damaged and want to be able to see the blood screen | Medium   | 1            | - Player damage sound and blood screen are played.                                                                                                |
+| US 5.5 | demon attack, pain, death sound and visual feedback mechanics             | As a player, I want to be able to hear the sound of the demon being killed and want to be able to see how it dies.             | Medium   | 1            | - Demon death mechanics are played/rendered                                                                                                       |
 
 ### Epic 6: Game Flow & Win/Lose Conditions
 
@@ -733,12 +733,109 @@ All other planned tasks and user stories have been completed successfully, and t
 
 For the next sprint, the focus will be on:
 - Epic 3: implementing three more demons Blood Demon, Abaddon, Afrit.
-- Epic 3: implement 'AI' for demons so that they chase player when player is seen and attack when player is in range.
-- Epic 3: place demons in the game level and test the combat mechanics with them.
-- Epic 3: adjust demon attributes (health, damage) to ensure a balanced and challenging gameplay experience.
-- Epic 3: implement boss demon Annihilator with higher difficulty.
-- Epic 5 - "Sound & Feedback Mechanics" (partially has been done while working on Epic 3 and Epic 4 but will be further expanded with more sound effects).
-- Epic 6 - "Game Flow & Win/Lose Conditions".  
+- Epic 3: implementing boss demon Annihilator with higher difficulty than other demons.
+- Epic 5: implementing sound effects for player actions and enemy interactions (e.g. player pain sounds, enemy hit and death sounds, boss defeat sound).
+- Epic 6: implement game over and victory conditions and screens (e.g. transition to game over screen when player health reaches zero, transition to victory screen when boss is defeated and exit door is reached).
+
+
+### Backlog review, burndown chart and development review meeting on 05.03.2026 for the accomplished Sprint 3
+
+The Sprint 3 has finished on 04.03.2026 and the backlog review and sprint review meeting have been conducted on 05.03.2026. 
+During the backlog review, the progress made during Sprint 3 has been assessed.
+From backlog point of view Epic 3, 5 and 6 have been fully completed.
+
+The burndown chart for Sprint 3 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 3 from the scrum backlog.
+
+[<img alt="image" src="images/doc/burndown_chart_sprint_3.png" />](images/doc/burndown_chart_sprint_3.png)
+
+From the development review point of view the following has been accomplished during Sprint 3:
+*Design:*
+- Design game flow and win/lose conditions so that the game transitions to victory screen when boss is defeated and exit door is reached and to game over screen when player health reaches zero.
+- Design game over screen that is displayed when the player's health reaches zero, allowing the player to restart the game or return to the main menu.
+- Design exit door at the end of the game level.
+- Design victory screen that is displayed when the player defeats the boss demon and reaches the exit door, signaling the player's victory and providing an option to restart the game or return to the main menu.
+
+
+*Coding:*
+- Coded three more demons so that they are animated correctly for different events like idle, walk, attack, pain and have their own attributes (health, damage).
+- Coded simple 'AI' for demons so that they chase player when player is seen and attack when player is in range.
+- Placed demons in the game level.
+- Adjusted demon attributes (health, damage) to ensure a balanced and challenging gameplay experience.
+- Implemented boss demon Annihilator with higher difficulty than other demons.
+- Implemented sound effects for player actions and enemy interactions (e.g. player pain sounds, enemy hit and death sounds, boss defeat sound).
+- Coded game over screen that is displayed when the player's health reaches zero, allowing the player to restart the game or return to the main menu.
+- Coded game over logic to transition to the game over screen when player's health reaches zero.
+- Coded victory screen that is displayed when the player defeats the boss demon and reaches the exit door, signaling the player's victory and returning to the main menu.
+- Coded victory logic to transition to the victory screen when boss is defeated and exit door is reached.
+- Coded the exit door on the game level.
+
+
+*Testing:*
+- Test each demon's animation to ensure they are rendered correctly for different events like idle, walk, attack, pain and that their attributes (health, damage) are working as intended.
+- Test demon 'AI' to ensure they chase player when player is seen and attack when player is in range.
+- Test combat mechanics with demons to ensure they interact correctly with the player (dealing damage to player and taking damage from player).
+- Test sound effects to ensure they play correctly for player actions and enemy interactions.
+- Tested exit door to ensure it becomes visible after defeating the boss demon and allows the player to exit the dungeon and win the game.
+- Tested game over screen to ensure it is displayed correctly when the player's health reaches zero and that the options to restart the game or return to the main menu work as intended.
+- Tested game over logic to ensure the game transitions to the game over screen when player's health reaches zero.
+- Tested victory screen to ensure it is displayed correctly when the player defeats the boss demon and reaches the exit door, and that the option to return to the main menu works as intended.
+- Tested victory logic to ensure the game transitions to the victory screen when boss is defeated and exit door is reached.
+
+
+*Blockers:*
+
+One blocker has been encountered during Sprint 2. When the work to integrate first demon into the game commenced it was challenging to understand which sprites correspond to which animation frames and how to implement the animation system for the enemy. 
+However, after some research and experimentation, the issue was resolved by creating a simple animation manager that cycles through the appropriate frames based on the enemy's state (idle, walking, attacking) and correct mapping of sprites to demon's actions has been established.
+All other planned tasks and user stories have been completed successfully, and the development process has proceeded as expected without any major issues or obstacles.
+
+*Plan for the next sprint:*
+
+For the next sprint, the focus will be on:
+- Epic 7: implementing three more demons Blood Demon, Abaddon, Afrit.
+- Epic 8: implement 'AI' for demons so that they chase player when player is seen and attack when player is in range.
+
+
+
+### Backlog review, burndown chart and development review meeting on 11.03.2026 for the accomplished Sprint 4
+
+The Sprint 4 has finished on 11.03.2026 and the backlog review and sprint review meeting have been conducted on 11.03.2026. 
+During the backlog review, the progress made during Sprint 4 has been assessed.
+From backlog point of view Epic 7, 8 and 9 have been fully completed. 
+The epic 9 wasn't planned for the sprint 4, but it has been completed as well as it was possible to complete it in the same sprint.
+
+The burndown chart for Sprint 4 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 4 from the scrum backlog.
+As it can be seen thanks to epic 9 also done in sprint 9 the actual number of story points completed is higher than the planned one for the sprint 4.
+
+[<img alt="image" src="images/doc/burndown_chart_sprint_4.png" />](images/doc/burndown_chart_sprint_4.png)
+
+From the development review point of view the following has been accomplished during Sprint 4:
+
+*Design:*
+- Design layout of the ambient objects in the game level to enhance the visual experience and create a more immersive environment.
+- Design health regeneration mechanics so that player's health regenerates over time when not taking damage.
+
+
+*Coding:*
+- Coded layout of the ambient objects in the game level.
+- Coded health regeneration mechanics so that player's health regenerates over time when not taking damage.
+
+
+*Testing:*
+- Tested layout of the ambient objects in the game level to ensure they are rendered correctly and enhance the visual experience.
+- Tested health regeneration mechanics to ensure player's health regenerates over time when not taking damage and that it does not regenerate when the player is taking damage.
+
+*Blockers:*
+
+No major blockers have been encountered during Sprint 4. 
+
+*Plan for the next sprint:*
+
+For the last sprint 5, the focus will be on epic 10: 
+- Testing the game thoroughly and bug fixing: address any remaining bugs and optimize performance.
+- Test FPS to ensure the game runs smoothly and demonstrates 60 FPS.
+- Test final AI and combat mechanics to ensure they are working as intended and provide a fun and challenging gameplay experience.
+- Testing overall game balance to ensure the game is enjoyable and provides a good level of challenge without being too difficult or too easy.
+- Finish the documentation: ensure all design and development documentation is complete and up to date as per the assignment requirements.
 
 
 ---

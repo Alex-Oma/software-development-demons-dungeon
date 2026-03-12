@@ -10,22 +10,22 @@
         {
             "place": 2,
             "player_name": "Player1",
-            "points_scored": 1300,
-            "enemies_killed": 13,
+            "points_scored": 2400,
+            "enemies_killed": 24,
             "levels_cleared": 0
         },
         {
             "place": 3,
             "player_name": "Player1",
-            "points_scored": 1200,
-            "enemies_killed": 12,
+            "points_scored": 1300,
+            "enemies_killed": 13,
             "levels_cleared": 0
         },
         {
             "place": 4,
             "player_name": "Player1",
-            "points_scored": 200,
-            "enemies_killed": 2,
+            "points_scored": 1200,
+            "enemies_killed": 12,
             "levels_cleared": 0
         },
         {
@@ -38,8 +38,8 @@
         {
             "place": 6,
             "player_name": "Player1",
-            "points_scored": 100,
-            "enemies_killed": 1,
+            "points_scored": 200,
+            "enemies_killed": 2,
             "levels_cleared": 0
         },
         {
@@ -66,8 +66,8 @@
         {
             "place": 10,
             "player_name": "Player1",
-            "points_scored": 1,
-            "enemies_killed": 4,
+            "points_scored": 100,
+            "enemies_killed": 1,
             "levels_cleared": 0
         }
     ]
