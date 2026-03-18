@@ -484,16 +484,24 @@ In this section, the programming language and platform choices for the developme
 In this section, state diagrams for the player and enemy AI are described in text form, outlining the various states and transitions that occur during gameplay. These diagrams help to visualize the flow of actions and reactions for both the player and enemies, providing a clear framework for implementing the game logic.
 
 - Player state diagram (game level exploration and combat):
-  Spawn -> Idle -> (WASD/mouse input) -> Move
-  Move -> [if collides with wall] -> Collide -> Stop
-  Move -> Combat -> (Enemy HP <= 0) -> Enemy defeated -> +score and +kill count -> HUD updated
-  Move -> Combat -> Damage sustained -> Health reduced -> HUD updated -> [if health <= 0] -> Dead -> Game Over -> Game Over Screen -> Main Menu
-  Move -> Combat -> Damage sustained -> Health reduced -> HUD updated -> [if health > 0] -> Idle -> Health regeneration -> Health increased -> HUD updated
-  Move -> Combat -> (Boss Demon HP <= 0) -> Boss Demon defeated -> [if Exit door reached] -> Game Won -> Victory Screen -> Main Menu
+
+Spawn -> Idle -> (WASD/mouse input) -> Move
+
+Move -> [if collides with wall] -> Collide -> Stop
+
+Move -> Combat -> (Enemy HP <= 0) -> Enemy defeated -> +score and +kill count -> HUD updated
+
+Move -> Combat -> Damage sustained -> Health reduced -> HUD updated -> [if health <= 0] -> Dead -> Game Over -> Game Over Screen -> Main Menu
+
+Move -> Combat -> Damage sustained -> Health reduced -> HUD updated -> [if health > 0] -> Idle -> Health regeneration -> Health increased -> HUD updated
+
+Move -> Combat -> (Boss Demon HP <= 0) -> Boss Demon defeated -> [if Exit door reached] -> Game Won -> Victory Screen -> Main Menu
 
 - Enemy state diagram:
-  Spawn -> Idle -> [if player detected & in the line of sight] -> Chase -> [if in attack range] -> Attack -> [if player lost from line of sight] -> Idle
-  Any state -> Damage sustained -> Health reduced -> Pain animation and sound -> [if health > 0] -> Previous state (Idle/Chase/Attack) -> [if health <= 0] -> Dead -> Corpse rendered
+
+Spawn -> Idle -> [if player detected & in the line of sight] -> Chase -> [if in attack range] -> Attack -> [if player lost from line of sight] -> Idle
+  
+Any state -> Damage sustained -> Health reduced -> Pain animation and sound -> [if health > 0] -> Previous state (Idle/Chase/Attack) -> [if health <= 0] -> Dead -> Corpse rendered
 
 
 ### Classes and objects design
