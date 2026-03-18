@@ -31,8 +31,8 @@
         {
             "place": 5,
             "player_name": "Player1",
-            "points_scored": 200,
-            "enemies_killed": 2,
+            "points_scored": 1000,
+            "enemies_killed": 10,
             "levels_cleared": 0
         },
         {
@@ -45,8 +45,8 @@
         {
             "place": 7,
             "player_name": "Player1",
-            "points_scored": 100,
-            "enemies_killed": 1,
+            "points_scored": 200,
+            "enemies_killed": 2,
             "levels_cleared": 0
         },
         {
