@@ -1,6 +1,7 @@
 from global_settings import *
 import pygame as pg
 import math
+from weapon import Weapon
 
 
 class Player:
@@ -34,6 +35,15 @@ class Player:
         self.health_recovery_delay = 700
 
         self.time_prev = pg.time.get_ticks()
+
+        # Initialize weapon inventory and switching system
+        self.weapons = {
+            'shotgun': None,  # Will be initialized after game.weapon is created
+            'an94': None,
+            'minigun': None,
+        }
+        self.current_weapon_id = 'shotgun'
+        self.weapon_switch_blocked_time = 0  # Track when blocked-switch warning was last shown
 
     def increase_score(self, points):
         '''
@@ -179,6 +189,8 @@ class Player:
         self.mouse_control()
         # Check if the player is in health recovery mode and recover health if applicable
         self.recover_player_health()
+        # Update auto-fire for weapons that support hold-to-fire
+        self.update_auto_fire()
 
 
     @property
@@ -197,25 +209,112 @@ class Player:
         return int(self.x), int(self.y)
 
 
+    def get_current_weapon(self):
+        '''
+            This method returns the currently active weapon instance.
+        '''
+        return self.game.weapon
+
+    def switch_weapon(self, weapon_id):
+        '''
+            This method switches to the specified weapon if not currently reloading/animating.
+            :param weapon_id: The weapon id to switch to ('shotgun', 'an94', 'minigun')
+        '''
+        # Check if a switch is blocked due to current weapon reloading
+        if self.game.weapon.is_reloading():
+            # Trigger blocked-switch warning event
+            self.weapon_switch_blocked_time = pg.time.get_ticks()
+            return False
+
+        # Switch weapon if different from current
+        if weapon_id != self.current_weapon_id:
+            self.current_weapon_id = weapon_id
+            # Create new weapon instance with the selected weapon id
+            self.game.weapon = Weapon(self.game, weapon_id=weapon_id)
+            self.game.weapon.reset_fire_cooldown()
+            return True
+        return False
+
+    def try_switch_weapon(self, weapon_id):
+        '''
+            This method attempts to switch weapons and returns True if successful, False if blocked.
+        '''
+        return self.switch_weapon(weapon_id)
+
+    def is_weapon_switch_blocked_warning_active(self):
+        '''
+            This method checks if the blocked-switch warning should be displayed (within 0.8s and not rate-limited).
+        '''
+        if self.weapon_switch_blocked_time == 0:
+            return False
+        elapsed = (pg.time.get_ticks() - self.weapon_switch_blocked_time) / 1000.0
+        return elapsed < WEAPON_SWITCH_BLOCK_MSG_DURATION
+
     def weapon_fire_event(self, event):
         '''
-            This method handles the event of firing the weapon when the left mouse button is pressed.
-            It checks if the player has not already fired a shot and if the weapon is not currently reloading before allowing the player to fire.
-            When the left mouse button is pressed, it plays the shotgun sound effect, sets the shot state to True, and sets the weapon's reloading state to True to trigger the shooting animation.
-            :param event: This parameter represents the event object that is passed to the method when a mouse button is pressed. It contains information about the type of event and the specific button that was pressed.
+            This method handles weapon firing events (single-shot for shotgun, auto-fire tracking for an94/minigun).
+            It also handles weapon switching via 1/2/3 keys and manages blocking during reload.
+            :param event: The pygame event object
         '''
-        # Check if the event is a mouse button down event
+        current_weapon = self.get_current_weapon()
+
+        # Handle weapon switching via 1/2/3 keys
+        if event.type == pg.KEYDOWN:
+            if event.key in WEAPON_SLOT_KEYS:
+                weapon_id = WEAPON_SLOT_KEYS[event.key]
+                self.try_switch_weapon(weapon_id)
+
+        # Handle firing
         if event.type == pg.MOUSEBUTTONDOWN:
-            # Check if the left mouse button (button 1) is pressed, and if the player has not already fired a shot and the weapon is not currently reloading
-            if event.button == 1 and not self.weapon_shot and not self.game.weapon.is_reloading():
-                # Play the shotgun sound effect using the game's sound manager
-                self.game.sound_manager.play_shotgun()
-                # Set the player's shot state to True to indicate that the player has fired a shot
+            if event.button == 1:  # Left mouse button
+                # For single-shot weapons (shotgun)
+                if not current_weapon.is_auto_fire():
+                    if not self.weapon_shot and not current_weapon.is_reloading():
+                        # Play weapon-specific sound
+                        self.game.sound_manager.play_weapon_sound(current_weapon.get_weapon_sound_id())
+                        # Set the shot state to True
+                        self.weapon_shot = True
+                        # Reduce ammo
+                        self.ammo -= 1
+                        # Trigger reload/animation
+                        current_weapon.set_reloading(True)
+                else:
+                    # For auto-fire weapons, just mark button as pressed (tracking continues in update loop)
+                    pass
+
+        # Handle mouse button release for auto-fire weapons
+        elif event.type == pg.MOUSEBUTTONUP:
+            if event.button == 1:
+                # Auto-fire tracking stops here, will be handled in update() based on key press
+                pass
+
+
+    def update_auto_fire(self):
+        '''
+            This method handles continuous fire for auto-fire weapons (an94, minigun) when mouse button is held.
+        '''
+        current_weapon = self.get_current_weapon()
+
+        # Only process auto-fire if weapon supports it
+        if not current_weapon.is_auto_fire():
+            return
+
+        # Check if left mouse button is currently pressed
+        mouse_buttons = pg.mouse.get_pressed()
+        if mouse_buttons[0]:  # Left mouse button is pressed
+            # Fire if weapon cooldown allows and not currently animating
+            if current_weapon.can_fire() and not current_weapon.is_reloading():
+                # Play weapon-specific sound
+                self.game.sound_manager.play_weapon_sound(current_weapon.get_weapon_sound_id())
+                # Set weapon_shot to True so enemies can detect the hit
                 self.weapon_shot = True
-                # Reduce the player's ammo count by 1 to reflect the shot that was fired.
+                # Reduce ammo
                 self.ammo -= 1
-                # Set the weapon's reloading state to True to trigger the shooting animation and prevent the player from firing again until the animation is complete.
-                self.game.weapon.set_reloading(True)
+                # Trigger animation
+                current_weapon.set_reloading(True)
+        else:
+            # Reset weapon_shot when mouse button is released
+            self.weapon_shot = False
 
 
     def check_health_recovery_mode(self):

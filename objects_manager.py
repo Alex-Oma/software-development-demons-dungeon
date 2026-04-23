@@ -9,7 +9,39 @@ class ObjectsManager:
         self.enemies_positions = {}
         self.enemies_list = []
         self.ambient_objects_list = []
+        self.armor_objects_list = []
         self.ambient_sprites_path = 'assets/sprites/animated/ambient_objects/'
+        self.armor_sprites_path = 'assets/sprites/animated/armor/'
+        self.topup_sprites_path = 'assets/sprites/static/'
+
+        self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(1.2, 30.7), scale=0.2, shift=2.0))
+        self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(56.8, 3.3), scale=0.2, shift=2.0))
+        self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(59.5, 19.7), scale=0.2, shift=2.0))
+        self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(46, 24), scale=0.2, shift=2.0))
+        self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(37.5, 12.5), scale=0.2, shift=2.0))
+
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(10.7, 10), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(16.8, 4.9), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(31.5, 2), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(39.4, 2), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(41.5, 1.5), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(57, 28), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(8.5, 30.5), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(4.5, 28.5), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(22.7, 20), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(28.7, 22), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(27.5, 23), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(21, 30), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(35.2, 27), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(54.6, 30), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(41.2, 29.9), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(50.6, 18), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(48.2, 21), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(62.7, 1.5), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(44.2, 8), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(58, 17.2), scale=0.2, shift=2.0))
+        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(52.2, 18.8), scale=0.2, shift=2.0))
+
 
         self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(1.2, 1.5)))
         self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(1.2, 5.5)))
@@ -118,6 +150,8 @@ class ObjectsManager:
         # Final boss demon at the end of the map
         self.add_enemy_to_the_game(AnnihilatorEnemy(game, pos=(60.0, 29.0)))
         # Other enemies scattered around the map
+        self.add_enemy_to_the_game(AguaresEnemy(game, pos=(10, 13)))
+        self.add_enemy_to_the_game(CeltEnemy(game, pos=(37, 11)))
         self.add_enemy_to_the_game(BloodGhostEnemy(game, pos=(13.0, 5.0)))
         self.add_enemy_to_the_game(BloodGhostEnemy(game, pos=(28.0, 3.0)))
         self.add_enemy_to_the_game(BloodGhostEnemy(game, pos=(9.0, 10.0)))
@@ -168,6 +202,7 @@ class ObjectsManager:
     def update(self):
         self.enemies_positions = {enemy.map_pos for enemy in self.enemies_list if enemy.enemy_alive}
         [sprite.update() for sprite in self.ambient_objects_list]
+        [sprite.update() for sprite in self.armor_objects_list]
         [enemy.update() for enemy in self.enemies_list]
         self.is_game_won()
 
@@ -185,3 +220,6 @@ class ObjectsManager:
             from menu import Menu
             menu = Menu(self.game.get_game_result())
             menu.run()
+
+    def add_armor_object(self, sprite):
+        self.armor_objects_list.append(sprite)

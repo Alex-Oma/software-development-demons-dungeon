@@ -432,3 +432,65 @@ class AnnihilatorEnemy(Enemy):
         self.set_attack_damage(25)  # More damage than the base enemy
         self.set_accuracy(0.1)  # Lower accuracy than the base enemy because its damage is higher
         self.set_attack_distance(3, 7)  # Longer attack distance
+
+
+class AguaresEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/Aguares/AGURA1C1.png', pos=(5.5, 3.5),
+                 scale=0.8, shift=0.2, animation_time=180, prefix='AGUR'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        # IDLE: Aguares standing/idle animation using AGAS series (A0 to D0)
+        self.idle_images = self.get_event_images(self.path, ["A0.png", "B0.png", "C0.png", "D0.png"], prefix='AGAS')
+
+        # WALK: Use a strictly front-facing loop only, so Aguares moves without rotating/spinning.
+        # These are the mirrored forward-walk frames only; no side/back rotation frames.
+        self.walk_images = self.get_event_images(
+            self.path,
+            ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"],
+            prefix='AGUR'
+        )
+
+        # ATTACK: Wind-up (E1), Fire/Strike (F1), Follow-through (G1) - Front-facing only
+        self.attack_images = self.get_event_images(self.path, ["E1.png", "F1.png", "G1.png"], prefix)
+
+        # PAIN: Pain/damage reaction frame (H1 - front-facing only)
+        self.pain_images = self.get_event_images(self.path, ["H1.png"], prefix)
+
+        # DEATH: Aguares death sequence using BLVB frames
+        self.death_images = self.get_event_images(self.path, ["A1.png", "A2A8.png", "A3A7.png", "A4A6.png", "A5.png", "B1.png"], prefix='BLVB')
+
+        # --- Combat Stats ---
+        self.set_speed(0.04)  # Fast movement speed
+        self.set_health(250)  # Moderate health pool
+        self.set_attack_damage(18)  # High damage output
+        self.set_accuracy(0.18)  # Good accuracy
+        self.set_attack_distance(2, 5)  # Medium attack range
+
+class CeltEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/Celt/CELTA1C1.png', pos=(5.5, 3.5),
+                 scale=0.75, shift=0.35, animation_time=180, prefix='CELT'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        # ATTACK: Use only the front-facing attack frames so Celt attacks without spinning.
+        # These frames keep the enemy locked toward the player during the attack animation.
+        self.attack_images = self.get_event_images(self.path, ["E1I1.png", "F1J1.png", "G1K1.png", "H1L1.png"], prefix='CELT')
+
+        # DEATH: Celt death sequence using IRME frames (long death sequence with many frames)
+        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "ABCDEFGHIJ"], prefix='IRME')
+
+        # IDLE: Celt standing/idle animation using CELTA/CELTB series (mirrored walk cycle for idle)
+        self.idle_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix)
+
+        # PAIN: Pain/damage reaction frame using CELTQ sequence
+        self.pain_images = self.get_event_images(self.path, ["Q1.png", "Q2.png"], prefix)
+
+        # WALK: Use only the front-facing mirrored walk loop so Celt moves without spinning.
+        self.walk_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix)
+
+        # Now we override its speed, health, attack damage, accuracy, and attack distance to make it a formidable melee enemy
+        self.set_speed(0.038)  # Good movement speed
+        self.set_health(220)  # Solid health pool
+        self.set_attack_damage(17)  # Strong melee damage
+        self.set_accuracy(0.19)  # Very good accuracy
+        self.set_attack_distance(2, 4)  # Close-range melee combat
+

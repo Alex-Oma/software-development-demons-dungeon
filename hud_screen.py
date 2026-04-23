@@ -5,6 +5,19 @@ class HudScreen:
     def __init__(self, game):
         self.game = game
         self.font = pg.font.Font(FONT, 60)
+        self.small_font = pg.font.Font(FONT, 40)
+
+        # Load weapon icons for HUD display
+        self.weapon_icons = {}
+        for weapon_id, config in WEAPON_CONFIG.items():
+            try:
+                icon_img = pg.image.load(config['icon_path']).convert_alpha()
+                # Scale icon to fit HUD (120x80 pixels)
+                icon_img = pg.transform.scale(icon_img, (120, 80))
+                self.weapon_icons[weapon_id] = icon_img
+            except Exception as e:
+                print(f"Failed to load weapon icon for {weapon_id}: {e}")
+                self.weapon_icons[weapon_id] = None
 
     def draw(self, score, level, ammo, enemies_killed, player_health):
         # Here, this method is used to draw the player's image on the level.
@@ -13,6 +26,10 @@ class HudScreen:
         self.show_ammo(ammo)
         self.show_enemies_killed(enemies_killed)
         self.show_player_health(player_health)
+        # Draw active weapon icon and name
+        self.show_active_weapon()
+        # Draw blocked-switch warning if applicable
+        self.show_weapon_switch_blocked_warning()
 
 
     # Here, this function displays the variable score on the screen of the game and keeps count of the player's score and sets the font and size of the text.
@@ -59,3 +76,33 @@ class HudScreen:
         text = self.font.render("Player Health: " + str(player_health), True, RED)
         self.game.screen.blit(text, [1080, 0])
 
+    def show_active_weapon(self):
+        '''
+            This method displays the currently active weapon icon and name on the HUD.
+            The weapon icon is displayed in the bottom-right corner, with the weapon name displayed below it.
+        '''
+        current_weapon = self.game.player.get_current_weapon()
+        weapon_id = self.game.player.current_weapon_id
+        weapon_name = current_weapon.get_weapon_name()
+
+        # Draw weapon icon in bottom-right corner
+        icon_x = WIDTH - 150
+        icon_y = HEIGHT - 150
+
+        if weapon_id in self.weapon_icons and self.weapon_icons[weapon_id] is not None:
+            self.game.screen.blit(self.weapon_icons[weapon_id], (icon_x, icon_y))
+
+        # Draw weapon name below icon
+        name_text = self.small_font.render(weapon_name, True, YELLOW)
+        self.game.screen.blit(name_text, (icon_x +20, icon_y + 85))
+
+    def show_weapon_switch_blocked_warning(self):
+        '''
+            This method displays the blocked weapon-switch warning message if a switch was recently blocked.
+            The message displays for 0.8 seconds and is rate-limited to avoid spam.
+        '''
+        if self.game.player.is_weapon_switch_blocked_warning_active():
+            warning_text = self.small_font.render(WEAPON_SWITCH_BLOCK_MSG, True, RED)
+            text_width = warning_text.get_width()
+            # Center the warning at the top of the screen
+            self.game.screen.blit(warning_text, (HALF_WIDTH - text_width // 2, 80))

@@ -50,7 +50,8 @@ class Game:
         self.render_engine = RenderEngine(self)
         self.raycaster = Raycaster(self)
         self.objects_manager = ObjectsManager(self)
-        self.weapon = Weapon(self)
+        # Initialize the default weapon (shotgun) for the player
+        self.weapon = Weapon(self, weapon_id='shotgun')
         self.chaser = Chaser(self)
         self.sound_manager = SoundManager(self)
         pg.mixer.music.play(-1)

@@ -129,3 +129,66 @@ PERMITTED_KEYS_FOR_PLAYER_NAME = [
     pygame.K_y,
     pygame.K_z,
 ]
+
+# Weapon settings
+WEAPON_SLOT_KEYS = {
+    pygame.K_1: 'shotgun',
+    pygame.K_2: 'an94',
+    pygame.K_3: 'minigun',
+}
+
+WEAPON_SWITCH_BLOCK_MSG = 'Cannot switch while reloading'
+WEAPON_SWITCH_BLOCK_MSG_DURATION = 0.8
+WEAPON_SWITCH_BLOCK_MSG_COOLDOWN = 0.8
+
+WEAPON_CONFIG = {
+    'shotgun': {
+        'name': 'Shotgun',
+        'path': 'assets/sprites/weapon/shotgun/0.png',
+        'idle_sprites': ['assets/sprites/weapon/shotgun/0.png'],
+        'fire_sprites': ['assets/sprites/weapon/shotgun/1.png', 'assets/sprites/weapon/shotgun/2.png',
+                         'assets/sprites/weapon/shotgun/3.png', 'assets/sprites/weapon/shotgun/4.png',
+                         'assets/sprites/weapon/shotgun/5.png'],
+        'icon_path': 'assets/sprites/weapon/shotgun/SGNPA0.png',
+        'scale': 0.4,
+        'animation_time': 90,
+        'damage': 50,
+        'fire_delay_ms': 450,
+        'auto_fire': False,
+        'sound_id': 'shotgun',
+    },
+    'an94': {
+        'name': 'AN94',
+        'path': 'assets/sprites/weapon/an94/AN94A0.png',
+        'idle_sprites': ['assets/sprites/weapon/an94/AN94A0.png'],
+        'fire_sprites': [
+            ['assets/sprites/weapon/an94/MZZLA0.png', 'assets/sprites/weapon/an94/AN94A0.png'],
+            ['assets/sprites/weapon/an94/MZZLB0.png', 'assets/sprites/weapon/an94/AN94A0.png'],
+            ['assets/sprites/weapon/an94/MZZLC0.png', 'assets/sprites/weapon/an94/AN94A0.png'],
+            ['assets/sprites/weapon/an94/MZZLD0.png', 'assets/sprites/weapon/an94/AN94A0.png']
+        ],
+        'icon_path': 'assets/sprites/weapon/an94/AN9PZ0.png',
+        'scale': 2.7,
+        'animation_time': 70,
+        'damage': 20,
+        'fire_delay_ms': 140,
+        'auto_fire': True,
+        'sound_id': 'an94',
+    },
+    'minigun': {
+        'name': 'Minigun',
+        'path': 'assets/sprites/weapon/minigun/MNGGA0.png',
+        'idle_sprites': ['assets/sprites/weapon/minigun/MNGGA0.png'],
+        'fire_sprites': [
+            ['assets/sprites/weapon/minigun/MNGFA0.png', 'assets/sprites/weapon/minigun/MNGGA0.png'],
+            ['assets/sprites/weapon/minigun/MNGFB0.png', 'assets/sprites/weapon/minigun/MNGGB0.png']
+        ],
+        'icon_path': 'assets/sprites/weapon/minigun/MNGNA0.png',
+        'scale': 4.4,
+        'animation_time': 45,
+        'damage': 10,
+        'fire_delay_ms': 70,
+        'auto_fire': True,
+        'sound_id': 'minigun',
+    },
+}
