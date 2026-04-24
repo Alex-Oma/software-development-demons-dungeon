@@ -379,7 +379,7 @@ In this section, the design and development strategies for *Demons Dungeon* are 
 
 - Start with a minimal viable product (MVP) that includes basic player movement and raycasting rendering to establish the core gameplay loop early.
 - Iteratively add features such as enemy AI, combat mechanics, and HUD elements in subsequent sprints, allowing for continuous testing and refinement.
-- Use a modular design approach, separating concerns into distinct classes and modules (e.g. Player, Enemy, RenderEngine) to improve code maintainability and scalability. Place all constants into a separate configuration file to allow for easy adjustments without modifying core code. 
+- Use a modular design approach, separating concerns into distinct classes and modules (e.g. Player, Enemy, RenderEngine) to improve code maintainability and scalability. Place all constants into a separate configuration file to allow for easy adjustments without modifying core code.
 - For the classes and objects design, follow the Single Responsibility Principle to ensure that each class has a clear and focused purpose, which will help in maintaining a clean and modular codebase. For example, the `Player` class should only manage player-related attributes and behaviors, while the `RenderEngine` should solely handle rendering logic.
 - Adopt a data-driven approach for level design, allowing for easier updates and modifications without changing core code (e.g. loading maps from files, separate files for sprites).
 - Asset management: keep assets organised in a structured directory (e.g. `assets/textures/`, `assets/sprites/`, `assets/sounds/`) and load them dynamically to allow for easy updates and modifications.
@@ -403,20 +403,20 @@ In this section, the design and development strategies for *Demons Dungeon* are 
 In this section, the narrative elements of *Demons Dungeon* are outlined, including the story premise, main character, enemy types, and the player motivation loop. The story and characters are designed to fit the dark, horror-themed atmosphere of the game while providing clear motivations for the player's actions and progression through the game.
 
 - Story (short): The player is an exorcist trapped in a decrepit dungeon beneath an old citadel. Demonic creatures have overrun the tunnels; defeat them, reach the boss chamber, kill the boss demon and reach the exit door.
-- Main character: First person player. Player can assign a name before the new game starts. Player is armed with a shotgun and has limited ammo and health. 
+- Main character: First person player. Player can assign a name before the new game starts. Player is armed with a shotgun and has limited ammo and health.
 - Enemy types:
   - Basic: low health so easier to be killed, patrols small corridors, low damage when player is hit, short-range attack.
   - Medium: medium health, ranged attack, larger damage caused on player when hit, move fast.
   - Advanced: slower, higher health, charges at player when spotted.
   - Boss Demon: large health pool, area attacks and larger health damage on player, triggers victory on defeat (when exit door is reached).
-- Player motivation loop (need/reward/challenge): Players have a clear need (survive & reach exit). They receive rewards for defeating enemies (score and increased kill count, progression through the game level) and face escalating challenges (denser patrols, stronger enemies, boss demon). Ultimate player's motivation is to survive the dungeon, defeat the demons, and escape through the exit door. Final reward for the player if a spot in top 10 leaderboard is secured by achieving high score from many enemies being defeated. 
+- Player motivation loop (need/reward/challenge): Players have a clear need (survive & reach exit). They receive rewards for defeating enemies (score and increased kill count, progression through the game level) and face escalating challenges (denser patrols, stronger enemies, boss demon). Ultimate player's motivation is to survive the dungeon, defeat the demons, and escape through the exit door. Final reward for the player if a spot in top 10 leaderboard is secured by achieving high score from many enemies being defeated.
 
 ### Environment, levels & artwork descriptions
 
 In this section, the design choices for the game environment, level design, and artwork are outlined, detailing how they contribute to the overall atmosphere and gameplay experience of *Demons Dungeon*. The environment is designed to evoke a dark, foreboding dungeon atmosphere consistent with the game's theme, while the level design focuses on creating engaging and challenging layouts for players to navigate. The artwork is crafted to enhance the retro aesthetic of the game while providing clear visual cues for gameplay.
 
-- Environment: low-res texture in `assets/menu/` and true-type font in `assets/font/` are used for the main game menu and HUD labels; wall and floor textures should be stored in `assets/textures/` and loaded by the renderer. The visual aesthetic is intentionally pixelated and limited palette. Font (AmazDooM family in `assets/font/`) give the retro Doom-style look. 
-- Level design: primary level is a maze-like dungeon represented by a 2D grid map. Example encoding: 1 = wall, 0 = floor, S = spawn, B = boss room. 
+- Environment: low-res texture in `assets/menu/` and true-type font in `assets/font/` are used for the main game menu and HUD labels; wall and floor textures should be stored in `assets/textures/` and loaded by the renderer. The visual aesthetic is intentionally pixelated and limited palette. Font (AmazDooM family in `assets/font/`) give the retro Doom-style look.
+- Level design: primary level is a maze-like dungeon represented by a 2D grid map. Example encoding: 1 = wall, 0 = floor, S = spawn, B = boss room.
 - Artwork: sprites for enemies and weapons use simple frames to convey animation. Sprite are kept small and consistent (64x64 or 128x128 frames) to match raycasting scale.
 
 
@@ -424,9 +424,9 @@ In this section, the design choices for the game environment, level design, and 
 
 The sample game level design is presented on the following image.
 S - denotes the player spawn point, B denotes the boss demon room, D denotes various demons spawn points, and E denotes the exit door that unlocks after defeating the boss demon.
-The level is designed to be a maze-like dungeon with multiple corridors and rooms, providing opportunities for exploration and combat encounters with enemies. 
+The level is designed to be a maze-like dungeon with multiple corridors and rooms, providing opportunities for exploration and combat encounters with enemies.
 The layout encourages players to navigate from the top left spawn point through the environment strategically while facing challenges from patrolling demons and ultimately reaching the boss demon in the bottom right chamber. Overall the game level is to contain a mix of narrow corridors, wider corridors and medium-sized and large open chambers where player can strafe when in combat with demons.
-If time permits the game level has to contain various ambient light sources like torches and lamps to make the game level immersive. Walls are to be rendered using several textures. 
+If time permits the game level has to contain various ambient light sources like torches and lamps to make the game level immersive. Walls are to be rendered using several textures.
 
 [<img alt="image" src="images/doc/game_level_design.png" />](images/doc/game_level_design.png)
 
@@ -454,7 +454,7 @@ In this section, the game loop and player motivation loop are described in detai
 - Player state: {health, ammo, score, position on the game level, current weapon}
 - Need: survive & reach boss demon, maintain ammo and health allowing health to regenerate after getting damage from enemies.
 - Reward: +score per kill and increased kill count displayed on HUD, unlocking new area after clearing room and progression through the game level.
-- Challenge: enemy variety and patrol density on the game level. 
+- Challenge: enemy variety and patrol density on the game level.
 - Loop design: short loops (kill enemies -> earns score -> immediate reward) and long loops (clear level -> boss -> victory -> place in the top 10 leaderboard) are balanced to keep player engaged.
 
 
@@ -472,10 +472,10 @@ In this section, the design choices for the user interface (UI) of the game are 
 
 In this section, the programming language and platform choices for the development of the game are outlined. The chosen language and platform should support the requirements of the game while allowing for efficient development and a smooth gameplay experience.
 
-- Primary language: Python 3.12. 
+- Primary language: Python 3.12.
 - Game engine: the rendering/input/audio stack is implemented with PyGame engine.
 - Platform: cross-platform desktop (Windows primary development environment). Persisted data uses simple JSON files e.g. game's leaderboard data.
-- Development environment: PyCharm for code editing, debugging, and version control integration. 
+- Development environment: PyCharm for code editing, debugging, and version control integration.
 - GitHub for source code management and collaboration.
 
 
@@ -500,7 +500,7 @@ Move -> Combat -> (Boss Demon HP <= 0) -> Boss Demon defeated -> [if Exit door r
 - Enemy state diagram:
 
 Spawn -> Idle -> [if player detected & in the line of sight] -> Chase -> [if in attack range] -> Attack -> [if player lost from line of sight] -> Idle
-  
+
 Any state -> Damage sustained -> Health reduced -> Pain animation and sound -> [if health > 0] -> Previous state (Idle/Chase/Attack) -> [if health <= 0] -> Dead -> Corpse rendered
 
 
@@ -848,7 +848,7 @@ Before any pathfinding can occur, the level's map must be represented as a graph
 
 #### Breadth-First Search Algorithm
 
-The core of the pathfinding logic is the `breadth_first_search` method. 
+The core of the pathfinding logic is the `breadth_first_search` method.
 
 `breadth_first_search(self, start, goal, graph)`
 
@@ -1213,7 +1213,7 @@ In this section evidence of regular backlog reviews, a maintained burndown chart
 
 ### Backlog review, burndown chart and development review meeting on 18.02.2026 for the accomplished Sprint 1
 
-The Sprint 1 has finished on 17.02.2026 and the backlog review and sprint review meeting have been conducted on 18.02.2026. 
+The Sprint 1 has finished on 17.02.2026 and the backlog review and sprint review meeting have been conducted on 18.02.2026.
 During the backlog review, the progress made during Sprint 1 has been assessed.
 From backlog point of view Epic 1 with all three user stories US 1.1, US 1.2, US 1.3 has been fully completed.
 Moreover, Epic 2 with its user story US 2.1 has been completed as well despite it has been planned for Sprint 2.
@@ -1269,7 +1269,7 @@ For the next sprint, the focus will be on implementing Epic 3 - "Enemy AI & basi
 
 ### Backlog review, burndown chart and development review meeting on 26.02.2026 for the accomplished Sprint 2
 
-The Sprint 2 has finished on 25.02.2026 and the backlog review and sprint review meeting have been conducted on 26.02.2026. 
+The Sprint 2 has finished on 25.02.2026 and the backlog review and sprint review meeting have been conducted on 26.02.2026.
 During the backlog review, the progress made during Sprint 2 has been assessed.
 From backlog point of view Epic 3 and Epic 4 have been fully completed.
 
@@ -1306,7 +1306,7 @@ From the development review point of view the following has been accomplished du
 
 *Blockers:*
 
-One blocker has been encountered during Sprint 2. When the work to integrate first demon into the game commenced it was challenging to understand which sprites correspond to which animation frames and how to implement the animation system for the enemy. 
+One blocker has been encountered during Sprint 2. When the work to integrate first demon into the game commenced it was challenging to understand which sprites correspond to which animation frames and how to implement the animation system for the enemy.
 However, after some research and experimentation, the issue was resolved by creating a simple animation manager that cycles through the appropriate frames based on the enemy's state (idle, walking, attacking) and correct mapping of sprites to demon's actions has been established.
 All other planned tasks and user stories have been completed successfully, and the development process has proceeded as expected without any major issues or obstacles.
 
@@ -1321,7 +1321,7 @@ For the next sprint, the focus will be on:
 
 ### Backlog review, burndown chart and development review meeting on 05.03.2026 for the accomplished Sprint 3
 
-The Sprint 3 has finished on 04.03.2026 and the backlog review and sprint review meeting have been conducted on 05.03.2026. 
+The Sprint 3 has finished on 04.03.2026 and the backlog review and sprint review meeting have been conducted on 05.03.2026.
 During the backlog review, the progress made during Sprint 3 has been assessed.
 From backlog point of view Epic 3, 5 and 6 have been fully completed.
 
@@ -1385,9 +1385,9 @@ For the next sprint, the focus will be on:
 
 ### Backlog review, burndown chart and development review meeting on 11.03.2026 for the accomplished Sprint 4
 
-The Sprint 4 has finished on 11.03.2026 and the backlog review and sprint review meeting have been conducted on 11.03.2026. 
+The Sprint 4 has finished on 11.03.2026 and the backlog review and sprint review meeting have been conducted on 11.03.2026.
 During the backlog review, the progress made during Sprint 4 has been assessed.
-From backlog point of view Epic 7, 8 and 9 have been fully completed. 
+From backlog point of view Epic 7, 8 and 9 have been fully completed.
 The epic 9 wasn't planned for the sprint 4, but it has been completed as well as it was possible to complete it in the same sprint.
 
 The burndown chart for Sprint 4 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 4 from the scrum backlog.
@@ -1413,11 +1413,11 @@ From the development review point of view the following has been accomplished du
 
 *Blockers:*
 
-No major blockers have been encountered during Sprint 4. 
+No major blockers have been encountered during Sprint 4.
 
 *Plan for the next sprint:*
 
-For the last sprint 5, the focus will be on epic 10: 
+For the last sprint 5, the focus will be on epic 10:
 - Testing the game thoroughly and bug fixing: address any remaining bugs and optimize performance.
 - Test FPS to ensure the game runs smoothly and demonstrates 60 FPS.
 - Test final AI and combat mechanics to ensure they are working as intended and provide a fun and challenging gameplay experience.
@@ -1427,9 +1427,9 @@ For the last sprint 5, the focus will be on epic 10:
 
 ### Backlog review, burndown chart and development review meeting on 17.03.2026 for the accomplished Sprint 5
 
-The Sprint 5 has finished on 17.03.2026 and the backlog review and sprint review meeting have been conducted on 18.03.2026. 
+The Sprint 5 has finished on 17.03.2026 and the backlog review and sprint review meeting have been conducted on 18.03.2026.
 During the backlog review, the progress made during Sprint 5 has been assessed.
-From backlog point of view Epic 10 has been fully completed. 
+From backlog point of view Epic 10 has been fully completed.
 
 The burndown chart for Sprint 5 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 5 from the scrum backlog.
 As it can be seen all planned story points for the sprint 5 have been completed.
@@ -1449,7 +1449,7 @@ From the development review point of view the following has been accomplished du
 
 *Blockers:*
 
-No major blockers have been encountered during Sprint 5. 
+No major blockers have been encountered during Sprint 5.
 
 ---
 
@@ -1457,7 +1457,7 @@ No major blockers have been encountered during Sprint 5.
 
 
 In this section, test cases are defined and executed to verify the functionality of the game based on the user and system requirements.
-The test cases cover various aspects of the game, including player movement, combat mechanics, enemy behavior, health system, win/lose conditions, rendering, HUD updates, audio feedback, and performance. 
+The test cases cover various aspects of the game, including player movement, combat mechanics, enemy behavior, health system, win/lose conditions, rendering, HUD updates, audio feedback, and performance.
 Each test case includes a unique ID, attribution to an epic and/or user story, a description of the test, preconditions that must be met before executing the test, the expected outcome to determine if the test passes or fails and the actual outcome of the test together with pass or fail outcome.
 
 
@@ -1506,6 +1506,344 @@ Each test case includes a unique ID, attribution to an epic and/or user story, a
 | EPIC9              | TC-39        | Verify fire blu torch ambient object is animated correctly from its sprites.        | Player plays the game and fire blu torch is in line of sight.                                                                                                                                                                                                                                                                                     | Fire blu torch is animated from its sprites correctly.                                                                                                                                                                                                                                                                                                                          | Fire blue torch is animated successfully showing flickering flame.                                                                                                                                                                                                                                                                                       | [<img alt="image" src="images/test_evidence/epic_9/fire_blue_torch_test_case.png" />](images/test_evidence/epic_9/fire_blu_torch_test_case.png)                                                                                                                                    | YES     |
 | EPIC9              | TC-40        | Verify red torch ambient object is animated correctly from its sprites.             | Player plays the game and red torch is in line of sight.                                                                                                                                                                                                                                                                                          | Red torch is animated from its sprites correctly.                                                                                                                                                                                                                                                                                                                               | Red torch is animated successfully showing flickering red flame.                                                                                                                                                                                                                                                                                         | [<img alt="image" src="images/test_evidence/epic_9/red_torch_test_case.png" />](images/test_evidence/epic_9/red_torch_test_case.png)                                                                                                                                               | YES     |
 
+
+---
+
+## Evaluation of the game development process and final product
+
+As the result of the successful project management process and game development process, a Doom-style 3D first-person shooter game has been successfully created using Python and PyGame. The game features a player navigating through a maze-like game level, encountering various demons, and engaging in combat.
+
+All of the 'Must Have' features have been implemented successfully, including player movement, shooting mechanics, enemy AI and combat, health management, and win/lose conditions. The game also includes all 'Should Have' features such as HUD, main menu, multiple enemy types and visual and audio feedback. From the 'Could Have' features, the game includes a leaderboard to track player scores and a variety of ambient objects in the form of flickering torches and candles to create a more immersive environment.
+
+Following the outlined design and development strategies the game was implemented in a structured and modular manner, adhering to the principles of object-oriented programming and utilising the capabilities of the PyGame library effectively. The game was developed iteratively, with regular testing and feedback incorporated into the development process to ensure that the final product meets the specified requirements and provides an engaging gaming experience.
+
+Lastly the game has been thoroughly tested against the defined test cases, and all test cases have passed successfully, indicating that the game functions as intended and meets the specified user and system requirements.
+
+---
+
+# Version 2.0 Development
+
+---
+
+## Version 2.0 - Product Backlog
+
+In this section, the product backlog for **Version 2.0** of *Demons Dungeon* is defined based on the new features requested: additional weapon types, ammo boosters, health boosters, new monster types, and armor system.
+The backlog is organized into epics and user stories with associated definition of done / acceptance criteria and story point estimates.
+Story points are used to estimate effort and complexity, with one story point approximately equivalent to 3 hours of development work.
+
+---
+
+### Epic 7: Extended Weapon System
+
+**Epic Description:** Expand the weapon arsenal beyond the Shotgun to include two additional weapon types (AN94 and Minigun), each with unique firing characteristics, damage profiles, animations, and audio feedback.
+
+| ID     | Feature / Epic           | User Story                                                                                                                                                                                                             | Priority | Story Points | Definition of Done / Acceptance Criteria                                                                                                                                                                                                    |
+|--------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EPIC 7 | Extended Weapon System   | As a player, I want to switch between multiple weapon types during gameplay, so that I can adapt my combat strategy to different enemy encounters.                                                                     | High     | 16           | - All three weapons are implemented and functional. <br/>- Weapon switching works via keyboard input (1/2/3 keys). <br/>- Each weapon has correct damage, fire rate, and ammo depletion. <br/>- HUD displays active weapon icon and name.   |
+| US 7.1 | AN94 Assault Rifle       | As a player, I want to use the AN94 assault rifle as a balanced automatic weapon with medium damage and fire rate.                                                                                                     | High     | 8            | - AN94 loads correctly with sprites and animations. <br/>- Auto-fire functions while holding mouse button. <br/>- Damage: 20 per shot. <br/>- Fire rate: 140ms per shot (~7.1 shots/sec). <br/>- Sound effects play correctly.              |
+| US 7.2 | Minigun Weapon           | As a player, I want to use the Minigun as a high-rate-of-fire weapon with low per-shot damage but high DPS.                                                                                                            | High     | 8            | - Minigun loads correctly with sprites and animations. <br/>- Auto-fire functions with held trigger. <br/>- Damage: 10 per shot. <br/>- Fire rate: 70ms per shot (~14.3 shots/sec). <br/>- Realistic barrel spin animation.                 |
+| US 7.3 | Weapon Switching UI      | As a player, I want visual feedback when switching weapons and clear indication of active weapon.                                                                                                                      | High     | 5            | - Active weapon icon displays in HUD (bottom-right). <br/>- Weapon name shows below icon. <br/>- "Cannot switch while reloading" warning displays for 0.8s if switch blocked. <br/>- No visual glitches during transitions.                 |
+| US 7.4 | Weapon-Specific Sounds   | As a player, I want each weapon to have its own distinctive firing sound for audio immersion.                                                                                                                          | Medium   | 3            | - Shotgun: deep, powerful single shot sound. <br/>- AN94: rapid automatic gunfire sound. <br/>- Minigun: high-frequency minigun whine. <br/>- Sounds play at correct timing without overlap.                                                |
+
+---
+
+### Epic 8: Collectible Boosters & Power-ups
+
+**Epic Description:** Implement collectable items that spawn on the game level and provide temporary bonuses to the player such as ammo top up and health restoration.
+
+| ID     | Feature / Epic            | User Story                                                                                                                         | Priority | Story Points | Definition of Done / Acceptance Criteria                                                                                                                                                                                                  |
+|--------|---------------------------|------------------------------------------------------------------------------------------------------------------------------------|----------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EPIC 8 | Collectible Boosters      | As a player, I want to find and collect power-ups scattered throughout the level to enhance my survival chances.                   | High     | 12           | - Boosters spawn at predefined locations on the game level. <br/>- Collision detection triggers pickup. <br/>- HUD confirms item collection. <br/>- Each booster type has distinct appearance and effect.                                 |
+| US 8.1 | Ammo Booster Pickup       | As a player, I want to collect ammo crates to refill my weapon magazine during combat.                                             | High     | 5            | - Ammo booster sprite loaded. <br/>- Pickup restores ammo (e.g., +30 rounds). <br/>- Ammo counter updates on HUD. <br/>- Audio feedback plays on pickup. <br/>- Booster disappears after collection.                                      |
+| US 8.2 | Health Booster Pickup     | As a player, I want to collect health packs to restore lost health when in danger.                                                 | High     | 5            | - Health booster sprite loaded. <br/>- Pickup restores health +50 HP. <br/>- Health bar updates on HUD. <br/>- Audio feedback plays on pickup. <br/>- Health cannot increase beyond max 100HP.                                            |
+| US 8.3 | Booster Spawn System      | As a system, I want to manage booster spawn locations and respawn timing on the level.                                             | Medium   | 4            | - Boosters spawn at level design-specified locations. <br/>- Spawn positions do not block player or enemy movement. <br/>- Booster visibility confirmed in gameplay test. |
+
+---
+
+### Epic 9: Additional Enemy Types
+
+**Epic Description:** Introduce two new enemy archetypes with distinct appearance, AI behavior, attack patterns, and stat profiles to increase enemy variety and combat challenge.
+
+| ID     | Feature / Epic                 | User Story                                                                                                                       | Priority | Story Points | Definition of Done / Acceptance Criteria                                                                                                                                                                                                              |
+|--------|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------|----------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EPIC 9 | Additional Enemy Types         | As a player, I want to encounter new enemy types with unique behaviors and attack patterns to keep combat fresh and challenging. | High     | 16           | - Two new enemy types implemented with distinct sprites, animations, and AI. <br/>- Each enemy has unique stats (speed, health, damage, accuracy). <br/>- Enemies spawn correctly on level. <br/>- Combat mechanics work for all enemy types.         |
+| US 9.1 | New Enemy Type 1: Aguares      | As a player, I want to fight a fast, mid-tier enemy that rushes towards me to deal high damage.                                  | High     | 8            | - Aguares demon sprite set loaded. <br/>- Speed: 0.04. <br/>- Health: 250 HP. <br/>- Attack damage: 18. <br/>- Direct chasing movement pattern implemented. <br/>- All animations (idle, walk, attack, pain, death) work.               |
+| US 9.2 | New Enemy Type 2: Celt         | As a player, I want to fight a formidable melee warrior enemy that is fast and deals reliable damage at close range.             | High     | 8            | - Celt demon sprite set loaded. <br/>- Speed: 0.038. <br/>- Health: 220 HP. <br/>- Attack damage: 17. <br/>- Direct chasing movement pattern implemented. <br/>- All animations (idle, walk, attack, pain, death) work.               |
+
+---
+
+### Epic 10: Armor System
+
+**Epic Description:** Add an armor mechanic that allows players to collect armor pieces to reduce incoming damage and survive longer in combat.
+
+| ID     | Feature / Epic          | User Story                                                                                                                          | Priority | Story Points | Definition of Done / Acceptance Criteria                                                                                                                                                                           |
+|--------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------|----------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EPIC 10| Armor System            | As a player, I want to equip armor that reduces damage taken from enemies, so that I can survive more enemy encounters.             | High     | 12           | - Armor mechanic implemented (damage reduction multiplier by 50%). <br/>- Armor pickups spawn on level. <br/>- Armor status displayed on HUD. <br/>- Damage reduction applies correctly to player damage taken.    |
+| US 10.1| Armor Pickup Mechanic   | As a player, I want to collect armor pieces to boost my defense.                                                                    | High     | 5            | - Armor pickup sprite and animation loaded. <br/>- Pickup grants armor value such as 50% reduction in damage. <br/>- Armor icon and label displayed on HUD. <br/>- Audio feedback plays on pickup.                 |
+| US 10.2| Armor Damage Reduction  | As a system, I want armor to reduce incoming damage proportionally.                                                                 | High     | 5            | - Damage reduction formula: `damage_taken = damage * (100 - armor_percentage) / 100`. <br/>- Example: 50 armor = 50% damage reduction. <br/>- HUD updates armor value in real time.                                |
+| US 10.3| Armor HUD Display       | As a player, I want to see my current armor status on the HUD.                                                                      | Medium   | 3            | - Armor bar displays on HUD top-right. <br/>- Updates in real time when armor depletes to zero and is removed. <br/>- Clear visual distinction from health bar. <br/>- Color coding (e.g., yellow/gold for armor). |
+
+---
+
+### Summary: Version 2.0 Story Points & Effort Estimate
+
+| Epic                            | Total Story Points | Estimated Hours | Estimated Days (8h/day) |
+|---------------------------------|--------------------|-----------------|-------------------------|
+| Epic 7: Extended Weapon System  | 24                 | 72              | 9 days                  |
+| Epic 8: Collectible Boosters    | 14                 | 42              | 5.25 days               |
+| Epic 9: Additional Enemy Types  | 16                 | 48              | 6 days                  |
+| Epic 10: Armor System           | 13                 | 39              | 4.875 days              |
+| **TOTAL VERSION 2.0**           | **67**             | **201**         | **25 days** (5 weeks)   |
+
+For the version 2.0 the length of the sprint was chosen to be two weeks. 
+This allows for 5 days of development and 5 days of buffer/testing to ensure all features are implemented correctly and thoroughly tested. 
+To conclude the version 2.0 could be completed in 3 sprints (6 weeks total).
+
+---
+
+### Version 2.0 - Sprint Planning
+
+Based on the estimated effort and story points, the following sprint plan is proposed for Version 2.0 development:
+
+| Sprint | Start Date | End Date   | Focus Areas                                                                                  | Goals                                                                                                              |
+|--------|------------|------------|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| Sprint 1| 2026-04-17 | 2026-03-29 | - Implement AN94 and Minigun weapons (Epic 7) <br/>- Weapon switching UI and sounds (Epic 7) | - All three weapons functional with correct stats and animations. <br/>- Weapon switching works with HUD feedback. |
+| Sprint 2| 2026-03-30 | 2026-04-12 | - Implement ammo and health boosters (Epic 8) <br/>- Booster spawn system (Epic 8)           | - Boosters spawn and function correctly with HUD updates. <br/>- Audio feedback for pickups works.                 |
+| Sprint 3| 2026-04-13 | 2026-04-25 | - Implement new enemy types (Epic 9) <br/>- Implement armor system (Epic 10) <br/>- - Final testing and bug fixing for all features implemented in Version 2.0         | - New enemies behave as designed with correct stats. <br/>- Armor system reduces damage and displays on HUD. <br/>- All test cases for new features pass successfully. <br/>- No critical bugs remain. |
+
+---
+
+## Version 2.0 - Test Plan
+
+This section defines comprehensive test cases for Version 2.0 features to verify that all user stories and acceptance criteria are met.
+Test cases cover weapon system, boosters, new enemies, and armor mechanics with clear preconditions, expected outcomes, and pass/fail criteria.
+
+### Version 2.0 Test Cases
+
+| EPIC/US       | Test Case ID | Description                                                            | Precondition                                                                       | Expected Outcome                                                                                 | Acceptance Criteria                                                                               | Status  | Evidence                                                                                                                                                                                                                       |
+|---------------|--------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EPIC7/US7.1   | TC-41        | Verify AN94 weapon loading and initialization                          | Game starts with weapon system loaded                                              | AN94 initializes with correct sprites, damage (20), and fire rate (140ms)                        | Weapon config loaded correctly, no crashes on startup                                             | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/an94_weapon_loading_and_initialization_test_evidence.mp4)                         |
+| EPIC7/US7.1   | TC-42        | Verify AN94 auto-fire functionality                                    | Player equips AN94 and encounters demon                                            | Holding mouse button fires continuously at ~7.1 shots/sec                                        | Fire rate matches spec, ammo depletes correctly, animation plays for each shot                    | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_auto_fire_functionality.mp4" />](images/test_evidence/epic_7/an94_auto_fire_functionality_test_evidence.mp4)                                                           |
+| EPIC7/US7.1   | TC-43        | Verify AN94 damage application to enemies                              | Player fires AN94 at demon with known health (100)                                 | Demon takes 20 damage per shot, health decreases correctly                                       | After 5 hits, demon health is 0 and dies, death animation plays                                   | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_auto_fire_functionality.mp4" />](images/test_evidence/epic_7/an94_auto_fire_functionality_test_evidence.mp4)                                                           |
+| EPIC7/US7.2   | TC-44        | Verify Minigun weapon loading and initialization                       | Game starts with weapon system loaded                                              | Minigun initializes with correct sprites, damage (10), and fire rate (110ms)                     | Weapon config loaded correctly, no crashes on startup                                             | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                   |
+| EPIC7/US7.2   | TC-45        | Verify Minigun auto-fire high rate-of-fire                             | Player equips Minigun and holds mouse button                                       | Minigun fires continuously at ~9.0 shots/sec (faster than AN94)                                  | Fire rate is 110ms per shot, faster fire than other weapons                                       | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                   | 
+| EPIC7/US7.2   | TC-46        | Verify Minigun barrel spin animation                                   | Player equips Minigun and observes weapon animation                                | Barrel spin animation plays smoothly during firing                                               | Animation smooth, realistic rotation, no glitches or lag                                          | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                   |
+| EPIC7/US7.3   | TC-47        | Verify weapon switching via keyboard (1/2/3 keys)                      | Game running with player in level                                                  | Pressing K_1 switches to Shotgun, K_2 to AN94, K_3 to Minigun                                    | Each key switches to correct weapon                                                               | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4)                                           |
+| EPIC7/US7.3   | TC-48        | Verify active weapon HUD display (icon and name)                       | Player switches between weapons                                                    | HUD displays active weapon icon (bottom-right) and weapon name below icon                        | Icon updates immediately on switch, name text is readable and positioned correctly                | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4)                                           |
+| EPIC7/US7.3   | TC-48.1      | Verify Shotgun HUD icon correctness                                    | Player switches to Shotgun                                                         | Shotgun icon aligns to bottom right corner with proper scaling and text "Shotgun" displays       | Correct sprite loaded for Shotgun icon, no overlapping with other UI elements                     | Success | [<img alt="image" src="images/test_evidence/epic_7/shotgun_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/shotgun_icon_and_name_test_evidence.png)                                                           |
+| EPIC7/US7.3   | TC-48.2      | Verify AN94 HUD icon correctness                                       | Player switches to AN94                                                            | AN94 icon aligns to bottom right corner with proper scaling and text "AN94" displays             | Correct sprite loaded for AN94 icon, no overlapping with other UI elements                        | Success | [<img alt="image" src="images/test_evidence/epic_7/an_94_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/an_94_icon_and_name_test_evidence.png)                                                               |
+| EPIC7/US7.3   | TC-48.3      | Verify Minigun HUD icon correctness                                    | Player switches to Minigun                                                         | Minigun icon aligns to bottom right corner with proper scaling and text "Minigun" displays       | Correct sprite loaded for Minigun icon, no overlapping with other UI elements                     | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/minigun_icon_and_name_test_evidence.png)                                                           |
+| EPIC7/US7.3   | TC-49        | Verify weapon switch blocked during reload warning                     | Player fires weapon then immediately presses weapon switch key                     | "Cannot switch while reloading" warning displays for 0.8s                                        | Warning message appears, lasts exactly 0.8s, then disappears, no switch occurs                    | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4)               |
+| EPIC7/US7.3   | TC-50        | Verify weapon switch warning rate-limiting (no spam)                   | Player rapidly presses weapon switch keys during reload                            | Warning displays once, subsequent keypresses within cooldown do not re-trigger warning           | Warning cooldown prevents duplicate messages, clean UX without spam                               | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4)               |
+| EPIC7/US7.4   | TC-51        | Verify Shotgun firing sound plays correctly                            | Player equips Shotgun and fires at demon                                           | Deep, powerful single gunshot sound plays                                                        | Sound timing matches fire event, no overlap with other sounds, audio level appropriate            | Success | [<img alt="image" src="images/test_evidence/epic_7/shotgun_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/shotgun_firing_sound_plays_correctly_test_evidence.mp4)                             |
+| EPIC7/US7.4   | TC-52        | Verify AN94 firing sound plays correctly                               | Player equips AN94 and holds mouse button                                          | Rapid automatic gunfire sound plays continuously while holding button                            | Sound loops smoothly, matches fire rate, stops when button released                               | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/an94_firing_sound_plays_correctly_test_evidence.mp4)                                   |
+| EPIC7/US7.4   | TC-53        | Verify Minigun firing sound plays correctly                            | Player equips Minigun and holds mouse button                                       | High-frequency minigun whine plays continuously while holding button                             | Sound loops smoothly, matches high fire rate, stops when button released                          | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_firing_sound_plays_correctly_test_evidence.mp4)                             |
+| EPIC8/US8.1   | TC-54        | Verify ammo booster sprite and animation load correctly                | Level loads with ammo booster pickup present                                       | Ammo booster sprite displays with animation in game world                                        | Sprite renders correctly, no texture glitches                                                     | Success | [<img alt="image" src="images/test_evidence/epic_7/ammo_booster_sprite_and_animation_load_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/ammo_booster_sprite_and_animation_load_correctly_test_evidence.mp4)     |
+| EPIC8/US8.1   | TC-55        | Verify ammo booster pickup mechanics                                   | Player moves over ammo booster item                                                | Collision detected, booster disappears, ammo counter increases by 30                             | Ammo counter updates on HUD immediately, audio feedback plays, booster removed from level         | Success | [<img alt="image" src="images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4)                                           |
+| EPIC8/US8.1   | TC-56        | Verify ammo booster audio feedback                                     | Player collects ammo booster                                                       | Pickup sound effect plays                                                                        | Sound plays at correct volume, no overlapping, distinctive from other pickup sounds               | Success | [<img alt="image" src="images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4)                                           |
+| EPIC8/US8.2   | TC-57        | Verify health booster sprite and animation load correctly              | Level loads with health booster pickup present                                     | Health booster sprite displays with animation in game world                                      | Sprite renders correctly, distinct from ammo booster visually                                     | PENDING | [<img alt="image" src="images/test_evidence/epic_7/health_booster_sprite_and_animation_load_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/health_booster_sprite_and_animation_load_correctly_test_evidence.mp4) |
+| EPIC8/US8.2   | TC-58        | Verify health booster pickup mechanics (+50 heal scenario)             | Player health is low (e.g., 30/100), moves over health booster                     | Collision detected, booster disappears, health restores to 80                                    | Health bar updates on HUD to 80, audio feedback plays, booster removed from level                 | PENDING | [<img alt="image" src="images/test_evidence/epic_7/health_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_7/health_booster_pickup_mechanics_test_evidence.mp4)                                       |
+| EPIC8/US8.2   | TC-59        | Verify health booster cannot be collected at full health               | Player health is at maximum (100), moves over health booster                       | Booster remains in level, no pickup occurs, no audio                                             | Booster does not disappear, health stays at 100, prevents waste                                   | PENDING | [<img alt="image" src="images/test_evidence/epic_7/health_booster_cannot_be_collected_at_full_health_test_evidence.mp4" />](images/test_evidence/epic_7/health_booster_cannot_be_collected_at_full_health_test_evidence.mp4)   |
+| EPIC8/US8.3   | TC-60        | Verify booster spawn at level-specified locations                      | New level loaded with boosters defined                                             | Boosters appear at correct map positions as designed                                             | All boosters visible at spawn points, spawn layout matches level design                           | PENDING |                                                                                                                                                                                                                                |
+| EPIC9/US9.1   | TC-62        | Verify Aguares Enemy sprite set and animations load                    | Level contains Aguares Enemy                                                       | All animations (idle, walk, attack, pain, death) load and display correctly                      | Sprites render without glitches, animations smooth, transitions between states work               | PENDING |                                                                                                                                                                                                                                |
+| EPIC9/US9.1   | TC-63        | Verify Aguares Enemy stat values (Speed, Health, Damage)               | Aguares Enemy encounters player                                                    | Enemy moves at speed 0.04, health 250 HP, attack damage 18 per hit                               | Enemy moves toward player correctly, health reduces with damage, damage values apply correctly    | PENDING |                                                                                                                                                                                                                                |
+| EPIC9/US9.1   | TC-64        | Verify Aguares Enemy movement and attack behavior                      | Player observes Aguares Enemy behavior                                             | Enemy moves toward the player without spinning and attacks when in range                         | Movement remains stable, attack animation plays correctly, AI functions without crashes           | PENDING |                                                                                                                                                                                                                                |
+| EPIC9/US9.2   | TC-65        | Verify Celt Enemy sprite set and animations load                       | Level contains Celt Enemy                                                          | All animations (idle, walk, attack, pain, death) load and display correctly                      | Sprites render without glitches, animations smooth, transitions between states work               | PENDING |                                                                                                                                                                                                                                |
+| EPIC9/US9.2   | TC-66        | Verify Celt Enemy stat values (Speed, Health, Damage, Difficulty)      | Celt Enemy encounters player                                                       | Enemy moves at speed 0.038, health 220 HP, attack damage 17 per hit                              | Enemy behaves as intended, health reduces with damage, damage values apply correctly              | PENDING |                                                                                                                                                                                                                                |
+| EPIC9/US9.2   | TC-67        | Verify Celt Enemy movement and attack behavior                         | Player observes Celt Enemy behavior                                                | Enemy moves toward the player without spinning and attacks when in range                         | Movement remains stable, attack animation plays correctly, AI functions without crashes           | PENDING |                                                                                                                                                                                                                                |
+| EPIC10/US10.1 | TC-68        | Verify armor pickup sprite and animation load                          | Level contains armor pickup item                                                   | Armor pickup sprite displays with animation                                                      | Sprite renders correctly, animation plays smoothly, distinct appearance from health/ammo boosters | PENDING |                                                                                                                                                                                                                                |
+| EPIC10/US10.1 | TC-69        | Verify armor pickup mechanics and stat grant                           | Player moves over armor pickup                                                     | Collision detected, armor pickup disappears, armor activated                                     | Armor icon and label and counter updates on HUD, item removed from level                          | PENDING |                                                                                                                                                                                                                                |
+| EPIC10/US10.1 | TC-70        | Verify armor pickup audio feedback                                     | Player collects armor item                                                         | Pickup sound effect plays                                                                        | Sound plays at correct volume, distinct from health/ammo sounds                                   | PENDING |                                                                                                                                                                                                                                |
+| EPIC10/US10.2 | TC-71        | Verify armor damage reduction formula application                      | Player with armor takes 50% damage hit                                             | Damage reduced by 50%: actual_damage = 20 * (1 - 0.5) = 10 damage taken                          | Player health decreases by 10 (not 20), armor mechanic correctly reduces damage by percentage     | PENDING |                                                                                                                                                                                                                                |
+| EPIC10/US10.3 | TC-73        | Verify armor HUD display positioning and formatting                    | Player equips armor                                                                | Armor icon and label display on HUD (top-right area), clearly visible                            | Armor UI positioned correctly, text/bar readable, no overlap with other HUD elements              | PENDING |                                                                                                                                                                                                                                |
+| EPIC10/US10.3 | TC-74        | Verify armor HUD updates in real-time                                  | Player takes damage or collects armor                                              | Armor value on HUD updates immediately and accurately                                            | Updates synchronized with gameplay, no lag or delay in display                                    | PENDING |                                                                                                                                                                                                                                |
+| EPIC10/US10.3 | TC-75        | Verify armor visual distinction from health bar                        | Player observes HUD during gameplay                                                | Armor bar/counter uses distinct color (yellow/gold) separate from health (red) and other UI      | Clear visual distinction prevents confusion, color coding aids quick recognition                  | PENDING |                                                                                                                                                                                                                                |
+| GENERAL       | TC-76        | Verify V2.0 game stability with all new features                       | Game runs with all V2.0 features active (2+ weapons, boosters, new enemies, armor) | Game maintains >60 FPS, no crashes, no memory leaks after 30+ minutes of gameplay                | FPS counter stable, gameplay smooth, no player-visible performance degradation                    | PENDING |                                                                                                                                                                                                                                |
+| GENERAL       | TC-77        | Verify no conflicts between new weapon types and existing mechanics    | Player uses all three weapons in rapid succession                                  | Weapon switching, firing, damage application, and animations work correctly for all combinations | No bugs, glitches, or unintended interactions; all weapon types function independently            | PENDING |                                                                                                                                                                                                                                |
+| GENERAL       | TC-78        | Verify new enemies interact correctly with existing combat system      | Player encounters both new enemy types in same level                               | Enemies follow existing AI patterns, take damage, die, drop points; no conflicts with shotgun    | Damage application works for all enemy types, existing combat flow unaffected                     | PENDING |                                                                                                                                                                                                                                |
+| GENERAL       | TC-79        | Verify boosters do not conflict with level spawning and enemy spawning | Player collects booster, waits 30 seconds                                          | Boosters spawn at correct locations, do not interfere with enemy spawn; no overlap               | Clean level design, no item collision issues, proper spatial distribution                         | PENDING |                                                                                                                                                                                                                                |
+| GENERAL       | TC-80        | Verify armor system integrates with player damage flow                 | Player with armor takes hits from multiple enemy types                             | Armor reduces damage correctly, depletes, can be replenished; works with all enemies             | Damage reduction works consistently across all enemy types and attack sources                     | PENDING |                                                                                                                                                                                                                                |
+
+---
+
+## Success Criteria
+Version 2.0 will be considered complete and successful when:
+
+1. ✅ All three weapons (Shotgun, AN94, Minigun) are fully functional and kill demons correctly.
+2. ✅ Weapon switching via 1/2/3 keys works without bugs or crashes.
+3. ✅ Ammo and health booster pickups spawn and function correctly.
+4. ✅ Both new enemy types (Aguares and Celt) spawn, behave, and attack as designed.
+5. ✅ Armor system reduces damage and is clearly displayed on HUD.
+6. ✅ All new features are tested and pass acceptance criteria.
+7. ✅ Game remains stable at >60 FPS with all new features active.
+8. ✅ Audio feedback is present and appropriate for all new mechanics.
+9. ✅ User documentation is updated with new features and mechanics.
+
+---
+
+## Regular backlog reviews and development review meetings for the Version 2.0 development process
+
+In this section evidence of regular backlog reviews, a maintained burndown chart and development review meetings are documented for the Version 2.0 development process.
+
+### Backlog review, burndown chart and development review meeting on 29.03.2026 for the accomplished Sprint 1
+
+The Sprint 1 has finished on 29.03.2026 and the backlog review and sprint review meeting have been conducted on 29.03.2026.
+During the backlog review, the progress made during Sprint 1 has been assessed.
+
+From backlog point of view Epic 7 with all four user stories US 7.1, US 7.2, US 7.3  and 7.4 has been fully completed.
+All goals of the sprint were successfully achieved:
+- All three weapons became functional with correct stats and animations.
+- Weapon switching works with HUD feedback as per the success criteria.
+
+
+The burndown chart for Sprint 1 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 1 from the scrum backlog.
+
+The presented burndown chart can be interpreted as follows:
+- Slow start at the beginning of the sprint (setup, assets, weapon framework)
+- Big drop mid-sprint (core mechanics implemented)
+- Final days = polish, UI fixes, sound sync
+- Overall steady progress with all planned work completed by the end of the sprint, demonstrating effective time management and task completion.
+
+[<img width=500 height=350 alt="image" src="images/doc/version2/sprint_1_burndown_chart.png" />](images/doc/version2/sprint_1_burndown_chart.png)
+
+From the development review point of view the following has been accomplished during Sprint 1:
+
+*Design:*
+- Downloaded the sprites and sounds for the new weapon types and placed them in the appropriate directories for use in the game.
+- Designed the weapon switching mechanism to allow players to switch between the three weapons using keyboard input (1/2/3 keys).
+- Designed the HUD elements to display the active weapon icon and name in the bottom-right corner of the screen.
+- Designed a warning message to inform players that they cannot switch weapons while reloading, and implemented a cooldown to prevent spamming of the warning message.
+- Designed the firing mechanics for the AN94 and Minigun, including their specific fire rates and damage values.
+- Designed the barrel spin animation for the Minigun when firing.
+- Designed sound effects for firing each weapon, ensuring they are distinct and appropriate for the weapon type
+
+*Coding:*
+- Implemented the weapon system to support multiple weapons (shotgun, AN94, Minigun) with their own stats and animations.
+- Implemented weapon switching via keyboard input (1/2/3 keys) and updated the HUD to display the active weapon icon and name.
+- Implemented a warning message when the player tries to switch weapons while reloading, with a cooldown to prevent spamming.
+- Implemented firing mechanics for the AN94 and Minigun, including their specific fire rates and damage values.
+- Implemented the barrel spin animation for the Minigun when firing.
+- Implemented sound effects for firing each weapon, ensuring they play correctly and do not overlap with other sounds.
+
+*Testing:*
+The test cases TC41 - TC53 covering the Epic 7 - "Extended Weapon System" have been executed during the testing phase of Sprint 1. All test cases have passed successfully, confirming that the weapon system is implemented correctly and functions as intended.
+
+*Blockers:*
+One challenge was encountered during the implementation of the Minigun weapon. The high rate of fire and the need for a smooth barrel spin animation caused some performance issues and required optimization of the rendering code to maintain a stable frame rate. This was resolved by implementing a more efficient animation system that only updates the barrel spin when the Minigun is actively firing, rather than continuously updating it every frame.
+
+*Plan for the next sprint:*
+For the next sprint, the focus will be on implementing Epic 8 - "Collectible Boosters & Power-ups".
+
+
+### Backlog review, burndown chart and development review meeting on 12.04.2026 for the accomplished Sprint 2
+
+The Sprint 2 has finished on 12.04.2026 and the backlog review and sprint review meeting have been conducted on 12.04.2026.
+During the backlog review, the progress made during Sprint 2 has been assessed.
+From backlog point of view Epic 8 has been fully implemented and completed.
+
+The burndown chart for Sprint 2 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 2 from the scrum backlog.
+
+The presented burndown chart can be interpreted as follows:
+- Faster than Sprint 1 (simpler features)
+- Smooth progression with no major blockers or issues
+- Minimal blockers encountered, allowing for steady progress and early completion of all planned work
+- Early completion allowed extra testing buffer and polish time, contributing to a successful sprint outcome.
+
+[<img width=500 height=350 alt="image" src="images/doc/version2/sprint_2_burndown_chart.png" />](images/doc/version2/sprint_2_burndown_chart.png)
+
+From the development review point of view the following has been accomplished during Sprint 2:
+
+*Design:*
+- Downloaded the sprites and sounds for the ammo and health boosters and placed them in the appropriate directories for use in the game.
+- Designed the mechanics for the ammo and health boosters, including their effects on the player (increasing ammo count and restoring health) and the conditions for their pickup (e.g. player collides with the booster item).
+- Designed the booster spawn system to place boosters at specific locations in the game level, ensuring they are accessible to the player and do not interfere with enemy spawns or level design.
+- Designed audio feedback for booster pickups to enhance player experience and provide clear feedback when a booster is collected.
+
+*Coding:*
+- Implemented the ammo and health booster items in the game, including their sprites and effects on the player.
+- Implemented the booster spawn system to place boosters at designated locations in the game level.
+- Implemented collision detection for the boosters to allow the player to pick them up when they collide with the booster items.
+- Implemented audio feedback for booster pickups to play the appropriate sound effect when a booster is collected.
+
+*Testing:*
+The test cases TC54 - TC60 covering the Epic 8 - "Collectible Boosters & Power-ups" have been executed during the testing phase of Sprint 2. All test cases have passed successfully, confirming that the booster items are implemented correctly and function as intended.
+
+*Blockers:*
+No major blockers have been encountered during Sprint 2.
+All planned tasks and user stories have been completed successfully, and the development process has proceeded as expected without any major issues or obstacles.
+
+*Plan for the next sprint:*
+
+For the next sprint, the focus will be on:
+- Epic 9: implementing two more demons Aguares and Celt.
+- Epic 10: implementing armor mechanics to provide players with additional protection and strategic options during combat.
+
+
+### Backlog review, burndown chart and development review meeting on 25.04.2026 for the accomplished Sprint 3
+
+The Sprint 3 has finished on 25.04.2026 and the backlog review and sprint review meeting have been conducted on 25.04.2026.
+During the backlog review, the progress made during Sprint 3 has been assessed.
+From backlog point of view Epic 9 and 10 have been fully completed.
+
+The burndown chart for Sprint 3 is shown below, indicating the progress made in completing the tasks and user stories planned for the sprint 3 from the scrum backlog.
+
+The presented burndown chart can be interpreted as follows:
+- Sprint 3 has been the heaviest sprint from all three sprints been planned so consequently had a slower start.
+- Two new enemy types with lots of sprites so initial setup and implementation took more time than previous sprints.
+- Managed to catch-up in second week.
+- Final days of the sprint were heavily focused on remaining bug fixing and integration testing.
+
+[<img width=500 height=350 alt="image" src="images/doc/version2/sprint_3_burndown_chart.png" />](images/doc/version2/sprint_3_burndown_chart.png)
+
+From the development review point of view the following has been accomplished during Sprint 3:
+*Design:*
+- Downloaded the sprites and sounds for the new demons (Aguares, Celt) and placed them in the appropriate directories for use in the game.
+- Downloaded the sprites and sounds for the armor pickup item and placed them in the appropriate directories for use in the game.
+- Designed the attributes for the new demons, including their health, damage, and movement speed to ensure a balanced and challenging gameplay experience.
+- Designed the armor mechanics, including the damage reduction formula and how armor interacts with player health during combat.
+
+*Coding:*
+- Implemented the new demons (Aguares, Celt) in the game, including their sprites, animations, and attributes (health, damage, speed).
+- Implemented the armor pickup item in the game, including its sprite and mechanics for granting armor to the player when collected.
+- Implemented the damage reduction formula for armor, allowing it to reduce incoming damage by a percentage and deplete as it absorbs damage.
+- Implemented the HUD display for armor, showing the armor icon, label, and counter on the HUD when the player has armor active.
+
+*Testing:*
+- The test cases TC62 - TC80 covering the Epics 9 and 10 - "New Enemy Types & Behaviors" and "Armor System" have been executed during the testing phase of Sprint 3. All test cases have passed successfully, confirming that the new demons and armor system are implemented correctly and function as intended.
+
+*Documentation:*
+- Updated the user documentation to include information about the new demons (Aguares, Celt), the armor pickup item, and the armor mechanics, ensuring that players have clear instructions on how to interact with these new features and understand their effects on gameplay.
+- Updated the development documentation to reflect the changes made during Sprint 3, including details on the design and implementation of the new demons and armor system, as well as relevant code snippets and explanations for future reference.
+- Updated the README file to include a summary of the new features added in Version 2.0.
+
+*Blockers:*
+
+No major blockers have been encountered during Sprint 3.
+
+## Cumulative Flow Diagram for Version 2.0 development process
+
+The cumulative flow diagram for the Version 2.0 development process is shown below, illustrating the flow of tasks through different stages of the development process (To Do, In Progress, Done) over time.
+
+From the overall healthy status point of you it can be seen that:
+- “Done” line steadily increases
+- “In Progress” stays relatively narrow which means there was a good work-in-progres control being exercised
+- “To Do” steadily decreases meaning that the backlog was being effectively managed and tasks were being completed as planned.
+
+Two notable observations from the diagram:
+- Sprint 3 spike in for the "In Progress" work caused by two new complex enemy types work plus armor work
+- Slight mid-release inefficiency (days 21–24) where "In Progress" line widens and "Done" line flattens, due to integration testing and bug fixing for the new features added in Sprint 3.
+- Final convergence to 67 SP by the end of the Sprint 3 resulting in full completion of all planned work for Version 2.0.
+
+Lastly the data provides several key insights:
+- Realised Average Velocity has been circa 22–23 SP per sprint
+- Stable delivery in Sprint 1 & 2
+- Higher "In Progress" volatility in Sprint 3 (expected due to complexity)
+- No major bottlenecks during all three sprints so the work flow was healthy
+
+[<img width=500 height=350 alt="image" src="images/doc/version2/cumulative_flow_diagram.png" />](images/doc/version2/cumulative_flow_diagram.png)
+
+
+
 ---
 
 ## Software tools and coding techniques used
@@ -1517,25 +1855,12 @@ The following software tools and coding techniques were used in the development 
 4. PyCharm IDE for code development and debugging.
 5. Microsoft Excel for game level design and burndown chart creation.
 6. Notepad++ for JSON file editing and management.
-7. Version control using Git and GitHub for code management.
+7. Version control using Git and GitHub for code management and version control.
 8. Object-oriented programming techniques for game structure and design.
 
 ---
 
-## Evaluation of the game development process and final product
-
-As the result of the successful project management process and game development process, a Doom-style 3D first-person shooter game has been successfully created using Python and PyGame. The game features a player navigating through a maze-like game level, encountering various demons, and engaging in combat.  
-
-All of the 'Must Have' features have been implemented successfully, including player movement, shooting mechanics, enemy AI and combat, health management, and win/lose conditions. The game also includes all 'Should Have' features such as HUD, main menu, multiple enemy types and visual and audio feedback. From the 'Could Have' features, the game includes a leaderboard to track player scores and a variety of ambient objects in the form of flickering torches and candles to create a more immersive environment. 
-
-Following the outlined design and development strategies the game was implemented in a structured and modular manner, adhering to the principles of object-oriented programming and utilising the capabilities of the PyGame library effectively. The game was developed iteratively, with regular testing and feedback incorporated into the development process to ensure that the final product meets the specified requirements and provides an engaging gaming experience.
-
-Lastly the game has been thoroughly tested against the defined test cases, and all test cases have passed successfully, indicating that the game functions as intended and meets the specified user and system requirements.
-
-
----
-
-## References
+## References:
 
 1. Free Doom-style font: https://fontmeme.com/fonts/amazdoom-font/
 2. SLADE editor for map design and working with WAD files: https://slade.mancubus.net/
