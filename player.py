@@ -36,6 +36,11 @@ class Player:
 
         self.time_prev = pg.time.get_ticks()
 
+        self.has_armor = False
+        self.armor_start_time = 0
+        self.armor_duration = ARMOR_ACTIVE_TIME * 1000  # 60 seconds in ms
+        self.armor_remaining_time = 0
+
         # Initialize weapon inventory and switching system
         self.weapons = {
             'shotgun': None,  # Will be initialized after game.weapon is created
@@ -66,6 +71,13 @@ class Player:
         '''
         return self.enemies_killed
 
+    def get_armor_remaining_time(self):
+        '''
+            This method returns the remaining time of the player's armor in seconds.
+        :return: The method returns the remaining time of the player's armor in seconds.
+        '''
+        return self.armor_remaining_time
+
     def increase_kill_count(self):
         '''
             This method increments the player's kill count by 1 each time it is called. It is used to keep track of the number of enemies the player has killed in the game.
@@ -79,6 +91,12 @@ class Player:
         '''
         return self.health
 
+    def top_up_health(self, amount):
+        '''
+            This method increases the player's health by the specified amount, up to the maximum health limit defined in the settings.
+        :param amount: This parameter represents the number of health points to be added to the player's current health. It is used to replenish the player's health when they pick up health pickups in the game.
+        '''
+        self.health = min(self.health + amount, PLAYER_MAX_HEALTH)
 
     def get_player_ammo(self):
         '''
@@ -87,6 +105,12 @@ class Player:
         '''
         return self.ammo
 
+    def top_up_ammo(self, amount):
+        '''
+            This method increases the player's ammo count by the specified amount, up to the maximum ammo limit defined in the settings.
+        :param amount: This parameter represents the number of ammunition rounds to be added to the player's current ammo count. It is used to replenish the player's ammo when they pick up ammo pickups in the game.
+        '''
+        self.ammo = min(self.ammo + amount, PLAYER_MAX_AMMO)
 
     def player_gets_damage(self, damage):
         '''
@@ -94,6 +118,9 @@ class Player:
         :param damage: This parameter represents the amount of damage that the player will take. It is subtracted from the player's current health to reflect the damage taken by the player.
         :return: None
         '''
+        if self.has_armor:
+            damage = int(damage * 0.5)
+
         # Reduce the player's health by the specified damage amount to reflect the damage taken by the player.
         self.health -= damage
         # Call the player_damage_show_blood_screen method of the game's object renderer to display the damage effect on the screen.
@@ -187,11 +214,21 @@ class Player:
         self.movement()
         # Update the player's angle based on mouse input for looking around
         self.mouse_control()
-        # Check if the player is in health recovery mode and recover health if applicable
-        self.recover_player_health()
-        # Update auto-fire for weapons that support hold-to-fire
-        self.update_auto_fire()
 
+        # Check if the player has armor and is in health recovery mode then we recover player's health
+        if self.has_armor:
+            self.recover_player_health()
+
+        if self.get_player_ammo() > 0:
+            # Update auto-fire for weapons that support hold-to-fire
+            self.update_auto_fire()
+
+        # Check and update armor duration
+        if self.has_armor:
+            if pg.time.get_ticks() - self.armor_start_time > self.armor_duration:
+                self.has_armor = False
+            else:
+                self.armor_remaining_time = (self.armor_duration - (pg.time.get_ticks() - self.armor_start_time)) / 1000.0
 
     @property
     def pos(self):
@@ -264,29 +301,30 @@ class Player:
                 weapon_id = WEAPON_SLOT_KEYS[event.key]
                 self.try_switch_weapon(weapon_id)
 
-        # Handle firing
-        if event.type == pg.MOUSEBUTTONDOWN:
-            if event.button == 1:  # Left mouse button
-                # For single-shot weapons (shotgun)
-                if not current_weapon.is_auto_fire():
-                    if not self.weapon_shot and not current_weapon.is_reloading():
-                        # Play weapon-specific sound
-                        self.game.sound_manager.play_weapon_sound(current_weapon.get_weapon_sound_id())
-                        # Set the shot state to True
-                        self.weapon_shot = True
-                        # Reduce ammo
-                        self.ammo -= 1
-                        # Trigger reload/animation
-                        current_weapon.set_reloading(True)
-                else:
-                    # For auto-fire weapons, just mark button as pressed (tracking continues in update loop)
-                    pass
+        if self.get_player_ammo() > 0:
+            # Handle firing
+            if event.type == pg.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Left mouse button
+                    # For single-shot weapons (shotgun)
+                    if not current_weapon.is_auto_fire():
+                        if not self.weapon_shot and not current_weapon.is_reloading():
+                            # Play weapon-specific sound
+                            self.game.sound_manager.play_weapon_sound(current_weapon.get_weapon_sound_id())
+                            # Set the shot state to True
+                            self.weapon_shot = True
+                            # Reduce ammo
+                            self.ammo -= 1
+                            # Trigger reload/animation
+                            current_weapon.set_reloading(True)
+                    else:
+                        # For auto-fire weapons, just mark button as pressed (tracking continues in update loop)
+                        pass
 
-        # Handle mouse button release for auto-fire weapons
-        elif event.type == pg.MOUSEBUTTONUP:
-            if event.button == 1:
-                # Auto-fire tracking stops here, will be handled in update() based on key press
-                pass
+            # Handle mouse button release for auto-fire weapons
+            elif event.type == pg.MOUSEBUTTONUP:
+                if event.button == 1:
+                    # Auto-fire tracking stops here, will be handled in update() based on key press
+                    pass
 
 
     def update_auto_fire(self):

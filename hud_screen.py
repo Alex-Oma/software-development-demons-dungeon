@@ -19,7 +19,10 @@ class HudScreen:
                 print(f"Failed to load weapon icon for {weapon_id}: {e}")
                 self.weapon_icons[weapon_id] = None
 
-    def draw(self, score, level, ammo, enemies_killed, player_health):
+        self.armor_icon = pg.image.load('assets/sprites/animated/armor/HEVAA0.png').convert_alpha()
+        self.armor_icon = pg.transform.scale(self.armor_icon, (60, 60))
+
+    def draw(self, score, level, ammo, enemies_killed, player_health, has_armor, armor_time_remaining):
         # Here, this method is used to draw the player's image on the level.
         self.score(score)
         self.show_level(level)
@@ -30,6 +33,9 @@ class HudScreen:
         self.show_active_weapon()
         # Draw blocked-switch warning if applicable
         self.show_weapon_switch_blocked_warning()
+
+        if has_armor:
+            self.show_armor_icon(armor_time_remaining)
 
 
     # Here, this function displays the variable score on the screen of the game and keeps count of the player's score and sets the font and size of the text.
@@ -106,3 +112,10 @@ class HudScreen:
             text_width = warning_text.get_width()
             # Center the warning at the top of the screen
             self.game.screen.blit(warning_text, (HALF_WIDTH - text_width // 2, 80))
+
+    def show_armor_icon(self, armor_time_remaining):
+        # render armor icon below player health
+        self.game.screen.blit(self.armor_icon, [1080, 60])
+        # render "Armor Activated" text next to it
+        text = self.font.render("Armor Active: " + str(int(armor_time_remaining)), True, (255, 215, 0)) # Yellow/Gold color
+        self.game.screen.blit(text, [1150, 60])

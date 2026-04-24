@@ -71,18 +71,40 @@ class Weapon(AnimatedSprite):
             return deque([self.image])
 
         # Special handling for minigun and AN94 which have multiple fire animation sequences
-        if self.weapon_id == 'minigun' and sprite_paths and isinstance(sprite_paths[0], list):
-            for sequence in sprite_paths:
-                if isinstance(sequence, list) and len(sequence) >= 2:
-                    combined = self.combine_images_vertical(sequence[0], sequence[1], scale=scale, vertical_spacing=0, horizontal_spacing=0)
-                    if combined:
-                        images.append(combined)
-        elif self.weapon_id == 'an94' and sprite_paths and isinstance(sprite_paths[0], list):
-            for sequence in sprite_paths:
-                if isinstance(sequence, list) and len(sequence) >= 2:
-                    combined = self.combine_images_vertical(sequence[0], sequence[1], scale=scale, vertical_spacing=40, horizontal_spacing=-10)
-                    if combined:
-                        images.append(combined)
+        if self.weapon_id == 'minigun':
+            if sprite_paths and isinstance(sprite_paths[0], list):
+                for sequence in sprite_paths:
+                    if isinstance(sequence, list) and len(sequence) >= 2:
+                        combined = self.combine_images_vertical(sequence[0], sequence[1], scale=scale, vertical_spacing=0, horizontal_spacing=0)
+                        if combined:
+                            images.append(combined)
+            else:
+                # Load individual sprites
+                for sprite_path in sprite_paths:
+                    try:
+                        img = pg.image.load(sprite_path).convert_alpha()
+                        # Scale the image
+                        scaled_img = pg.transform.smoothscale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
+                        images.append(scaled_img)
+                    except Exception as e:
+                        print(f"Warning: Failed to load sprite {sprite_path}: {e}")
+        elif self.weapon_id == 'an94':
+            if sprite_paths and isinstance(sprite_paths[0], list):
+                for sequence in sprite_paths:
+                    if isinstance(sequence, list) and len(sequence) >= 2:
+                        combined = self.combine_images_vertical(sequence[0], sequence[1], scale=scale, vertical_spacing=40, horizontal_spacing=-10)
+                        if combined:
+                            images.append(combined)
+            else:
+                # Load individual sprites
+                for sprite_path in sprite_paths:
+                    try:
+                        img = pg.image.load(sprite_path).convert_alpha()
+                        # Scale the image
+                        scaled_img = pg.transform.smoothscale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
+                        images.append(scaled_img)
+                    except Exception as e:
+                        print(f"Warning: Failed to load sprite {sprite_path}: {e}")
         else:
             # Load individual sprites
             for sprite_path in sprite_paths:

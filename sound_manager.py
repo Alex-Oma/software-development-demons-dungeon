@@ -32,6 +32,18 @@ class SoundManager:
         # Play the game over music
         self.game_over.play()
 
+    def play_armor_pickup_sound(self):
+        # Play the armor pickup sound effect
+        pg.mixer.Sound('assets/sound/armor1.mp3').play()
+
+    def play_ammo_pickup_sound(self):
+        # Play the ammo pickup sound effect
+        pg.mixer.Sound('assets/sound/ammo_pickup.mp3').play()
+
+    def play_medpack_pickup_sound(self):
+        # Play the medpack pickup sound effect
+        pg.mixer.Sound('assets/sound/pickup-health.mp3').play()
+
     def play_weapon_sound(self, sound_id):
         '''
             This method plays weapon-specific sound based on the weapon sound id.

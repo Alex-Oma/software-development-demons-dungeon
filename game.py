@@ -81,7 +81,7 @@ class Game:
         self.render_engine.draw()
         # Draw the weapon on the screen after rendering the game world to ensure it appears in the foreground.
         self.weapon.draw()
-        self.hud_screen.draw(self.player.get_player_score(), 1, self.player.get_player_ammo(), self.player.get_player_kill_count(), self.player.get_player_health())
+        self.hud_screen.draw(self.player.get_player_score(), 1, self.player.get_player_ammo(), self.player.get_player_kill_count(), self.player.get_player_health(), self.player.has_armor, self.player.get_armor_remaining_time())
 
         # Debugging line to display the player's map position on the HUD.
         # self.hud_screen.draw(self.player.get_player_score(), 1, self.player.get_player_ammo(), self.player.get_player_kill_count(), str(self.player.map_pos))

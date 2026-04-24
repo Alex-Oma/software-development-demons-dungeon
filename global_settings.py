@@ -171,7 +171,7 @@ WEAPON_CONFIG = {
         'scale': 2.7,
         'animation_time': 70,
         'damage': 20,
-        'fire_delay_ms': 140,
+        'fire_delay_ms': 150,
         'auto_fire': True,
         'sound_id': 'an94',
     },
@@ -187,8 +187,12 @@ WEAPON_CONFIG = {
         'scale': 4.4,
         'animation_time': 45,
         'damage': 10,
-        'fire_delay_ms': 70,
+        'fire_delay_ms': 110,
         'auto_fire': True,
         'sound_id': 'minigun',
     },
 }
+
+AMMO_TOP_UP = 30 # amount of ammo replenished when the player picks up an ammo pack in the game, which allows the player to continue shooting without running out of ammo
+HEALTH_TOP_UP = 50 # amount of health replenished when the player picks up a health pack in the game, which allows the player to recover from damage and continue playing without dying
+ARMOR_ACTIVE_TIME = 60 # duration of the armor power-up effect in seconds, which provides temporary protection to the player from damage and allows them to survive longer in the game.

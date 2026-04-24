@@ -10,6 +10,8 @@ class ObjectsManager:
         self.enemies_list = []
         self.ambient_objects_list = []
         self.armor_objects_list = []
+        self.medpack_objects_list = []
+        self.ammo_objects_list = []
         self.ambient_sprites_path = 'assets/sprites/animated/ambient_objects/'
         self.armor_sprites_path = 'assets/sprites/animated/armor/'
         self.topup_sprites_path = 'assets/sprites/static/'
@@ -20,28 +22,28 @@ class ObjectsManager:
         self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(46, 24), scale=0.2, shift=2.0))
         self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(37.5, 12.5), scale=0.2, shift=2.0))
 
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(10.7, 10), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(16.8, 4.9), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(31.5, 2), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(39.4, 2), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(41.5, 1.5), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(57, 28), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(8.5, 30.5), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(4.5, 28.5), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(22.7, 20), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(28.7, 22), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(27.5, 23), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(21, 30), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(35.2, 27), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(54.6, 30), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(41.2, 29.9), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(50.6, 18), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(48.2, 21), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(62.7, 1.5), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(44.2, 8), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(58, 17.2), scale=0.2, shift=2.0))
-        self.add_ambient_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(52.2, 18.8), scale=0.2, shift=2.0))
+        self.add_medpack_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(31.5, 2), scale=0.2, shift=2.0))
+        self.add_medpack_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(57, 28), scale=0.2, shift=2.0))
+        self.add_medpack_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(8.5, 30.5), scale=0.2, shift=2.0))
+        self.add_medpack_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(28.7, 22), scale=0.2, shift=2.0))
+        self.add_medpack_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(41.2, 29.9), scale=0.2, shift=2.0))
+        self.add_medpack_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(50.6, 18), scale=0.2, shift=2.0))
+        self.add_medpack_object(Sprite(game, path=self.topup_sprites_path + 'medpack.png', pos=(58, 17.2), scale=0.2, shift=2.0))
 
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(10.7, 10), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(16.8, 4.9), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(39.4, 2), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(41.5, 1.5), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(4.5, 28.5), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(22.7, 20), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(27.5, 23), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(21, 30), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(35.2, 27), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(54.6, 30), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(48.2, 21), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(62.7, 1.5), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(44.2, 8), scale=0.2, shift=2.0))
+        self.add_ammo_object(Sprite(game, path=self.topup_sprites_path + 'ammo.png', pos=(52.2, 18.8), scale=0.2, shift=2.0))
 
         self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(1.2, 1.5)))
         self.add_ambient_object(AnimatedSprite(game, path=self.ambient_sprites_path + 'improved_torches/blue_torches/TBLUA0.png', pos=(1.2, 5.5)))
@@ -202,8 +204,37 @@ class ObjectsManager:
     def update(self):
         self.enemies_positions = {enemy.map_pos for enemy in self.enemies_list if enemy.enemy_alive}
         [sprite.update() for sprite in self.ambient_objects_list]
-        [sprite.update() for sprite in self.armor_objects_list]
         [enemy.update() for enemy in self.enemies_list]
+
+        # update armor objects
+        for armor in self.armor_objects_list[:]:
+            armor.update()
+            # check collision with player
+            if int(armor.x) == self.game.player.map_pos[0] and int(armor.y) == self.game.player.map_pos[1]:
+                # apply armor to player
+                self.game.player.has_armor = True
+                self.game.player.armor_start_time = pg.time.get_ticks()
+                self.game.sound_manager.play_armor_pickup_sound() # Assume there's a sound, you can add it if needed
+                self.armor_objects_list.remove(armor)
+
+        for medpack in self.medpack_objects_list[:]:
+            medpack.update()
+            # check collision with player
+            if self.game.player.get_player_health() < PLAYER_MAX_HEALTH and int(medpack.x) == self.game.player.map_pos[0] and int(medpack.y) == self.game.player.map_pos[1]:
+                # heal player
+                self.game.player.top_up_health(HEALTH_TOP_UP)
+                self.game.sound_manager.play_medpack_pickup_sound() # Assume there's a sound, you can add it if needed
+                self.medpack_objects_list.remove(medpack)
+
+        for ammo in self.ammo_objects_list[:]:
+            ammo.update()
+            # check collision with player
+            if int(ammo.x) == self.game.player.map_pos[0] and int(ammo.y) == self.game.player.map_pos[1]:
+                # give ammo to player
+                self.game.player.top_up_ammo(AMMO_TOP_UP)
+                self.game.sound_manager.play_ammo_pickup_sound() # Assume there's a sound, you can add it if needed
+                self.ammo_objects_list.remove(ammo)
+
         self.is_game_won()
 
     def add_enemy_to_the_game(self, enemy):
@@ -211,6 +242,15 @@ class ObjectsManager:
 
     def add_ambient_object(self, sprite):
         self.ambient_objects_list.append(sprite)
+
+    def add_armor_object(self, sprite):
+        self.armor_objects_list.append(sprite)
+
+    def add_medpack_object(self, sprite):
+        self.medpack_objects_list.append(sprite)
+
+    def add_ammo_object(self, sprite):
+        self.ammo_objects_list.append(sprite)
 
     def is_game_won(self):
         if self.game.player.map_pos == (62, 30) and self.enemies_list[0].enemy_alive == False:
@@ -220,6 +260,3 @@ class ObjectsManager:
             from menu import Menu
             menu = Menu(self.game.get_game_result())
             menu.run()
-
-    def add_armor_object(self, sprite):
-        self.armor_objects_list.append(sprite)
