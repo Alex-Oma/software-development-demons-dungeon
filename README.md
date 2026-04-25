@@ -1620,49 +1620,49 @@ Test cases cover weapon system, boosters, new enemies, and armor mechanics with 
 
 ### Version 2.0 Test Cases
 
-| EPIC/US       | Test Case ID | Description                                                            | Precondition                                                                       | Expected Outcome                                                                                 | Acceptance Criteria                                                                               | Status  | Evidence                                                                                                                                                                                                                       |
-|---------------|--------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| EPIC7/US7.1   | TC-41        | Verify AN94 weapon loading and initialization                          | Game starts with weapon system loaded                                              | AN94 initializes with correct sprites, damage (20), and fire rate (140ms)                        | Weapon config loaded correctly, no crashes on startup                                             | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/an94_weapon_loading_and_initialization_test_evidence.mp4)                         |
-| EPIC7/US7.1   | TC-42        | Verify AN94 auto-fire functionality                                    | Player equips AN94 and encounters demon                                            | Holding mouse button fires continuously at ~7.1 shots/sec                                        | Fire rate matches spec, ammo depletes correctly, animation plays for each shot                    | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_auto_fire_functionality.mp4" />](images/test_evidence/epic_7/an94_auto_fire_functionality_test_evidence.mp4)                                                           |
-| EPIC7/US7.1   | TC-43        | Verify AN94 damage application to enemies                              | Player fires AN94 at demon with known health (100)                                 | Demon takes 20 damage per shot, health decreases correctly                                       | After 5 hits, demon health is 0 and dies, death animation plays                                   | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_auto_fire_functionality.mp4" />](images/test_evidence/epic_7/an94_auto_fire_functionality_test_evidence.mp4)                                                           |
-| EPIC7/US7.2   | TC-44        | Verify Minigun weapon loading and initialization                       | Game starts with weapon system loaded                                              | Minigun initializes with correct sprites, damage (10), and fire rate (110ms)                     | Weapon config loaded correctly, no crashes on startup                                             | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                   |
-| EPIC7/US7.2   | TC-45        | Verify Minigun auto-fire high rate-of-fire                             | Player equips Minigun and holds mouse button                                       | Minigun fires continuously at ~9.0 shots/sec (faster than AN94)                                  | Fire rate is 110ms per shot, faster fire than other weapons                                       | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                   | 
-| EPIC7/US7.2   | TC-46        | Verify Minigun barrel spin animation                                   | Player equips Minigun and observes weapon animation                                | Barrel spin animation plays smoothly during firing                                               | Animation smooth, realistic rotation, no glitches or lag                                          | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                   |
-| EPIC7/US7.3   | TC-47        | Verify weapon switching via keyboard (1/2/3 keys)                      | Game running with player in level                                                  | Pressing K_1 switches to Shotgun, K_2 to AN94, K_3 to Minigun                                    | Each key switches to correct weapon                                                               | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4)                                           |
-| EPIC7/US7.3   | TC-48        | Verify active weapon HUD display (icon and name)                       | Player switches between weapons                                                    | HUD displays active weapon icon (bottom-right) and weapon name below icon                        | Icon updates immediately on switch, name text is readable and positioned correctly                | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4)                                           |
-| EPIC7/US7.3   | TC-48.1      | Verify Shotgun HUD icon correctness                                    | Player switches to Shotgun                                                         | Shotgun icon aligns to bottom right corner with proper scaling and text "Shotgun" displays       | Correct sprite loaded for Shotgun icon, no overlapping with other UI elements                     | Success | [<img alt="image" src="images/test_evidence/epic_7/shotgun_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/shotgun_icon_and_name_test_evidence.png)                                                           |
-| EPIC7/US7.3   | TC-48.2      | Verify AN94 HUD icon correctness                                       | Player switches to AN94                                                            | AN94 icon aligns to bottom right corner with proper scaling and text "AN94" displays             | Correct sprite loaded for AN94 icon, no overlapping with other UI elements                        | Success | [<img alt="image" src="images/test_evidence/epic_7/an_94_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/an_94_icon_and_name_test_evidence.png)                                                               |
-| EPIC7/US7.3   | TC-48.3      | Verify Minigun HUD icon correctness                                    | Player switches to Minigun                                                         | Minigun icon aligns to bottom right corner with proper scaling and text "Minigun" displays       | Correct sprite loaded for Minigun icon, no overlapping with other UI elements                     | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/minigun_icon_and_name_test_evidence.png)                                                           |
-| EPIC7/US7.3   | TC-49        | Verify weapon switch blocked during reload warning                     | Player fires weapon then immediately presses weapon switch key                     | "Cannot switch while reloading" warning displays for 0.8s                                        | Warning message appears, lasts exactly 0.8s, then disappears, no switch occurs                    | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4)               |
-| EPIC7/US7.3   | TC-50        | Verify weapon switch warning rate-limiting (no spam)                   | Player rapidly presses weapon switch keys during reload                            | Warning displays once, subsequent keypresses within cooldown do not re-trigger warning           | Warning cooldown prevents duplicate messages, clean UX without spam                               | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4)               |
-| EPIC7/US7.4   | TC-51        | Verify Shotgun firing sound plays correctly                            | Player equips Shotgun and fires at demon                                           | Deep, powerful single gunshot sound plays                                                        | Sound timing matches fire event, no overlap with other sounds, audio level appropriate            | Success | [<img alt="image" src="images/test_evidence/epic_7/shotgun_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/shotgun_firing_sound_plays_correctly_test_evidence.mp4)                             |
-| EPIC7/US7.4   | TC-52        | Verify AN94 firing sound plays correctly                               | Player equips AN94 and holds mouse button                                          | Rapid automatic gunfire sound plays continuously while holding button                            | Sound loops smoothly, matches fire rate, stops when button released                               | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/an94_firing_sound_plays_correctly_test_evidence.mp4)                                   |
-| EPIC7/US7.4   | TC-53        | Verify Minigun firing sound plays correctly                            | Player equips Minigun and holds mouse button                                       | High-frequency minigun whine plays continuously while holding button                             | Sound loops smoothly, matches high fire rate, stops when button released                          | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_firing_sound_plays_correctly_test_evidence.mp4)                             |
-| EPIC8/US8.1   | TC-54        | Verify ammo booster sprite and animation load correctly                | Level loads with ammo booster pickup present                                       | Ammo booster sprite displays with animation in game world                                        | Sprite renders correctly, no texture glitches                                                     | Success | [<img alt="image" src="images/test_evidence/epic_7/ammo_booster_sprite_and_animation_load_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/ammo_booster_sprite_and_animation_load_correctly_test_evidence.mp4)     |
-| EPIC8/US8.1   | TC-55        | Verify ammo booster pickup mechanics                                   | Player moves over ammo booster item                                                | Collision detected, booster disappears, ammo counter increases by 30                             | Ammo counter updates on HUD immediately, audio feedback plays, booster removed from level         | Success | [<img alt="image" src="images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4)                                           |
-| EPIC8/US8.1   | TC-56        | Verify ammo booster audio feedback                                     | Player collects ammo booster                                                       | Pickup sound effect plays                                                                        | Sound plays at correct volume, no overlapping, distinctive from other pickup sounds               | Success | [<img alt="image" src="images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_7/ammo_booster_pickup_mechanics_test_evidence.mp4)                                           |
-| EPIC8/US8.2   | TC-57        | Verify health booster sprite and animation load correctly              | Level loads with health booster pickup present                                     | Health booster sprite displays with animation in game world                                      | Sprite renders correctly, distinct from ammo booster visually                                     | PENDING | [<img alt="image" src="images/test_evidence/epic_7/health_booster_sprite_and_animation_load_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/health_booster_sprite_and_animation_load_correctly_test_evidence.mp4) |
-| EPIC8/US8.2   | TC-58        | Verify health booster pickup mechanics (+50 heal scenario)             | Player health is low (e.g., 30/100), moves over health booster                     | Collision detected, booster disappears, health restores to 80                                    | Health bar updates on HUD to 80, audio feedback plays, booster removed from level                 | PENDING | [<img alt="image" src="images/test_evidence/epic_7/health_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_7/health_booster_pickup_mechanics_test_evidence.mp4)                                       |
-| EPIC8/US8.2   | TC-59        | Verify health booster cannot be collected at full health               | Player health is at maximum (100), moves over health booster                       | Booster remains in level, no pickup occurs, no audio                                             | Booster does not disappear, health stays at 100, prevents waste                                   | PENDING | [<img alt="image" src="images/test_evidence/epic_7/health_booster_cannot_be_collected_at_full_health_test_evidence.mp4" />](images/test_evidence/epic_7/health_booster_cannot_be_collected_at_full_health_test_evidence.mp4)   |
-| EPIC8/US8.3   | TC-60        | Verify booster spawn at level-specified locations                      | New level loaded with boosters defined                                             | Boosters appear at correct map positions as designed                                             | All boosters visible at spawn points, spawn layout matches level design                           | PENDING |                                                                                                                                                                                                                                |
-| EPIC9/US9.1   | TC-62        | Verify Aguares Enemy sprite set and animations load                    | Level contains Aguares Enemy                                                       | All animations (idle, walk, attack, pain, death) load and display correctly                      | Sprites render without glitches, animations smooth, transitions between states work               | PENDING |                                                                                                                                                                                                                                |
-| EPIC9/US9.1   | TC-63        | Verify Aguares Enemy stat values (Speed, Health, Damage)               | Aguares Enemy encounters player                                                    | Enemy moves at speed 0.04, health 250 HP, attack damage 18 per hit                               | Enemy moves toward player correctly, health reduces with damage, damage values apply correctly    | PENDING |                                                                                                                                                                                                                                |
-| EPIC9/US9.1   | TC-64        | Verify Aguares Enemy movement and attack behavior                      | Player observes Aguares Enemy behavior                                             | Enemy moves toward the player without spinning and attacks when in range                         | Movement remains stable, attack animation plays correctly, AI functions without crashes           | PENDING |                                                                                                                                                                                                                                |
-| EPIC9/US9.2   | TC-65        | Verify Celt Enemy sprite set and animations load                       | Level contains Celt Enemy                                                          | All animations (idle, walk, attack, pain, death) load and display correctly                      | Sprites render without glitches, animations smooth, transitions between states work               | PENDING |                                                                                                                                                                                                                                |
-| EPIC9/US9.2   | TC-66        | Verify Celt Enemy stat values (Speed, Health, Damage, Difficulty)      | Celt Enemy encounters player                                                       | Enemy moves at speed 0.038, health 220 HP, attack damage 17 per hit                              | Enemy behaves as intended, health reduces with damage, damage values apply correctly              | PENDING |                                                                                                                                                                                                                                |
-| EPIC9/US9.2   | TC-67        | Verify Celt Enemy movement and attack behavior                         | Player observes Celt Enemy behavior                                                | Enemy moves toward the player without spinning and attacks when in range                         | Movement remains stable, attack animation plays correctly, AI functions without crashes           | PENDING |                                                                                                                                                                                                                                |
-| EPIC10/US10.1 | TC-68        | Verify armor pickup sprite and animation load                          | Level contains armor pickup item                                                   | Armor pickup sprite displays with animation                                                      | Sprite renders correctly, animation plays smoothly, distinct appearance from health/ammo boosters | PENDING |                                                                                                                                                                                                                                |
-| EPIC10/US10.1 | TC-69        | Verify armor pickup mechanics and stat grant                           | Player moves over armor pickup                                                     | Collision detected, armor pickup disappears, armor activated                                     | Armor icon and label and counter updates on HUD, item removed from level                          | PENDING |                                                                                                                                                                                                                                |
-| EPIC10/US10.1 | TC-70        | Verify armor pickup audio feedback                                     | Player collects armor item                                                         | Pickup sound effect plays                                                                        | Sound plays at correct volume, distinct from health/ammo sounds                                   | PENDING |                                                                                                                                                                                                                                |
-| EPIC10/US10.2 | TC-71        | Verify armor damage reduction formula application                      | Player with armor takes 50% damage hit                                             | Damage reduced by 50%: actual_damage = 20 * (1 - 0.5) = 10 damage taken                          | Player health decreases by 10 (not 20), armor mechanic correctly reduces damage by percentage     | PENDING |                                                                                                                                                                                                                                |
-| EPIC10/US10.3 | TC-73        | Verify armor HUD display positioning and formatting                    | Player equips armor                                                                | Armor icon and label display on HUD (top-right area), clearly visible                            | Armor UI positioned correctly, text/bar readable, no overlap with other HUD elements              | PENDING |                                                                                                                                                                                                                                |
-| EPIC10/US10.3 | TC-74        | Verify armor HUD updates in real-time                                  | Player takes damage or collects armor                                              | Armor value on HUD updates immediately and accurately                                            | Updates synchronized with gameplay, no lag or delay in display                                    | PENDING |                                                                                                                                                                                                                                |
-| EPIC10/US10.3 | TC-75        | Verify armor visual distinction from health bar                        | Player observes HUD during gameplay                                                | Armor bar/counter uses distinct color (yellow/gold) separate from health (red) and other UI      | Clear visual distinction prevents confusion, color coding aids quick recognition                  | PENDING |                                                                                                                                                                                                                                |
-| GENERAL       | TC-76        | Verify V2.0 game stability with all new features                       | Game runs with all V2.0 features active (2+ weapons, boosters, new enemies, armor) | Game maintains >60 FPS, no crashes, no memory leaks after 30+ minutes of gameplay                | FPS counter stable, gameplay smooth, no player-visible performance degradation                    | PENDING |                                                                                                                                                                                                                                |
-| GENERAL       | TC-77        | Verify no conflicts between new weapon types and existing mechanics    | Player uses all three weapons in rapid succession                                  | Weapon switching, firing, damage application, and animations work correctly for all combinations | No bugs, glitches, or unintended interactions; all weapon types function independently            | PENDING |                                                                                                                                                                                                                                |
-| GENERAL       | TC-78        | Verify new enemies interact correctly with existing combat system      | Player encounters both new enemy types in same level                               | Enemies follow existing AI patterns, take damage, die, drop points; no conflicts with shotgun    | Damage application works for all enemy types, existing combat flow unaffected                     | PENDING |                                                                                                                                                                                                                                |
-| GENERAL       | TC-79        | Verify boosters do not conflict with level spawning and enemy spawning | Player collects booster, waits 30 seconds                                          | Boosters spawn at correct locations, do not interfere with enemy spawn; no overlap               | Clean level design, no item collision issues, proper spatial distribution                         | PENDING |                                                                                                                                                                                                                                |
-| GENERAL       | TC-80        | Verify armor system integrates with player damage flow                 | Player with armor takes hits from multiple enemy types                             | Armor reduces damage correctly, depletes, can be replenished; works with all enemies             | Damage reduction works consistently across all enemy types and attack sources                     | PENDING |                                                                                                                                                                                                                                |
+| EPIC/US       | Test Case ID | Description                                                            | Precondition                                                                       | Expected Outcome                                                                                 | Acceptance Criteria                                                                               | Status  | Evidence                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|---------------|--------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EPIC7/US7.1   | TC-41        | Verify AN94 weapon loading and initialization                          | Game starts with weapon system loaded                                              | AN94 initializes with correct sprites, damage (20), and fire rate (140ms)                        | Weapon config loaded correctly, no crashes on startup                                             | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/an94_weapon_loading_and_initialization_test_evidence.mp4)                                                                                                                                                                                                                           |
+| EPIC7/US7.1   | TC-42        | Verify AN94 auto-fire functionality                                    | Player equips AN94 and encounters demon                                            | Holding mouse button fires continuously at ~7.1 shots/sec                                        | Fire rate matches spec, ammo depletes correctly, animation plays for each shot                    | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_auto_fire_functionality.mp4" />](images/test_evidence/epic_7/an94_auto_fire_functionality_test_evidence.mp4)                                                                                                                                                                                                                                                             |
+| EPIC7/US7.1   | TC-43        | Verify AN94 damage application to enemies                              | Player fires AN94 at demon with known health (100)                                 | Demon takes 20 damage per shot, health decreases correctly                                       | After 5 hits, demon health is 0 and dies, death animation plays                                   | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_auto_fire_functionality.mp4" />](images/test_evidence/epic_7/an94_auto_fire_functionality_test_evidence.mp4)                                                                                                                                                                                                                                                             |
+| EPIC7/US7.2   | TC-44        | Verify Minigun weapon loading and initialization                       | Game starts with weapon system loaded                                              | Minigun initializes with correct sprites, damage (10), and fire rate (110ms)                     | Weapon config loaded correctly, no crashes on startup                                             | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                                                                                                                                                                                                                     |
+| EPIC7/US7.2   | TC-45        | Verify Minigun auto-fire high rate-of-fire                             | Player equips Minigun and holds mouse button                                       | Minigun fires continuously at ~9.0 shots/sec (faster than AN94)                                  | Fire rate is 110ms per shot, faster fire than other weapons                                       | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                                                                                                                                                                                                                     | 
+| EPIC7/US7.2   | TC-46        | Verify Minigun barrel spin animation                                   | Player equips Minigun and observes weapon animation                                | Barrel spin animation plays smoothly during firing                                               | Animation smooth, realistic rotation, no glitches or lag                                          | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_weapon_loading_and_initialization_test_evidence.mp4)                                                                                                                                                                                                                     |
+| EPIC7/US7.3   | TC-47        | Verify weapon switching via keyboard (1/2/3 keys)                      | Game running with player in level                                                  | Pressing K_1 switches to Shotgun, K_2 to AN94, K_3 to Minigun                                    | Each key switches to correct weapon                                                               | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4)                                                                                                                                                                                                                                             |
+| EPIC7/US7.3   | TC-48        | Verify active weapon HUD display (icon and name)                       | Player switches between weapons                                                    | HUD displays active weapon icon (bottom-right) and weapon name below icon                        | Icon updates immediately on switch, name text is readable and positioned correctly                | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switching_via_keyboard_test_evidence.mp4)                                                                                                                                                                                                                                             |
+| EPIC7/US7.3   | TC-48.1      | Verify Shotgun HUD icon correctness                                    | Player switches to Shotgun                                                         | Shotgun icon aligns to bottom right corner with proper scaling and text "Shotgun" displays       | Correct sprite loaded for Shotgun icon, no overlapping with other UI elements                     | Success | [<img alt="image" src="images/test_evidence/epic_7/shotgun_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/shotgun_icon_and_name_test_evidence.png)                                                                                                                                                                                                                                                             |
+| EPIC7/US7.3   | TC-48.2      | Verify AN94 HUD icon correctness                                       | Player switches to AN94                                                            | AN94 icon aligns to bottom right corner with proper scaling and text "AN94" displays             | Correct sprite loaded for AN94 icon, no overlapping with other UI elements                        | Success | [<img alt="image" src="images/test_evidence/epic_7/an_94_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/an_94_icon_and_name_test_evidence.png)                                                                                                                                                                                                                                                                 |
+| EPIC7/US7.3   | TC-48.3      | Verify Minigun HUD icon correctness                                    | Player switches to Minigun                                                         | Minigun icon aligns to bottom right corner with proper scaling and text "Minigun" displays       | Correct sprite loaded for Minigun icon, no overlapping with other UI elements                     | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_icon_and_name_test_evidence.png" />](images/test_evidence/epic_7/minigun_icon_and_name_test_evidence.png)                                                                                                                                                                                                                                                             |
+| EPIC7/US7.3   | TC-49        | Verify weapon switch blocked during reload warning                     | Player fires weapon then immediately presses weapon switch key                     | "Cannot switch while reloading" warning displays for 0.8s                                        | Warning message appears, lasts exactly 0.8s, then disappears, no switch occurs                    | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4)                                                                                                                                                                                                                 |
+| EPIC7/US7.3   | TC-50        | Verify weapon switch warning rate-limiting (no spam)                   | Player rapidly presses weapon switch keys during reload                            | Warning displays once, subsequent keypresses within cooldown do not re-trigger warning           | Warning cooldown prevents duplicate messages, clean UX without spam                               | Success | [<img alt="image" src="images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4" />](images/test_evidence/epic_7/weapon_switch_blocked_during_reload_warning_test_evidence.mp4)                                                                                                                                                                                                                 |
+| EPIC7/US7.4   | TC-51        | Verify Shotgun firing sound plays correctly                            | Player equips Shotgun and fires at demon                                           | Deep, powerful single gunshot sound plays                                                        | Sound timing matches fire event, no overlap with other sounds, audio level appropriate            | Success | [<img alt="image" src="images/test_evidence/epic_7/shotgun_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/shotgun_firing_sound_plays_correctly_test_evidence.mp4)                                                                                                                                                                                                                               |
+| EPIC7/US7.4   | TC-52        | Verify AN94 firing sound plays correctly                               | Player equips AN94 and holds mouse button                                          | Rapid automatic gunfire sound plays continuously while holding button                            | Sound loops smoothly, matches fire rate, stops when button released                               | Success | [<img alt="image" src="images/test_evidence/epic_7/an94_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/an94_firing_sound_plays_correctly_test_evidence.mp4)                                                                                                                                                                                                                                     |
+| EPIC7/US7.4   | TC-53        | Verify Minigun firing sound plays correctly                            | Player equips Minigun and holds mouse button                                       | High-frequency minigun whine plays continuously while holding button                             | Sound loops smoothly, matches high fire rate, stops when button released                          | Success | [<img alt="image" src="images/test_evidence/epic_7/minigun_firing_sound_plays_correctly_test_evidence.mp4" />](images/test_evidence/epic_7/minigun_firing_sound_plays_correctly_test_evidence.mp4)                                                                                                                                                                                                                               |
+| EPIC8/US8.1   | TC-54        | Verify ammo booster sprite and animation load correctly                | Level loads with ammo booster pickup present                                       | Ammo booster sprite displays with animation in game world                                        | Sprite renders correctly, no texture glitches                                                     | Success | [<img alt="image" src="images/test_evidence/epic_8/ammo_booster_sprite_and_animation_load_correctly_test_evidence.mp4" />](images/test_evidence/epic_8/ammo_booster_sprite_and_animation_load_correctly_test_evidence.mp4)                                                                                                                                                                                                       |
+| EPIC8/US8.1   | TC-55        | Verify ammo booster pickup mechanics                                   | Player moves over ammo booster item                                                | Collision detected, booster disappears, ammo counter increases by 30                             | Ammo counter updates on HUD immediately, audio feedback plays, booster removed from level         | Success | [<img alt="image" src="images/test_evidence/epic_8/ammo_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_8/ammo_booster_pickup_mechanics_test_evidence.mp4)                                                                                                                                                                                                                                             |
+| EPIC8/US8.1   | TC-56        | Verify ammo booster audio feedback                                     | Player collects ammo booster                                                       | Pickup sound effect plays                                                                        | Sound plays at correct volume, no overlapping, distinctive from other pickup sounds               | Success | [<img alt="image" src="images/test_evidence/epic_8/ammo_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_8/ammo_booster_pickup_mechanics_test_evidence.mp4)                                                                                                                                                                                                                                             |
+| EPIC8/US8.2   | TC-57        | Verify health booster sprite and animation load correctly              | Level loads with health booster pickup present                                     | Health booster sprite displays with animation in game world                                      | Sprite renders correctly, distinct from ammo booster visually                                     | Success | [<img alt="image" src="images/test_evidence/epic_8/health_booster_sprite_and_animation_load_correctly_test_evidence.mp4" />](images/test_evidence/epic_8/health_booster_sprite_and_animation_load_correctly_test_evidence.mp4)                                                                                                                                                                                                   |
+| EPIC8/US8.2   | TC-58        | Verify health booster pickup mechanics (+50 heal scenario)             | Player health is low (e.g., 30/100), moves over health booster                     | Collision detected, booster disappears, health restores to 80                                    | Health bar updates on HUD to 80, audio feedback plays, booster removed from level                 | Success | [<img alt="image" src="images/test_evidence/epic_8/health_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_8/health_booster_pickup_mechanics_test_evidence.mp4)                                                                                                                                                                                                                                         |
+| EPIC8/US8.2   | TC-59        | Verify health booster cannot be collected at full health               | Player health is at maximum (100), moves over health booster                       | Booster remains in level, no pickup occurs, no audio                                             | Booster does not disappear, health stays at 100, prevents waste                                   | Success | [<img alt="image" src="images/test_evidence/epic_8/health_booster_cannot_be_collected_at_full_health_test_evidence.mp4" />](images/test_evidence/epic_8/health_booster_cannot_be_collected_at_full_health_test_evidence.mp4)                                                                                                                                                                                                     |
+| EPIC8/US8.3   | TC-60        | Verify booster spawn at level-specified locations                      | New level loaded with boosters defined                                             | Boosters appear at correct map positions as designed                                             | All boosters visible at spawn points, spawn layout matches level design                           | Success | [<img alt="image" src="images/test_evidence/epic_8/booster_spawn_at_level_specified_locations_test_evidence.png" />](images/test_evidence/epic_8/booster_spawn_at_level_specified_locations_test_evidence.png)                                                                                                                                                                                                                   |
+| EPIC9/US9.1   | TC-62        | Verify Aguares Enemy sprite set and animations load                    | Level contains Aguares Enemy                                                       | All animations (idle, walk, attack, pain, death) load and display correctly                      | Sprites render without glitches, animations smooth, transitions between states work               | Success | [<img alt="image" src="images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4)                                                                                                                                                                                                               |
+| EPIC9/US9.1   | TC-63        | Verify Aguares Enemy stat values (Speed, Health, Damage)               | Aguares Enemy encounters player                                                    | Enemy moves at speed 0.04, health 250 HP, attack damage 18 per hit                               | Enemy moves toward player correctly, health reduces with damage, damage values apply correctly    | Success | [<img alt="image" src="images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4)                                                                                                                                                                                                               |
+| EPIC9/US9.1   | TC-64        | Verify Aguares Enemy movement and attack behavior                      | Player observes Aguares Enemy behavior                                             | Enemy moves toward the player without spinning and attacks when in range                         | Movement remains stable, attack animation plays correctly, AI functions without crashes           | Success | [<img alt="image" src="images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4)                                                                                                                                                                                                               |
+| EPIC9/US9.2   | TC-65        | Verify Celt Enemy sprite set and animations load                       | Level contains Celt Enemy                                                          | All animations (idle, walk, attack, pain, death) load and display correctly                      | Sprites render without glitches, animations smooth, transitions between states work               | Success | [<img alt="image" src="images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4)                                                                                                                                                                                                                     |
+| EPIC9/US9.2   | TC-66        | Verify Celt Enemy stat values (Speed, Health, Damage, Difficulty)      | Celt Enemy encounters player                                                       | Enemy moves at speed 0.038, health 220 HP, attack damage 17 per hit                              | Enemy behaves as intended, health reduces with damage, damage values apply correctly              | Success | [<img alt="image" src="images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4)                                                                                                                                                                                                                     |
+| EPIC9/US9.2   | TC-67        | Verify Celt Enemy movement and attack behavior                         | Player observes Celt Enemy behavior                                                | Enemy moves toward the player without spinning and attacks when in range                         | Movement remains stable, attack animation plays correctly, AI functions without crashes           | Success | [<img alt="image" src="images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4)                                                                                                                                                                                                                     |
+| EPIC10/US10.1 | TC-68        | Verify armor pickup sprite and animation load                          | Level contains armor pickup item                                                   | Armor pickup sprite displays with animation                                                      | Sprite renders correctly, animation plays smoothly, distinct appearance from health/ammo boosters | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_pickup_sprite_and_animation_load_test_evidence.png" />](images/test_evidence/epic_10/armor_pickup_sprite_and_animation_load_test_evidence.png)                                                                                                                                                                                                                         |
+| EPIC10/US10.1 | TC-69        | Verify armor pickup mechanics and stat grant                           | Player moves over armor pickup                                                     | Collision detected, armor pickup disappears, armor activated                                     | Armor icon and label and counter updates on HUD, item removed from level                          | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_pickup_mechanics_and_stat_grant_test_evidence.mp4" />](images/test_evidence/epic_10/armor_pickup_mechanics_and_stat_grant_test_evidence.mp4)                                                                                                                                                                                                                           |
+| EPIC10/US10.1 | TC-70        | Verify armor pickup audio feedback                                     | Player collects armor item                                                         | Pickup sound effect plays                                                                        | Sound plays at correct volume, distinct from health/ammo sounds                                   | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_pickup_mechanics_and_stat_grant_test_evidence.mp4" />](images/test_evidence/epic_10/armor_pickup_mechanics_and_stat_grant_test_evidence.mp4)                                                                                                                                                                                                                           |
+| EPIC10/US10.2 | TC-71        | Verify armor damage reduction formula application                      | Player with armor takes 50% damage hit                                             | Damage reduced by 50%: actual_damage = 20 * (1 - 0.5) = 10 damage taken                          | Player health decreases by 10 (not 20), armor mechanic correctly reduces damage by percentage     | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_damage_reduction_formula_application_test_evidence.png" />](images/test_evidence/epic_10/armor_damage_reduction_formula_application_test_evidence.png)                                                                                                                                                                                                                 |
+| EPIC10/US10.3 | TC-73        | Verify armor HUD display positioning and formatting                    | Player equips armor                                                                | Armor icon and label display on HUD (top-right area), clearly visible                            | Armor UI positioned correctly, text/bar readable, no overlap with other HUD elements              | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_visual_distinction_from_health_bar_test_evidence.png" />](images/test_evidence/epic_10/armor_visual_distinction_from_health_bar_test_evidence.png)                                                                                                                                                                                                                     |
+| EPIC10/US10.3 | TC-74        | Verify armor HUD updates in real-time                                  | Player takes damage or collects armor                                              | Armor value on HUD updates immediately and accurately                                            | Updates synchronized with gameplay, no lag or delay in display                                    | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_damage_reduction_formula_application_test_evidence.png" />](images/test_evidence/epic_10/armor_damage_reduction_formula_application_test_evidence.png)                                                                                                                                                                                                                 |
+| EPIC10/US10.3 | TC-75        | Verify armor visual distinction from health bar                        | Player observes HUD during gameplay                                                | Armor bar/counter uses distinct color (yellow/gold) separate from health (red) and other UI      | Clear visual distinction prevents confusion, color coding aids quick recognition                  | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_visual_distinction_from_health_bar_test_evidence.png" />](images/test_evidence/epic_10/armor_visual_distinction_from_health_bar_test_evidence.png)                                                                                                                                                                                                                     |
+| GENERAL       | TC-76        | Verify V2.0 game stability with all new features                       | Game runs with all V2.0 features active (2+ weapons, boosters, new enemies, armor) | Game maintains >60 FPS, no crashes, no memory leaks after 30+ minutes of gameplay                | FPS counter stable, gameplay smooth, no player-visible performance degradation                    | Success | [<img alt="image" src="images/test_evidence/general/verify_v_2_0_game_stability_with_all_new_features_test_evidence.mp4" />](images/test_evidence/general/verify_v_2_0_game_stability_with_all_new_features_test_evidence.mp4)                                                                                                                                                                                                   |
+| GENERAL       | TC-77        | Verify no conflicts between new weapon types and existing mechanics    | Player uses all three weapons in rapid succession                                  | Weapon switching, firing, damage application, and animations work correctly for all combinations | No bugs, glitches, or unintended interactions; all weapon types function independently            | Success | [<img alt="image" src="images/test_evidence/general/no_conflicts_between_new_weapon_types_and_existing_mechanics_test_evidence_test_evidence.mp4" />](images/test_evidence/general/no_conflicts_between_new_weapon_types_and_existing_mechanics_test_evidence_test_evidence.mp4)                                                                                                                                                 |
+| GENERAL       | TC-78        | Verify new enemies interact correctly with existing combat system      | Player encounters both new enemy types in same level                               | Enemies follow existing AI patterns, take damage, die, drop points; no conflicts with shotgun    | Damage application works for all enemy types, existing combat flow unaffected                     | Success | [<img alt="image" src="images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/aguares_enemy_sprite_set_and_animations_load_test_evidence.mp4), [<img alt="image" src="images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4" />](images/test_evidence/epic_9/celt_enemy_sprite_set_and_animations_load_test_evidence.mp4) |
+| GENERAL       | TC-79        | Verify boosters do not conflict with level spawning and enemy spawning | Player collects booster, waits 30 seconds                                          | Boosters spawn at correct locations, do not interfere with enemy spawn; no overlap               | Clean level design, no item collision issues, proper spatial distribution                         | Success | [<img alt="image" src="images/test_evidence/epic_8/health_booster_pickup_mechanics_test_evidence.mp4" />](images/test_evidence/epic_8/health_booster_pickup_mechanics_test_evidence.mp4)                                                                                                                                                                                                                                         |
+| GENERAL       | TC-80        | Verify armor system integrates with player damage flow                 | Player with armor takes hits from multiple enemy types                             | Armor reduces damage correctly, depletes, can be replenished; works with all enemies             | Damage reduction works consistently across all enemy types and attack sources                     | Success | [<img alt="image" src="images/test_evidence/epic_10/armor_damage_reduction_formula_application_test_evidence.png" />](images/test_evidence/epic_10/armor_damage_reduction_formula_application_test_evidence.png)                                                                                                                                                                                                                 |
 
 ---
 
@@ -1678,6 +1678,896 @@ Version 2.0 will be considered complete and successful when:
 7. ✅ Game remains stable at >60 FPS with all new features active.
 8. ✅ Audio feedback is present and appropriate for all new mechanics.
 9. ✅ User documentation is updated with new features and mechanics.
+
+---
+
+## Updates within the project’s design, development and implementation
+
+### Extended weapon system design and implementation
+
+The extended weapon system design and implementation for Version 2.0 includes the addition of two new weapons (AN94 and Minigun) with unique stats and animations, as well as a weapon switching mechanism and HUD updates to display the active weapon.
+The design process involved selecting appropriate sprites and sounds for the new weapons, defining their mechanics (damage, fire rate), and designing the user interface for weapon switching and HUD display. The implementation process included coding the weapon system to support multiple weapons, implementing the switching mechanism, and integrating the new weapons into the existing game framework.
+
+#### Design Goals
+
+1. Aim for the data-driven configuration**: All weapon parameters are centralized in constants, allowing easy balancing without code changes.
+2. The architecture should be extensible: New weapons can be added by simply extending `WEAPON_CONFIG` without modifying core logic.
+3. Introduce per-weapon fire modes: Support both single-shot (Shotgun) and auto-fire (AN94, Minigun) mechanisms with appropriate input handling.
+4. Provide visual feedback to the player: Clear HUD indicators show active weapon, icons, and blocked-switch warnings.
+5. Provide audio weapon-specific feedback to the player: Each weapon has its own firing sound for immersive feedback.
+6. Achieve realistic balancing: Minigun offers high rate-of-fire but low per-shot damage while Shotgun offers high damage but slow fire rate.
+
+
+#### Architecture
+
+##### Class Hierarchy
+
+```
+AnimatedSprite (base class)
+    └── Weapon (refactored for multi-weapon support)
+```
+
+##### Data Flow
+
+```
+Player Input (K_1/K_2/K_3 or Mouse)
+    ↓
+Player.weapon_fire_event() / Player.update_auto_fire()
+    ↓
+Weapon.set_reloading() / Weapon.can_fire()
+    ↓
+SoundManager.play_weapon_sound() + Ammo Decrement
+    ↓
+Weapon.animate_shot() → Enemy.get_weapon_damage()
+```
+
+---
+
+#### Weapon Specifications
+
+Here are the detailed specifications for each weapon type, including their damage, fire rate, animation frames, sprite paths, icons, sounds, and theoretical DPS calculations based on their stats.
+
+##### Shotgun
+
+**Use Case**: High damage, slow fire rate. Best for finishing weak enemies or precision shots.
+
+| Parameter         | Value                                      |
+|-------------------|--------------------------------------------|
+| Damage per shot   | 50                                         |
+| Fire delay        | 450ms                                      |
+| Fire mode         | Single-shot (click)                        |
+| Animation frames  | ~90ms per frame                            |
+| Sprite path       | `assets/sprites/weapon/shotgun/0.png`      |
+| Icon              | `assets/sprites/weapon/shotgun/SGNPA0.png` |
+| Sound             | `shotgun.wav`                              |
+| DPS (theoretical) | ~110                                       |
+
+
+##### AN94
+
+**Use Case**: Balanced automatic weapon. Medium damage and fire rate suitable for sustained combat.
+
+| Parameter         | Value                                   |
+|-------------------|-----------------------------------------|
+| Damage per shot   | 20                                      |
+| Fire delay        | 150ms                                   |
+| Fire mode         | Auto-fire (hold)                        |
+| Animation frames  | ~70ms per frame                         |
+| Sprite path       | `assets/sprites/weapon/an94/0.png`      |
+| Icon              | `assets/sprites/weapon/an94/AN9PZ0.png` |
+| Sound             | `AN94FIRE.wav`                          |
+| DPS (theoretical) | ~140                                    |
+
+
+##### Minigun
+
+**Use Case**: High fire rate, low per-shot damage. Realistic minigun behavior for suppressive fire.
+
+| Parameter         | Value                                      |
+|-------------------|--------------------------------------------|
+| Damage per shot   | 10                                         |
+| Fire delay        | 110ms                                      |
+| Fire mode         | Auto-fire (hold)                           |
+| Animation frames  | ~45ms per frame                            |
+| Sprite path       | `assets/sprites/weapon/minigun/0.png`      |
+| Icon              | `assets/sprites/weapon/minigun/MNGNA0.png` |
+| Sound             | `minigun_sound.ogg`                        |
+| DPS (theoretical) | ~140                                       |
+
+---
+
+#### Input System
+
+##### Keyboard Controls
+
+Switching Rules:
+- Instant switch if current weapon is not reloading
+- If blocked, shows "Cannot switch while reloading" warning for 0.8s
+- Rate-limited to prevent spam (warning cooldown = 0.8s)
+
+| Key | Action        | Effect          |
+|-----|---------------|-----------------|
+| `1` | Switch slot 1 | Equip Shotgun   |
+| `2` | Switch slot 2 | Equip AN94      |
+| `3` | Switch slot 3 | Equip Minigun   |
+
+##### Mouse Controls
+
+| Action  | Weapon       | Behavior                      |
+|---------|--------------|-------------------------------|
+| Click   | Shotgun      | Single shot fires immediately |
+| Hold    | AN94/Minigun | Continuous fire while held    |
+| Release | AN94/Minigun | Stops firing                  |
+
+---
+
+#### State Diagram
+
+```
+┌─────────────────────────────────────────────┐
+│         WEAPON SELECTION STATE              │
+└─────────────────────────────────────────────┘
+                     ↓
+        [K_1, K_2, K_3 pressed]
+                     ↓
+         ┌──────────────────────┐
+         │ Is weapon reloading? │
+         └──────────────────────┘
+            ↙ (No)        ↖ (Yes)
+           ↓               ↓
+      [SWITCH]      [BLOCK + WARNING]
+        ↓                  ↓
+    [NEW WEAPON]   [Show HUD 0.8s]
+        ↓
+┌─────────────────────────────────────────────┐
+│         WEAPON READY STATE                  │
+└─────────────────────────────────────────────┘
+                     ↓
+        [MOUSE BUTTON DOWN]
+                     ↓
+    ┌───────────────────────────┐
+    │ Is auto_fire enabled?     │
+    └───────────────────────────┘
+   ↙ (No)              ↖ (Yes)
+  ↓                     ↓
+[SINGLE SHOT]    [START AUTO-FIRE]
+  ↓                     ↓
+[RELOAD]        ┌──────────────────┐
+  ↓             │ Mouse held?      │
+[ANIMATE]       └──────────────────┘
+  ↓            ↙ (Yes)      ↖ (No)
+[RESET]   ┌────────────────────┐   ↓
+          │ Cooldown expired?  │ [STOP]
+          └────────────────────┘   ↓
+          ↙ (Yes)      ↖ (No)  [RELOAD]
+         ↓              ↓         ↓
+      [FIRE]       [WAIT]   [ANIMATE]
+        ↓                       ↓
+      [RELOAD]            [RESET]
+        ↓
+    [ANIMATE]
+        ↓
+    [REPEAT/RESET]
+```
+
+---
+
+#### Implementation Details
+
+##### Global Settings Configuration (`global_settings.py`)
+
+###### Weapon Slot Mapping
+
+It is meant to map keyboard inputs to weapon IDs for intuitive slot-based switching.
+
+```python
+WEAPON_SLOT_KEYS = {
+    pygame.K_1: 'shotgun',
+    pygame.K_2: 'an94',
+    pygame.K_3: 'minigun',
+}
+```
+
+###### HUD Warning Constants
+
+It is meant to controls HUD feedback when player attempts to switch weapons during reload/animation.
+
+```python
+WEAPON_SWITCH_BLOCK_MSG = 'Cannot switch while reloading'
+WEAPON_SWITCH_BLOCK_MSG_DURATION = 0.8  # seconds
+WEAPON_SWITCH_BLOCK_MSG_COOLDOWN = 0.8  # seconds
+```
+
+###### Weapon Configuration Table
+
+It is meant to be a centralized configuration for all weapon parameters, allowing easy adjustments and additions of new weapons without modifying core logic. Each weapon has its own stats, animation settings, and sound mappings.
+
+Example for Minigun weapon configuration:
+
+```python
+WEAPON_CONFIG = {
+    'minigun': {
+        'name': 'Minigun',
+        'path': 'assets/sprites/weapon/minigun/MNGGA0.png',
+        'idle_sprites': ['assets/sprites/weapon/minigun/MNGGA0.png'],
+        'fire_sprites': [
+            ['assets/sprites/weapon/minigun/MNGFA0.png', 'assets/sprites/weapon/minigun/MNGGA0.png'],
+            ['assets/sprites/weapon/minigun/MNGFB0.png', 'assets/sprites/weapon/minigun/MNGGB0.png']
+        ],
+        'icon_path': 'assets/sprites/weapon/minigun/MNGNA0.png',
+        'scale': 4.4,
+        'animation_time': 45,
+        'damage': 10,
+        'fire_delay_ms': 110,
+        'auto_fire': True,
+        'sound_id': 'minigun',
+    },
+}
+```
+
+**Key Parameters**:
+- `name`: Display name for HUD
+- `path`: Sprite sheet directory
+- `idle_sprites`: List of sprites for idle animation
+- `fire_sprites`: List of sprite pairs for firing animation (main sprite + barrel spin)
+- `icon_path`: HUD icon for weapon display
+- `scale`: Sprite scaling factor
+- `animation_time`: Frame delay in milliseconds
+- `damage`: Per-shot damage value
+- `fire_delay_ms`: Cooldown between shots (auto-fire only)
+- `auto_fire`: Boolean flag for hold-to-fire behavior
+- `sound_id`: Key to map weapon to audio asset
+
+##### Sound Manager (`sound_manager.py`)
+
+###### Constructor Changes
+
+The constructor of the SoundManager class is updated to load weapon-specific shot sounds and map them to weapon IDs for easy retrieval when firing weapons. This allows each weapon to have its own distinct firing sound, enhancing the audio feedback for the player.
+
+```python
+def __init__(self, game):
+    # ...existing code...
+    
+    # Load weapon-specific shot sounds
+    self.shotgun = pg.mixer.Sound(self.path + 'shotgun.wav')
+    self.an94 = pg.mixer.Sound(self.path + 'AN94FIRE.wav')
+    self.minigun = pg.mixer.Sound(self.path + 'minigun_sound.ogg')
+    
+    # ...other sounds...
+    
+    # Map weapon sound ids to sound objects
+    self.weapon_sounds = {
+        'shotgun': self.shotgun,
+        'an94': self.an94,
+        'minigun': self.minigun,
+    }
+```
+
+Audio assets used for the new weapons:
+- `assets/sound/shotgun.wav` - Deep, single powerful shot
+- `assets/sound/AN94FIRE.wav` - Rapid, medium-pitched automatic gunfire
+- `assets/sound/minigun_sound.ogg` - High-frequency rotary fire
+
+##### HUD Screen (`hud_screen.py`)
+
+###### Constructor Changes
+
+The constructor of the HUDScreen class is updated to load weapon icons for each weapon defined in the `WEAPON_CONFIG`. These icons are used to visually represent the active weapon on the HUD when the player switches weapons. The icons are loaded, scaled to a consistent size, and stored in a dictionary for easy access during HUD rendering.
+
+```python
+def __init__(self, game):
+    self.game = game
+    self.font = pg.font.Font(FONT, 60)
+    self.small_font = pg.font.Font(FONT, 40)  # NEW: For weapon name display
+    
+    # Load weapon icons for HUD display
+    self.weapon_icons = {}
+    for weapon_id, config in WEAPON_CONFIG.items():
+        try:
+            icon_img = pg.image.load(config['icon_path']).convert_alpha()
+            icon_img = pg.transform.scale(icon_img, (80, 80))  # Scale to 80x80px
+            self.weapon_icons[weapon_id] = icon_img
+        except Exception as e:
+            print(f"Failed to load weapon icon for {weapon_id}: {e}")
+            self.weapon_icons[weapon_id] = None
+```
+
+Icon assets loaded for HUD display:
+- `assets/sprites/weapon/shotgun/SGNPA0.png`
+- `assets/sprites/weapon/an94/AN9PZ0.png`
+- `assets/sprites/weapon/minigun/MNGNA0.png`
+
+
+
+### Collectible boosters and power-ups design and implementation
+
+The collectible boosters and power-ups design and implementation for Version 2.0 involves the introduction of ammo and health boosters that players can collect during gameplay. The design process included selecting sprites and sounds for the boosters, defining their mechanics (effects on player stats), and designing their spawn system within the game levels. The implementation process involved coding the booster items, implementing collision detection for pickups, and integrating audio feedback for when boosters are collected.
+
+#### Design Goals
+ 
+1. Boosters should provide meaningful benefits: Ammo boosters increase ammo count by a significant amount (e.g., +30), while health boosters restore a substantial portion of health (e.g., +50 HP).
+2. Boosters should have distinct visual and audio feedback: Each booster type has its own unique sprite and sound effect to ensure players can easily identify them and receive satisfying feedback upon pickup.
+2. Provide visual feedback to the player: player receives immediate visual feedback on the HUD when picking up boosters (e.g., ammo count increase, health bar update).
+2. Provide audio feedback to the player: distinct sound effects play when picking up ammo or health boosters for immersive feedback.
+3. Ensure boosters are strategically placed in levels: Boosters should be placed in locations that encourage exploration and provide assistance during challenging sections of the game.
+4. Implement pickup mechanics: When the player collides with a booster, it should be removed from the level, and the appropriate stat (ammo or health) should be updated on the player's HUD.
+5. Achieve balanced gameplay: Health boosters should restore a significant portion of health but not trivialize the game's difficulty, while ammo boosters should provide enough ammunition to encourage their use without making the player overpowered.
+6. Once picked up, boosters should not respawn to prevent abuse so boosters should be designed as one-time pickups that do not respawn after being collected, encouraging players to use them strategically and explore the level for additional boosters rather than relying on respawns.
+7. Given the game level size there has to be between 5-10 health boosters and somewhere 10-15 ammo pickups.
+
+
+#### Booster Types
+
+| Booster Type       | ID                     | Effect            | Visual              | Audio                         | Notes                                                             |
+|--------------------|------------------------|-------------------|---------------------|-------------------------------|-------------------------------------------------------------------|
+| **Ammo Booster**   | `ammo_booster`         | +30 ammo rounds   | Ammo crate sprite   | `play_ammo_pickup_sound()`    | Always pickable, capped at 100 ammo max                           |
+| **Health Booster** | `medpack` (internally) | +50 health points | Medical pack sprite | `play_medpack_pickup_sound()` | Capped at 100 HP max, pickable only when player's health < 100 HP |
+
+
+#### Booster Behavior Rules To Be Implemented
+
+1. **Pickup Mechanics:**
+   - Player collision with booster triggers automatic pickup
+   - Collision detection uses tile-based map position: `int(object.x) == player.map_pos[0] and int(object.y) == player.map_pos[1]`
+   - Booster is immediately removed from the game world after pickup
+   - Effect applies instantly to player stats (no delay)
+
+2. **Health Booster (Medpack) Special Rules:**
+   - Health cannot exceed maximum (100 HP)
+   - If player at max health, pickup IS not allowed to prevent waste (booster remains in level)
+   - HUD shows health value updated immediately
+
+3. **Ammo Booster Rules:**
+   - Always pickable (no ammo "full" cap)
+   - Can accumulate up to PLAYER_MAX_AMMO limit (100 rounds)
+   - Ammo counter immediately updates on HUD
+
+5. **Respawn Behavior:**
+   - All boosters are one-time use (picked up permanently)
+   - No respawn queue or scheduling system
+   - Boosters are hardcoded in ObjectsManager and not dynamically respawned
+   - This design choice encourages strategic use and exploration rather than farming respawns
+
+6. **Spawn Point Safety:**
+   - Booster spawn positions are hardcoded into ObjectsManager
+   - Must be validated manually to not block player pathfinding
+   - Must be validated to not block enemy movement
+
+---
+
+#### Data Format & Level Integration
+
+##### Implementation Details
+
+In the version 2, all boosters are hardcoded directly in ObjectsManager rather than being loaded from level JSON files. This is a simplified approach that works well for single-level game. For future multi-level support, booster definitions could be moved to level JSON files for easier management and scalability.
+
+**ObjectsManager Pickup Lists:**
+```python
+self.armor_objects_list = []     # Contains armor pickup objects
+self.medpack_objects_list = []   # Contains health booster (medpack) objects
+self.ammo_objects_list = []      # Contains ammo pickup objects
+```
+
+##### Spawn Example (ObjectsManager.__init__)
+
+```python
+# Medpack (health) pickups (7 total)
+self.add_medpack_object(Sprite(game, path='assets/sprites/static/medpack.png', pos=(31.5, 2), scale=0.2, shift=2.0))
+self.add_medpack_object(Sprite(game, path='assets/sprites/static/medpack.png', pos=(57, 28), scale=0.2, shift=2.0))
+# ... more medpack objects
+
+# Ammo pickups (12 total)
+self.add_ammo_object(Sprite(game, path='assets/sprites/static/ammo.png', pos=(10.7, 10), scale=0.2, shift=2.0))
+self.add_ammo_object(Sprite(game, path='assets/sprites/static/ammo.png', pos=(16.8, 4.9), scale=0.2, shift=2.0))
+# ... more ammo objects
+```
+
+##### Future Enhancement: JSON-Based Level Loading
+
+In future, for multi-level support, pickups could be defined in level JSON like this. This would allow level designers to easily place boosters without modifying code, and enable different booster layouts for each level. The game would need to be updated to parse these definitions and spawn the appropriate pickup objects during level loading.
+
+```json
+{
+  "level_id": "level_1",
+  "map_data": [ ... ],
+  "enemies": [ ... ],
+  "pickups": {
+    "armor": [
+      { "pos": [1.2, 30.7], "type": "armor" },
+      { "pos": [56.8, 3.3], "type": "armor" }
+    ],
+    "medpacks": [
+      { "pos": [31.5, 2], "type": "medpack" },
+      { "pos": [57, 28], "type": "medpack" }
+    ],
+    "ammo": [
+      { "pos": [10.7, 10], "type": "ammo" },
+      { "pos": [16.8, 4.9], "type": "ammo" }
+    ]
+  }
+}
+```
+
+##### Collision Detection Implementation
+
+Collision detection uses tile-based map position checking to determine if the player has collided with a pickup. This is done by comparing the integer tile coordinates of the pickup with the player's current tile position. If they match, it indicates that the player has entered the same tile as the pickup, and the appropriate pickup effect can be applied.
+
+```python
+# In ObjectsManager.update()
+if int(pickup.x) == self.game.player.map_pos[0] and int(pickup.y) == self.game.player.map_pos[1]:
+    # Collision detected
+    apply_pickup_effect()
+```
+
+This approach:
+- Converts continuous world coordinates to integer tile positions
+- Compares player tile position with pickup tile position
+- Triggers pickup when player enters the same tile
+
+##### SoundManager Integration
+
+Sound effects are handled by the sound manager with dedicated methods for each pickup type to play the appropriate sound when a booster is collected. This provides immediate audio feedback to the player, enhancing the immersive experience of picking up boosters.
+
+```python
+class SoundManager:
+    def play_ammo_pickup_sound(self):
+        """Play ammo pickup sound (assets/sound/ammo_pickup.mp3)"""
+        pass
+
+    def play_medpack_pickup_sound(self):
+        """Play medpack pickup sound (assets/sound/pickup-health.mp3)"""
+        pass
+
+    def play_armor_pickup_sound(self):
+        """Play armor pickup sound"""
+        pass
+```
+
+##### HUD Integration
+
+The HUD displays pickup-related information such as ammo count and health updates when boosters are collected. 
+
+```python
+class HudScreen:
+
+    def draw(self, score, level, ammo, enemies_killed, player_health, has_armor, armor_time_remaining):
+        """Main HUD draw method"""
+        self.score(score)
+        self.show_level(level)
+        self.show_ammo(ammo)
+        self.show_enemies_killed(enemies_killed)
+        self.show_player_health(player_health)
+        self.show_active_weapon()
+        self.show_weapon_switch_blocked_warning()
+```
+
+---
+
+### New enemy types and behaviors design and implementation
+
+The new enemy types and behaviors design and implementation for Version 2.0 includes the addition of two new demons, Aguares and Celt, each with unique attributes (health, damage, speed) and behaviors. The design process involved selecting appropriate sprites and sounds for the new enemies, defining their mechanics (movement, attack patterns), and designing their integration into the existing enemy system. The implementation process included coding the new enemy types, implementing their behaviors and interactions with the player, and ensuring they function correctly within the game environment.
+
+#### Enemy Type Overview
+
+| Aspect              | AguaresEnemy              | CeltEnemy                 | Existing Enemy Base       |
+|---------------------|---------------------------|---------------------------|---------------------------|
+| **Role**            | Fast mid-tier rusher      | Close-range melee enemy   | Shared enemy behavior     |
+| **Speed**           | 0.04                      | 0.038                     | Base speed set in `Enemy` |
+| **Health**          | 250 HP                    | 220 HP                    | Base 100 HP               |
+| **Damage**          | 18                        | 17                        | Base 10 HP damage         |
+| **Accuracy**        | 0.18                      | 0.19                      | Base 0.15                 |
+| **Attack Distance** | 2-5 tiles                 | 2-4 tiles                 | Random base range         |
+| **Spawn Source**    | `ObjectsManager.__init__` | `ObjectsManager.__init__` | Existing enemy spawn flow |
+
+#### AguaresEnemy class
+
+**Class:** `AguaresEnemy(Enemy base class)`  
+**Role:** Fast mid-tier rusher with aggressive movement and moderate-high damage.
+
+```python
+class AguaresEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/Aguares/AGURA1C1.png', pos=(5.5, 3.5),
+                 scale=0.8, shift=0.2, animation_time=180, prefix='AGUR'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        self.idle_images = self.get_event_images(self.path, ["A0.png", "B0.png", "C0.png", "D0.png"], prefix='AGAS')
+        self.walk_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix='AGUR')
+        self.attack_images = self.get_event_images(self.path, ["E1.png", "F1.png", "G1.png"], prefix)
+        self.pain_images = self.get_event_images(self.path, ["H1.png"], prefix)
+        self.death_images = self.get_event_images(self.path, ["A1.png", "A2A8.png", "A3A7.png", "A4A6.png", "A5.png", "B1.png"], prefix='BLVB')
+
+        self.set_speed(0.04)
+        self.set_health(250)
+        self.set_attack_damage(18)
+        self.set_accuracy(0.18)
+        self.set_attack_distance(2, 5)
+```
+
+**Implemented Behavior:**
+- Uses the shared enemy logic for line-of-sight detection, chase, attack, pain, and death
+- Walk animation is a simple front-facing loop to avoid spinning
+- Attack, pain, and death animations are driven by the shared animation flow in `Enemy` base class
+
+#### CeltEnemy class
+
+**Class:** `CeltEnemy(Enemy base class)`  
+**Role:** Durable close-range melee enemy with slightly lower speed but strong reliability.
+
+```python
+class CeltEnemy(Enemy):
+    def __init__(self, game, path='assets/sprites/animated/enemies/Celt/CELTA1C1.png', pos=(5.5, 3.5),
+                 scale=0.75, shift=0.35, animation_time=180, prefix='CELT'):
+        super().__init__(game, path, pos, scale, shift, animation_time, prefix)
+
+        self.attack_images = self.get_event_images(self.path, ["E1I1.png", "F1J1.png", "G1K1.png", "H1L1.png"], prefix='CELT')
+        self.death_images = self.get_event_images(self.path, [f"{c}0.png" for c in "ABCDEFGHIJ"], prefix='IRME')
+        self.idle_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix)
+        self.pain_images = self.get_event_images(self.path, ["Q1.png", "Q2.png"], prefix)
+        self.walk_images = self.get_event_images(self.path, ["A1C1.png", "B1D1.png", "A1C1.png", "B1D1.png"], prefix)
+
+        self.set_speed(0.038)
+        self.set_health(220)
+        self.set_attack_damage(17)
+        self.set_accuracy(0.19)
+        self.set_attack_distance(2, 4)
+```
+
+**Implemented Behavior:**
+- Uses the shared enemy logic for line-of-sight detection, chase, attack, pain, and death
+- Walk and attack animation sets are front-facing loops/frames to avoid spinning
+- The class inherits all combat flow from `Enemy` base class, ensuring consistent behavior with existing enemies while allowing for unique stats and animations.
+
+---
+
+#### Architecture & Integration
+
+##### Enemy Class Hierarchy
+
+```text
+AnimatedSprite
+└── Enemy
+    ├── BloodGhostEnemy
+    ├── BloodDemonEnemy
+    ├── AbaddonEnemy
+    ├── AfritEnemy
+    ├── AnnihilatorEnemy
+    ├── AguaresEnemy
+    └── CeltEnemy
+```
+
+##### Shared Enemy Behavior
+
+Both new enemies use the same shared methods from `Enemy`:
+- `update()`: Calls `run_enemy_logic()` and handles animation updates
+- `run_enemy_logic()`: calls the core behavior methods in sequence
+- `enemy_movement()`: Handles pathfinding and movement towards the player
+- `enemy_attack()`: Handles attack logic, including distance checks and damage application
+- `check_enemy_is_hit()`: Handles hit detection and damage application when the player fires a weapon
+- `enemy_animate_pain()`: Handles pain animation when the enemy takes damage
+- `enemy_animate_death()`: Handles death animation and removal from the game world
+
+This means both enemies:
+- Detect the player using ray casting
+- Chase the player when detected
+- Attack when within the configured attack distance
+- Take damage from the player weapon
+- Play pain and death animations
+- Increase player score and kill count on death
+
+##### Spawn Integration (`objects_manager.py`)
+
+The two new enemies are instantiated directly in `ObjectsManager.__init__`:
+
+Examples: 
+
+```python
+self.add_enemy_to_the_game(AguaresEnemy(game, pos=(10, 13)))
+self.add_enemy_to_the_game(CeltEnemy(game, pos=(37, 11)))
+```
+
+This means the new enemy types are spawned as part of the base level setup, not through a separate level-data enemy registry.
+In future, enemy spawn points could be moved to level JSON files for easier management and scalability, allowing different enemy layouts for each level.
+
+##### Combat Flow (`player.py` and `enemy.py`)
+
+Combat is handled using the existing shared game flow:
+- The player fires a weapon using `weapon_fire_event()`
+- `self.game.player.weapon_shot` is set for hit detection
+- The enemy checks whether it is hit in `check_enemy_is_hit()`
+- Damage is reduced from the enemy health
+- If health reaches zero, the enemy dies and awards points
+
+---
+
+#### Combat Stats and Balance
+
+##### Aguares Balance
+
+- Faster than the base enemy
+- Higher health than the base enemy
+- Higher attack damage than the base enemy
+- Moderate accuracy
+- Short-to-medium attack distance
+
+##### Celt Balance
+
+- Slightly slower than Aguares
+- Stronger defensive profile than the base enemy
+- Reliable close-range melee threat
+- Slightly higher accuracy than Aguares
+- Slightly shorter attack distance than Aguares
+
+##### Comparison Summary
+
+| Enemy        | Speed | Health | Damage | Accuracy | Attack Distance |
+|--------------|------:|-------:|-------:|---------:|----------------:|
+| Base Enemy   |  0.03 |    100 |     10 |     0.15 |             2-6 |
+| AguaresEnemy |  0.04 |    250 |     18 |     0.18 |             2-5 |
+| CeltEnemy    | 0.038 |    220 |     17 |     0.19 |             2-4 |
+
+---
+
+#### Animation & Visual Design
+
+##### Aguares Animations
+- Idle: 4 frames
+- Walk: 2-frame looping base sequence repeated in code
+- Attack: 3 frames
+- Pain: 1 frame
+- Death: 6 frames
+
+##### Celt Animations
+- Idle: 2-frame looping base sequence repeated in code
+- Walk: 2-frame looping base sequence repeated in code
+- Attack: 4 frames
+- Pain: 2 frames
+- Death: 10 frames
+
+
+### Armor system design and implementation
+
+The armor system design and implementation for Version 2.0 introduces a new mechanic that allows players to collect armor pickups that provide damage reduction. The design process involved selecting sprites and sounds for the armor pickup, defining the mechanics of how armor reduces damage (percentage-based reduction), and designing the HUD display for armor status. The implementation process included coding the armor pickup item, implementing the damage reduction formula, and integrating the armor system into the existing player damage flow and HUD display.
+
+#### Armor System Overview
+
+Below is a summary of the armor system design, including its mechanics, pickup behavior, and integration into the game:
+
+| Aspect               | Detail                                                        |
+|----------------------|---------------------------------------------------------------|
+| **Damage Reduction** | 50%                                                           |
+| **Pickup Mechanic**  | Collision-based pickup using player map position              |
+| **Duration**         | 60 seconds                                                    |
+| **Visual Indicator** | Armor icon + lable armor is active + remaining seconds on HUD |
+| **Audio Feedback**   | Armor pickup sound effect                                     |
+
+#### Armor Pickup
+
+The current implementation uses two sprites animated in sequence to show a glowing armor to the player. Once picked up armor provides a flat 50% damage reduction for a fixed duration of 60 seconds. The pickup is placed in the level and can be collected by the player to activate the armor state.
+The armor item is spawned directly in `objects_manager.py` as `AnimatedSprite` instances using the `HEVAA0.png`, `HEVAB0.png` sprites.
+Going forward in future versions of the game similar to the boosters the armor pickups can be configured in a JSON file for easier management and scalability, especially when multiple levels are introduced.
+
+| Armor Pickup | Sprite                                                                                 | Effect                                        |
+|--------------|----------------------------------------------------------------------------------------|-----------------------------------------------|
+| Armor pickup | `assets/sprites/animated/armor/HEVAA0.png`, `assets/sprites/animated/armor/HEVAB0.png` | Activates 50% damage reduction for 60 seconds |
+
+#### Runtime Behavior
+
+The armor mechanic behaves as follows:
+
+1. The armor sprite is placed on the level in `objects_manager.py` as an instance of the AnimatedSprite class to make the armor pickup glowing in the game level dark setting.
+2. The sprites are updated each frame like other world objects.
+3. When the player moves onto the same tile as the armor pickup, the pickup is collected.
+4. The pickup is removed from `armor_objects_list`, so it cannot be collected again.
+5. The player's armor state is activated.
+6. The armor timer starts.
+7. The HUD shows the armor icon, lable armor is activated and remaining time.
+8. Enemy damage is reduced by 50% while armor is active.
+9. After 60 seconds, armor is disabled automatically and the HUD indicator disappears.
+
+#### Damage Reduction Formula
+
+The actual damage formula used in the code is:
+
+```
+if player.has_armor:
+    damage = int(damage * 0.5)
+```
+
+So the armor effect is a fixed 50% damage reduction while active.
+
+#### Armor Pickup Flow
+
+```mermaid
+graph TD;
+    A[Player moves through level] --> B{Player on armor pickup tile?};
+    B -- No --> C[Continue normal gameplay];
+    B -- Yes --> D[Set player.has_armor = True];
+    D --> E[Set armor_start_time];
+    E --> F[Remove armor sprite from level];
+    F --> G[Play armor pickup sound];
+    G --> H[HUD shows armor icon and timer];
+```
+
+#### Damage Flow While Armor Is Active
+
+```mermaid
+graph TD;
+    A[Enemy attacks player] --> B{player.has_armor?};
+    B -- Yes --> C[damage = int(damage * 0.5)];
+    B -- No --> D[damage stays unchanged];
+    C --> E[Subtract damage from player health];
+    D --> E;
+    E --> F[Play player pain sound];
+    F --> G[Show blood screen];
+```
+
+#### Armor Expiration Flow
+
+```mermaid
+graph TD;
+    A[Game update loop] --> B{player.has_armor?};
+    B -- No --> C[Do nothing];
+    B -- Yes --> D{Current time - armor_start_time > 60s?};
+    D -- No --> E[Update armor_remaining_time];
+    D -- Yes --> F[Set player.has_armor = False];
+    F --> G[Hide armor HUD indicator];
+```
+
+---
+
+#### Architecture & Integration
+
+##### Player Class Integration (`player.py`)
+
+The armor logic is implemented in the `Player` class.
+
+###### Armor State Fields
+
+
+The armor state is maintained in the Player class (player.py) using the following variables:
+- `has_armor`
+- `armor_start_time`
+- `armor_duration`
+- `armor_remaining_time`
+
+```python
+self.has_armor = False
+self.armor_start_time = 0
+self.armor_duration = ARMOR_ACTIVE_TIME * 1000  # 60 seconds in ms
+self.armor_remaining_time = 0
+```
+
+###### Damage Reduction in `player_gets_damage()`
+
+Damage reduction is applied in the `player_gets_damage()` method by checking if the player has armor active and applying the 50% reduction formula before subtracting from health.
+
+```python
+def player_gets_damage(self, damage):
+    if self.has_armor:
+        damage = int(damage * 0.5)
+    self.health -= damage
+    self.game.render_engine.player_damage_show_blood_screen()
+    self.game.sound_manager.play_player_pain()
+    self.is_game_over()
+```
+
+###### Timer Logic in `update()`
+
+Timer logic is implemented in the `update()` method to check if the armor duration has expired and to update the remaining time for HUD display.
+
+```python
+if self.has_armor:
+    if pg.time.get_ticks() - self.armor_start_time > self.armor_duration:
+        self.has_armor = False
+    else:
+        self.armor_remaining_time = (self.armor_duration - (pg.time.get_ticks() - self.armor_start_time)) / 1000.0
+```
+
+##### Object Pickup Integration (`objects_manager.py`)
+
+Armor pickups are stored in `armor_objects_list`.
+
+###### Spawned Armor Objects
+
+Armor pickup objects are created as instances of `AnimatedSprite` and added to the `armor_objects_list` in the `ObjectsManager` constructor. The sprites used for the armor pickup are `HEVAA0.png` and `HEVAB0.png`, which create a glowing effect to make the pickup visually distinct in the dark level environment.
+
+```python
+self.armor_objects_list = []
+self.add_armor_object(AnimatedSprite(game, path=self.armor_sprites_path + 'HEVAA0.png', pos=(1.2, 30.7), scale=0.2, shift=2.0))
+# ...additional armor pickup placements...
+```
+
+###### Pickup Detection
+
+Armor pickup detection is implemented in the `update()` method of `ObjectsManager` by iterating through the `armor_objects_list` and checking for collision with the player using tile-based position checking. If a collision is detected, the player's armor state is activated, the pickup is removed from the list, and the appropriate sound effect is played.
+
+```python
+for armor in self.armor_objects_list[:]:
+    armor.update()
+    if int(armor.x) == self.game.player.map_pos[0] and int(armor.y) == self.game.player.map_pos[1]:
+        self.game.player.has_armor = True
+        self.game.player.armor_start_time = pg.time.get_ticks()
+        self.game.sound_manager.play_armor_pickup_sound()
+        self.armor_objects_list.remove(armor)
+```
+
+##### Game Loop Integration (`game.py`)
+
+The game passes armor state into the HUD during rendering as part of the main HUD draw call, allowing the HUD to display the armor icon and remaining time when armor is active.
+
+```python
+self.hud_screen.draw(
+    self.player.get_player_score(),
+    1,
+    self.player.get_player_ammo(),
+    self.player.get_player_kill_count(),
+    self.player.get_player_health(),
+    self.player.has_armor,
+    self.player.get_armor_remaining_time()
+)
+```
+
+##### HUD Integration (`hud_screen.py`)
+
+The HUD loads the armor icon and draws it when armor is active.
+
+###### Armor Icon Loading
+
+Armor icon is loaded in the HUDScreen constructor for display when armor is active. The icon is scaled to a consistent size for clear visibility on the HUD.
+
+```python
+self.armor_icon = pg.image.load('assets/sprites/animated/armor/HEVAA0.png').convert_alpha()
+self.armor_icon = pg.transform.scale(self.armor_icon, (60, 60))
+```
+
+###### HUD Draw Flow
+
+The armor status is integrated into the main HUD draw method, which checks if the player has armor active and calls the method to show the armor icon and remaining time if so.
+
+```python
+def draw(self, score, level, ammo, enemies_killed, player_health, has_armor, armor_time_remaining):
+    self.score(score)
+    self.show_level(level)
+    self.show_ammo(ammo)
+    self.show_enemies_killed(enemies_killed)
+    self.show_player_health(player_health)
+    self.show_active_weapon()
+    self.show_weapon_switch_blocked_warning()
+
+    if has_armor:
+        self.show_armor_icon(armor_time_remaining)
+```
+
+###### Armor HUD Display
+
+Armor icon and remaining time are displayed on the HUD when armor is active, providing clear visual feedback to the player about their current armor status and how much time is left before it expires.
+
+```python
+def show_armor_icon(self, armor_time_remaining):
+    self.game.screen.blit(self.armor_icon, [1080, 60])
+    text = self.font.render("Armor Active: " + str(int(armor_time_remaining)), True, (255, 215, 0))
+    self.game.screen.blit(text, [1150, 60])
+```
+
+##### Audio Integration (`sound_manager.py`)
+
+A dedicated pickup sound is played when the player collects armor.
+
+```python
+def play_armor_pickup_sound(self):
+    pg.mixer.Sound('assets/sound/an94alt.wav').play()
+```
+
+#### Code Changes Summary
+
+| File                 | Change                                                    |
+|----------------------|-----------------------------------------------------------|
+| `player.py`          | Added armor state, damage reduction, and expiration timer |
+| `objects_manager.py` | Added armor pickup spawning and collision pickup removal  |
+| `hud_screen.py`      | Added armor icon and armor active timer display           |
+| `game.py`            | Passed armor state and remaining time into HUD            |
+| `sound_manager.py`   | Added armor pickup sound method                           |
+
 
 ---
 
